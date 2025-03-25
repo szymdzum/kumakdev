@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install",
+  "buildCommand": "pnpm install -g sharp && pnpm rebuild && pnpm run build",
+  "installCommand": "pnpm install -g sharp && pnpm rebuild",
   "framework": "astro"
 }
