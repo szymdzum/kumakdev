@@ -1,8 +1,8 @@
 import type { Metadata, Site, Socials } from "@types";
 
 export const SITE: Site = {
-  TITLE: "kumak does dev",
-  DESCRIPTION: "kumak does dev",
+  TITLE: "kumak.dev",
+  DESCRIPTION: "kumak.dev 🐸",
   EMAIL: "szymon@kumak.dev",
   NUM_POSTS_ON_HOMEPAGE: 5,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
@@ -27,10 +27,6 @@ export const BLOG: Metadata = {
 export const SOCIALS: Socials = [
   {
     NAME: "GitHub",
-    HREF: "https://github.com/trevortylerlee",
-  },
-  {
-    NAME: "Website",
-    HREF: "https://trevortylerlee.com",
-  },
+    HREF: "https://github.com/szymdzum",
+  }
 ];
