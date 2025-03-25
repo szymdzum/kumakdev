@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm install -g sharp && pnpm rebuild && pnpm run build",
-  "installCommand": "pnpm install -g sharp && pnpm rebuild",
+  "buildCommand": "npm run vercel-build",
+  "installCommand": "pnpm install",
   "framework": "astro"
 }
