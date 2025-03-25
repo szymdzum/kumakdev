@@ -1,5 +1,5 @@
 {
-  "name": "astro-micro",
+  "name": "kumak-dot-dev",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -17,6 +17,7 @@
     "@fontsource/geist-mono": "^5.2.5",
     "@fontsource/geist-sans": "^5.2.5",
     "@tailwindcss/vite": "^4.0.15",
+    "@vercel/analytics": "^1.5.0",
     "astro": "^5.5.4",
     "astro-pagefind": "^1.8.3",
     "clsx": "^2.1.1",
@@ -34,7 +35,8 @@
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "sharp"
     ]
   }
 }
