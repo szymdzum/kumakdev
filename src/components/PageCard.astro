@@ -1,0 +1,173 @@
+
+
+---
+import { SITE } from "@consts";
+
+const cn = (...classes: (string | boolean | undefined)[]) => {
+  return classes.filter(Boolean).join(' ');
+};
+
+// Types
+interface MenuItem {
+  label: string;
+  href: string;
+  subItems?: MenuItem[];
+}
+
+// Data
+const menuItems: MenuItem[] = [
+  { label: "Kumak.dev", href: "/" },
+  { label: "About Me", href: "/about" },
+  {
+    label: "Projects",
+    href: "/projects",
+    subItems: [
+      { label: "TypeScript Result Monad", href: "https://github.com/szymdzum/ts-result-monad" },
+    ],
+  },
+  {
+    label: "Kabobs",
+    href: "/kabobs",
+    subItems: [
+      { label: "Shishkabobs", href: "/kabobs/shish" },
+      { label: "BBQ kabobs", href: "/kabobs/bbq" },
+    ],
+  },
+  { label: "Contact", href: "/contact" },
+];
+
+// Initial expanded state
+const initialExpanded = {
+  Projects: true,
+  Kabobs: true,
+};
+---
+
+<div class="w-full max-w-[320px] rounded-xl bg-[#1a1a1a] p-6 shadow-lg">
+  <div class="flex justify-end">
+    <button
+      id="close-button"
+      class="text-gray-400 text-sm hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none relative overflow-hidden group"
+    >
+      <span class="relative z-10">&lt;close/&gt;</span>
+      <span class="absolute inset-0 bg-gray-700 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded"></span>
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-300 group-hover:w-full transition-all duration-300"></span>
+    </button>
+  </div>
+
+  <nav class="mt-4">
+    <ul class="space-y-4">
+      {menuItems.map((item) => (
+        <li>
+          <div class="flex flex-col">
+            {item.subItems ? (
+              <button
+                data-menu-toggle={item.label}
+                class="flex items-center justify-between w-full text-left text-[#d4b863] hover:text-[#f0d080] transition-colors focus:outline-none"
+              >
+                <span>{item.label}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class={cn(
+                    "transition-transform duration-300",
+                    initialExpanded[item.label] && "transform rotate-180"
+                  )}
+                  data-chevron={item.label}
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            ) : (
+              <a href={item.href} class="text-[#d4b863] hover:text-[#f0d080] transition-colors block">
+                {item.label}
+              </a>
+            )}
+
+            {item.subItems && (
+              <div
+                class={cn(
+                  "overflow-hidden transition-all duration-300 ease-in-out",
+                  initialExpanded[item.label] ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                )}
+                data-submenu={item.label}
+              >
+                <ul class="ml-6 mt-2 space-y-2 border-l border-gray-700 pl-2">
+                  {item.subItems.map((subItem, index) => (
+                    <li
+                      class={cn(
+                        "transform transition-transform duration-300 ease-out",
+                        initialExpanded[item.label] ? "translate-y-0" : "-translate-y-2"
+                      )}
+                      style={`transition-delay: ${initialExpanded[item.label] ? index * 50 : 0}ms;`}
+                    >
+                      <a href={subItem.href} class="text-gray-300 hover:text-white transition-colors block py-1">
+                        {subItem.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+    <div class="text-gray-400 text-sm mt-4">&copy; {new Date().getFullYear()} • {SITE.TITLE}</div>
+  </nav>
+</div>
+
+<script>
+  // Handle toggle functionality
+  document.querySelectorAll("[data-menu-toggle]").forEach((button) => {
+    const label = button.getAttribute("data-menu-toggle");
+    if (!label) return;
+
+    const submenu = document.querySelector(`[data-submenu="${label}"]`);
+    const chevron = document.querySelector(`[data-chevron="${label}"]`);
+
+    if (!submenu || !chevron) return;
+
+    button.addEventListener("click", () => {
+      // Toggle submenu visibility
+      submenu.classList.toggle("max-h-0");
+      submenu.classList.toggle("opacity-0");
+      submenu.classList.toggle("max-h-40");
+      submenu.classList.toggle("opacity-100");
+
+      // Toggle chevron rotation
+      chevron.classList.toggle("transform");
+      chevron.classList.toggle("rotate-180");
+
+      // Toggle animation on child items
+      submenu.querySelectorAll("li").forEach((item, index) => {
+        item.classList.toggle("-translate-y-2");
+        item.classList.toggle("translate-y-0");
+
+        if (submenu.classList.contains("max-h-40")) {
+          item.style.transitionDelay = `${index * 50}ms`;
+        } else {
+          item.style.transitionDelay = "0ms";
+        }
+      });
+    });
+  });
+
+  // Handle close button animation
+  const closeButton = document.getElementById("close-button");
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      closeButton.classList.add("animate-pulse");
+      setTimeout(() => {
+        closeButton.classList.remove("animate-pulse");
+      }, 300);
+    });
+  }
+</script>
