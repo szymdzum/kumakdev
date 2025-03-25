@@ -1,13 +1,11 @@
 ---
 import Head from "@/components/Head.astro";
-import Header from "@/components/Header.astro";
 import Pagefind from "@/components/PageFind.astro";
 import { SITE } from "@/consts";
-import { ViewTransitions } from 'astro:transitions';
 
 type Props = {
-  title: string;
-  description: string;
+	title: string;
+	description: string;
 };
 
 const { title, description } = Astro.props;
@@ -17,11 +15,7 @@ const { title, description } = Astro.props;
 <html lang="en">
   <head>
     <Head title={`${title} | ${SITE.TITLE}`} description={description} />
-    <ViewTransitions />
-    <script>
-      import { inject } from '@vercel/analytics';
-      inject();
-    </script>
+
   </head>
   <body>
     <main>
