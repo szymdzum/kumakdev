@@ -1,6 +1,7 @@
-import rss from "@astrojs/rss";
-import { SITE } from "@consts";
-import { getCollection } from "astro:content";
+// @ts-nocheck
+import rss from '@astrojs/rss';
+import { SITE } from '../consts.js';
+import { getCollection } from 'astro:content';
 
 export async function GET(context) {
   const blog = (await getCollection("blog")).filter((post) => !post.data.draft);

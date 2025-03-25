@@ -1,13 +1,10 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import PageCard from "@components/PageCard.astro";
-import { HOME } from "@consts";
+import Layout from "@/layouts/Layout.astro";
+import PageCard from "@/components/PageCard.astro";
+import { HOME } from "@/consts";
 ---
-
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-
     <div class="min-h-screen bg-[#F56565] flex items-center justify-center p-4">
       <PageCard />
     </div>
-
 </Layout>

@@ -10,7 +10,7 @@ declare module 'astro:transitions' {
   }
 
   interface ViewTransitionsComponent {
-    new (props?: ViewTransitionsProps): JSX.Element;
+    new (props?: ViewTransitionsProps): Element;
   }
 
   export const ViewTransitions: ViewTransitionsComponent;

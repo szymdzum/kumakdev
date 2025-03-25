@@ -1,13 +1,11 @@
-
-
 ---
-import { SITE } from "@consts";
+import { SITE } from "@/consts";
 
 const cn = (...classes: (string | boolean | undefined)[]) => {
   return classes.filter(Boolean).join(' ');
 };
 
-// Types
+
 interface MenuItem {
   label: string;
   href: string;
@@ -16,7 +14,6 @@ interface MenuItem {
 
 // Data
 const menuItems: MenuItem[] = [
-  { label: "Kumak.dev", href: "/" },
   { label: "About Me", href: "/about" },
   {
     label: "Projects",
@@ -26,11 +23,11 @@ const menuItems: MenuItem[] = [
     ],
   },
   {
-    label: "Kabobs",
-    href: "/kabobs",
+    label: "Posts",
+    href: "/posts",
     subItems: [
-      { label: "Shishkabobs", href: "/kabobs/shish" },
-      { label: "BBQ kabobs", href: "/kabobs/bbq" },
+      { label: "A Guide To ADHD Engineering", href: "/posts/adhd-engineering" },
+      { label: "Oldschool Form Validation", href: "/posts/oldschool-form-validation" },
     ],
   },
   { label: "Contact", href: "/contact" },
@@ -39,24 +36,27 @@ const menuItems: MenuItem[] = [
 // Initial expanded state
 const initialExpanded = {
   Projects: true,
-  Kabobs: true,
+  Posts: true,
 };
 ---
 
 <div class="w-full max-w-[320px] rounded-xl bg-[#1a1a1a] p-6 shadow-lg">
-  <div class="flex justify-end">
+  <div class="flex flex-row justify-between mb-6">
+    <button class="flex items-center justify-between  text-left text-[#d4b863] hover:text-[#f0d080] transition-colors focus:outline-none">
+      Kumak.dev
+    </button>
+
     <button
       id="close-button"
       class="text-gray-400 text-sm hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none relative overflow-hidden group"
     >
-      <span class="relative z-10">&lt;close/&gt;</span>
-      <span class="absolute inset-0 bg-gray-700 opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded"></span>
-      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-300 group-hover:w-full transition-all duration-300"></span>
+      <span class="relative">&lt;close/&gt;</span>
+
     </button>
   </div>
 
-  <nav class="mt-4">
-    <ul class="space-y-4">
+  <nav class="mt-6 mb-6">
+    <ul class="space-y-6">
       {menuItems.map((item) => (
         <li>
           <div class="flex flex-col">

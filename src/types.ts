@@ -1,17 +1,18 @@
-export type Site = {
+export interface Metadata {
   TITLE: string;
   DESCRIPTION: string;
-  EMAIL: string;
-  NUM_POSTS_ON_HOMEPAGE: number;
-  NUM_PROJECTS_ON_HOMEPAGE: number;
-};
+}
 
-export type Metadata = {
-  TITLE: string;
-  DESCRIPTION: string;
-};
+export interface Site extends Metadata {
+  EMAIL?: string;
+  URL: string;
+  NUM_POSTS_ON_HOMEPAGE?: number;
+  NUM_PROJECTS_ON_HOMEPAGE?: number;
+}
 
-export type Socials = {
+export type Social = {
   NAME: string;
   HREF: string;
-}[];
+};
+
+export type Socials = Social[];
