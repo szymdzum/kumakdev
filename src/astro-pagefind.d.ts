@@ -1,4 +1,4 @@
-declare module 'astro-pagefind/components/Search' {
+declare module "astro-pagefind/components/Search" {
   interface SearchProps {
     id?: string;
     className?: string;
@@ -6,10 +6,10 @@ declare module 'astro-pagefind/components/Search' {
       showImages?: boolean;
       excerptLength?: number;
       resetStyles?: boolean;
-      [key: string]: any;
+      [key: string]: boolean | number | string | undefined;
     };
   }
 
-  const Search: (props: SearchProps) => any;
+  const Search: (props: SearchProps) => JSX.Element;
   export default Search;
 }

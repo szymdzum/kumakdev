@@ -1,6 +1,6 @@
-declare module 'astro:transitions' {
+declare module "astro:transitions" {
   interface ViewTransitionsOptions {
-    fallback?: 'animate' | 'swap' | 'none';
+    fallback?: "animate" | "swap" | "none";
     persist?: string[];
     handleForms?: boolean;
   }
