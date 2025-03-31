@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import "../styles/vanilla.css";
+import "../styles/utilities.css";
 
 import "@fontsource/geist-sans/100.css";
 import "@fontsource/geist-sans/200.css";
@@ -21,9 +23,9 @@ import "@fontsource/geist-mono/800.css";
 import "@fontsource/geist-mono/900.css";
 
 interface Props {
-  title: string;
-  description: string;
-  image?: string;
+	title: string;
+	description: string;
+	image?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -119,13 +121,11 @@ const { title, description, image = "/astro-micro.jpg" } = Astro.props;
     const systemThemeButton = document.getElementById("system-theme-button");
 
     function removeActiveButtonTheme(button) {
-      button?.classList.remove("bg-black/5");
-      button?.classList.remove("dark:bg-white/5");
+      button?.classList.remove("theme-button-active");
     }
 
     function addActiveButtonTheme(button) {
-      button?.classList.add("bg-black/5");
-      button?.classList.add("dark:bg-white/5");
+      button?.classList.add("theme-button-active");
     }
 
     removeActiveButtonTheme(lightThemeButton);

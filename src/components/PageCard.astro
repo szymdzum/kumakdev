@@ -1,42 +1,42 @@
 ---
 import { SITE } from "@/consts";
 interface MenuItem {
-  label: string;
-  href: string;
-  subItems?: MenuItem[];
+	label: string;
+	href: string;
+	subItems?: MenuItem[];
 }
 
 // Data
 const menuItems: MenuItem[] = [
-  { label: "About Me", href: "/about" },
-  {
-    label: "Projects",
-    href: "/projects",
-    subItems: [
-      {
-        label: "TypeScript Result Monad",
-        href: "https://github.com/szymdzum/ts-result-monad",
-      },
-    ],
-  },
-  {
-    label: "Posts",
-    href: "/posts",
-    subItems: [
-      { label: "A Guide To ADHD Engineering", href: "/posts/adhd-engineering" },
-      {
-        label: "Oldschool Form Validation",
-        href: "/posts/oldschool-form-validation",
-      },
-    ],
-  },
-  { label: "Contact", href: "/contact" },
+	{ label: "About Me", href: "/about" },
+	{
+		label: "Projects",
+		href: "/projects",
+		subItems: [
+			{
+				label: "TypeScript Result Monad",
+				href: "https://github.com/szymdzum/ts-result-monad",
+			},
+		],
+	},
+	{
+		label: "Posts",
+		href: "/posts",
+		subItems: [
+			{ label: "A Guide To ADHD Engineering", href: "/posts/adhd-engineering" },
+			{
+				label: "Oldschool Form Validation",
+				href: "/posts/oldschool-form-validation",
+			},
+		],
+	},
+	{ label: "Contact", href: "/contact" },
 ];
 
 // Initial expanded state
 const initialExpanded = {
-  Projects: true,
-  Posts: true,
+	Projects: true,
+	Posts: true,
 };
 ---
 

@@ -1,0 +1,62 @@
+---
+interface Props {
+	text: string;
+	className?: string;
+}
+
+const { text, className = "" } = Astro.props;
+---
+
+<span class:list={["animated-text", className]} data-text={text}></span>
+
+<style>
+  .animated-text {
+    display: inline-block;
+    position: relative;
+    min-height: 1em;
+  }
+
+  .animated-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(30, end) forwards;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Client-side JavaScript for any additional functionality
+  document.addEventListener("astro:page-load", () => {
+    const animatedTexts = document.querySelectorAll(".animated-text");
+
+    animatedTexts.forEach((element) => {
+      const text = element.getAttribute("data-text") || "";
+      let currentIndex = 0;
+      element.textContent = "";
+
+      function typeText() {
+        if (currentIndex < text.length) {
+          element.textContent += text.charAt(currentIndex);
+          currentIndex++;
+          setTimeout(typeText, 100); // Speed of typing
+        }
+      }
+
+      // Start typing animation
+      typeText();
+    });
+  });
+</script>

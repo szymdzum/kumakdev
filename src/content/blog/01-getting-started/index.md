@@ -1,7 +1,18 @@
 ---
 title: "Getting started"
 description: "Hit the ground running."
-date: "2024-03-22"
+publishDate: 2024-03-22
+category: "Tutorial"
+readTime: "5 min read"
+author: {
+  name: "Szymon Dziemak",
+  image: "/images/author.jpg",
+  fallback: "SD",
+  bio: "Software Developer"
+}
+featuredImage: "/images/blog/getting-started.jpg"
+imageAlt: "Getting started with Astro Micro"
+imageCaption: "Getting started with Astro Micro"
 tags:
   - tutorial
 ---

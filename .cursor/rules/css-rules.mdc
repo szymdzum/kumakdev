@@ -1,0 +1,1580 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Modern CSS Guidelines and Library
+
+A comprehensive set of modern CSS practices, techniques, and solutions based on [moderncss.dev](mdc:https:/moderncss.dev) by Stephanie Eckles.
+
+## Table of Contents
+- [Core Concepts](mdc:#core-concepts)
+- [CSS Selectors](mdc:#css-selectors)
+- [CSS Layout](mdc:#css-layout)
+- [CSS Math Functions](mdc:#css-math-functions)
+- [Responsive Design](mdc:#responsive-design)
+- [Container Queries](mdc:#container-queries)
+- [Typography](mdc:#typography)
+- [Custom Properties (CSS Variables)](mdc:#custom-properties-css-variables)
+- [Theming](mdc:#theming)
+- [Component Architecture](mdc:#component-architecture)
+- [Accessibility Enhancements](mdc:#accessibility-enhancements)
+- [CSS Organization](mdc:#css-organization)
+- [Modern CSS Reset](mdc:#modern-css-reset)
+- [Common Components](mdc:#common-components)
+- [CSS Feature Detection and Fallbacks](mdc:#css-feature-detection-and-fallbacks)
+- [Best Practices](mdc:#best-practices)
+- [Resources](mdc:#resources)
+
+## Core Concepts
+
+### The Cascade and Specificity
+
+Specificity is a weight applied to CSS declarations, determined by the selector types. When multiple declarations affect the same element:
+
+- The declaration with higher specificity wins
+- When specificity is equal, the last declaration in the stylesheet wins
+- Directly targeted elements take precedence over inherited styles
+
+Proper use of the cascade and specificity should enable you to avoid `!important` in your stylesheets.
+
+Key concept: The higher the specificity, the more difficult to override the rule.
+
+### Box Model
+
+The box model defines how elements are sized and spaced:
+
+- `box-sizing: border-box` includes padding and borders in the element's dimensions
+- `box-sizing: content-box` (default) adds padding and borders to the element's dimensions
+
+Modern practice uses `box-sizing: border-box` universally to make sizing more predictable:
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+```
+
+## CSS Selectors
+
+### Universal Selector (`*`)
+
+Applies to all elements universally. Has zero specificity by itself, meaning it can be overridden by a single class, ID, or element selector.
+
+**CSS Box Model Reset**:
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+```
+
+**Vertical Rhythm**:
+```css
+* + * {
+  margin-top: 1.5rem;
+}
+```
+
+### Attribute Selector (`[attribute]`)
+
+Selects elements based on the presence or value of an attribute.
+
+**Selecting elements by class pattern**:
+```css
+[class*="component_"] /* Matches any class containing "component_" */
+[class*="component_" i] /* Case-insensitive match */
+```
+
+**Accessibility linting**:
+```css
+img:not([alt]) {
+  outline: 2px solid red;
+}
+```
+
+**Attribute-based styling**:
+```css
+button[aria-expanded="false"] + .content {
+  /* hidden styles */
+}
+button[aria-expanded="true"] + .content {
+  /* visible styles */
+}
+```
+
+### Child Combinator (`>`)
+
+Selects only direct children of an element, not all descendants.
+
+**Targeting specific level of elements**:
+```css
+nav > ul > li > a {
+  font-weight: bold;
+}
+```
+
+**Scoping element selectors**:
+```css
+body > footer {
+  /* Styles for page footer, not footers within other elements */
+}
+```
+
+### General Sibling Combinator (`~`)
+
+Selects elements that follow the specified element and share the same parent.
+
+**Visual indication of state change**:
+```css
+#terms:checked ~ p {
+  font-style: italic;
+  color: #797979;
+}
+```
+
+**Styling content after an image**:
+```css
+img ~ * {
+  font-size: 0.9rem;
+  color: #797979;
+  margin: 1rem 1rem 0;
+}
+```
+
+### Adjacent Sibling Combinator (`+`)
+
+Selects an element that directly follows the specified element.
+
+**Spacing between form elements**:
+```css
+label + input {
+  margin-top: 0.25rem;
+}
+
+input + label {
+  margin-top: 2rem;
+}
+```
+
+**Flexbox gap polyfill**:
+```css
+nav ul li + li {
+  margin-left: 2rem;
+}
+```
+
+### Pseudo Classes
+
+Keywords that style elements based on state or position.
+
+**Stateful selectors**:
+- `:focus`, `:hover`, `:visited`, `:target`, `:checked`
+
+**Order-based selectors**:
+- `:nth-child()`, `:nth-of-type()`
+- `:first-child`, `:first-of-type`
+- `:last-child`, `:last-of-type`
+- `:only-child`, `:only-of-type`
+
+**Other useful pseudo-classes**:
+- `:not()` - negates a selector
+- `:is()` - matches any of the selectors in a list
+- `:root` - root element (typically `html`)
+- `:focus-within` - element or its descendant has focus
+
+**Zebra striping**:
+```css
+tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}
+```
+
+**Alternating colors**:
+```css
+li:nth-child(3n + 1) { background-color: rebeccapurple; }
+li:nth-child(3n + 2) { background-color: darkcyan; }
+li:nth-child(3n + 3) { background-color: lightskyblue; }
+```
+
+**Excluding elements**:
+```css
+/* Select buttons that aren't disabled */
+button:not(:disabled)
+
+/* Select links without a class */
+a:not([class])
+
+/* Combining exclusions */
+input:not([type="hidden"]):not([type="radio"]):not([type="checkbox"])
+```
+
+**Grouping selectors efficiently**:
+```css
+:is(h1, h2, h3, h4) {
+  /* Styles for all headings */
+}
+
+:is(header, main, footer) {
+  /* Styles for main page sections */
+}
+```
+
+### Pseudo Elements
+
+Style specific parts of an element.
+
+- `::before`, `::after` - create extra visual elements
+- `::first-letter`, `::first-line` - style portions of text
+- `::selection` - style selected text
+- `::marker` - style list markers
+
+**Key concepts for `::before` and `::after`**:
+- Requires `content` property (can be empty: `content: "";`)
+- Positioned before/after element content unless repositioned
+- Can be used in flexbox/grid layouts
+- Not consistently accessible to screen readers
+
+**Creating decorative elements**:
+```css
+.heading::before {
+  content: "★";
+  color: gold;
+  margin-right: 0.5em;
+}
+```
+
+**Emphasize article lead**:
+```css
+article p:first-of-type::first-line {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: darkcyan;
+}
+```
+
+**Accessible text selection**:
+```css
+::selection {
+  background: yellow;
+  color: black;
+}
+```
+
+## CSS Layout
+
+### Flexbox vs. Grid
+
+**When to use Flexbox**:
+- One-dimensional layouts (row OR column)
+- When content size should dictate layout
+- Distributing space between items
+- Alignment of items in a container
+
+**When to use Grid**:
+- Two-dimensional layouts (rows AND columns)
+- When layout should dictate content placement
+- Creating overall page/component layouts
+- Precise item placement
+
+### Keeping Footer at Bottom
+
+**Flexbox Solution**:
+```css
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
+
+/* Optional */
+main {
+  margin: 0 auto;
+  max-width: 80ch;
+}
+```
+
+**Grid Solution**:
+```css
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* Optional */
+main {
+  margin: 0 auto;
+  max-width: 80ch;
+}
+```
+
+### Responsive Grid Layouts
+
+**CSS Grid Layout Utility**:
+```css
+.layout-grid {
+  --layout-grid-min: 30ch;
+  --layout-grid-gap: 3vw;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, var(--layout-grid-min)), 1fr)
+  );
+  gap: var(--layout-grid-gap);
+}
+```
+
+**Flexbox Grid Layout Utility**:
+```css
+.flex-layout-grid {
+  --flex-grid-min: 20rem;
+  --flex-grid-gap: 3vmax;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--flex-grid-gap);
+  
+  > * {
+    flex: 1 1 var(--flex-grid-min);
+  }
+}
+```
+
+## CSS Math Functions
+
+### calc()
+
+Performs calculations with different units.
+
+**Practical uses**:
+- Mixing units (e.g., `calc(100vh - 60px)`)
+- Dynamic calculations with custom properties
+- Creating complex layouts
+
+```css
+.content {
+  height: calc(100vh - 60px);
+}
+```
+
+**With custom properties for color palettes**:
+```css
+.colors {
+  --base-hue: 140;
+  --saturation: 95%;
+  --lightness: 80%;
+  --rotation: 60;
+}
+
+.color1 { --hue: calc(var(--base-hue)); }
+.color2 { --hue: calc(var(--base-hue) + var(--rotation)); }
+.color3 { --hue: calc(var(--base-hue) + var(--rotation) * 2); }
+```
+
+### clamp()
+
+Sets a value within a range with a preferred value.
+
+**Syntax**:
+`clamp(minimum, ideal, maximum)`
+
+**Fluid typography**:
+```css
+h1 {
+  font-size: clamp(1.75rem, 4vw + 1rem, 3rem);
+}
+```
+
+**Responsive padding**:
+```css
+.element {
+  padding: 1.5rem clamp(1rem, 5%, 3rem);
+}
+```
+
+### min()
+
+Sets the smaller of the given values.
+
+**Practical uses**:
+- Container width limits
+- Responsive sizing
+- Preventing overflow
+
+```css
+.container {
+  width: min(80ch, 100vw - 2rem);
+}
+```
+
+**Avatar sizing**:
+```css
+.avatar {
+  width: min(64px, 15%, 10vw);
+  height: min(64px, 15%, 10vw);
+}
+```
+
+**Background sizing**:
+```css
+.background-image {
+  background-size: min(600px, 100%);
+}
+```
+
+### max()
+
+Sets the larger of the given values.
+
+**Practical uses**:
+- Setting minimum boundaries
+- Ensuring accessible sizing
+- Preventing iOS zoom on inputs
+
+```css
+.element + .element {
+  margin-top: max(8vh, 2rem);
+}
+```
+
+**Preventing iOS zoom on form inputs**:
+```css
+input {
+  font-size: max(16px, 1rem);
+}
+```
+
+**Minimum focus outline size**:
+```css
+a {
+  --outline-size: max(2px, 0.08em);
+}
+```
+
+## Responsive Design
+
+### Fluid Typography
+
+**Viewport-based fluid typography**:
+```css
+.fluid-type {
+  font-size: clamp(1rem, 4vw + 1rem, 3rem);
+}
+```
+
+This approach has limitations when dealing with components that may be placed in different containers.
+
+### Media Queries
+
+Modern approach to media queries:
+- Use relative units (rem, em) rather than pixels
+- Focus on container queries where possible
+- Consider using aspect-ratio queries when appropriate
+
+```css
+@media (min-width: 40rem) {
+  /* Styles for wider viewports */
+}
+```
+
+## Container Queries
+
+Container queries allow styling based on the container's size rather than the viewport size.
+
+### Container Types
+
+```css
+.container {
+  container-type: inline-size; /* For width-based queries */
+  container-type: size; /* For width and height queries */
+}
+```
+
+Or using the shorthand:
+
+```css
+.container {
+  container: container-name / inline-size;
+}
+```
+
+### Container Query Syntax
+
+```css
+@container (min-width: 30em) {
+  /* Styles applied when container is at least 30em wide */
+}
+```
+
+With named containers:
+
+```css
+@container sidebar (min-width: 20em) {
+  /* Styles for elements within the "sidebar" container */
+}
+```
+
+### Container Query Units
+
+- `cqi` - 1% of container's inline size
+- `cqw` - 1% of container's width
+- `cqh` - 1% of container's height
+- `cqb` - 1% of container's block size
+- `cqmin` - 1% of container's smaller dimension
+- `cqmax` - 1% of container's larger dimension
+
+**Fluid typography with container query units**:
+```css
+.card-heading {
+  font-size: clamp(1.25rem, 5cqi, 1.5rem);
+}
+```
+
+### Container Query Examples
+
+**Card layout changes**:
+```css
+@container card (min-width: 35ch) {
+  .card {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+}
+```
+
+**Navigation component**:
+```css
+.navigation {
+  container: navigation / inline-size;
+}
+
+@container navigation (inline-size >= 45ch) {
+  .menu {
+    display: flex;
+  }
+  
+  .menu-button {
+    display: none;
+  }
+}
+```
+
+## Typography
+
+### Font Size Fundamentals
+
+**Best practices**:
+- Use relative units (`rem`, `em`) for scalability
+- Set base size on `:root` or `html`
+- Consider using a type scale for consistency
+
+```css
+:root {
+  font-size: 100%; /* Typically 16px */
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+```
+
+### Fluid Typography
+
+**With type ratios**:
+```css
+:root {
+  /* Perfect Fourth scale (1.333) */
+  --type-ratio: 1.333;
+  
+  /* Base size */
+  --body-font-size: 1rem;
+  
+  /* Generated sizes */
+  --font-size-4: calc(var(--body-font-size) * var(--type-ratio));
+  --font-size-3: calc(var(--font-size-4) * var(--type-ratio));
+  --font-size-2: calc(var(--font-size-3) * var(--type-ratio));
+  --font-size-1: calc(var(--font-size-2) * var(--type-ratio));
+}
+
+h1 { font-size: var(--font-size-1); }
+h2 { font-size: var(--font-size-2); }
+h3 { font-size: var(--font-size-3); }
+h4 { font-size: var(--font-size-4); }
+```
+
+**Container query-based typography**:
+```css
+@supports (font-size: 1cqi) {
+  :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, .fluid-type) {
+    --_font-min: var(--font-size) - var(--font-size) * var(--font-size-diff, 0.3);
+    
+    font-size: clamp(
+      max(var(--body-font-size), var(--_font-min)),
+      var(--_font-min) + 1cqi,
+      var(--font-size)
+    );
+  }
+}
+```
+
+### Enhanced Typography
+
+**Improved link underlines**:
+```css
+a:not([class]) {
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.15em;
+}
+```
+
+**Balanced text**:
+```css
+h1, h2, h3 {
+  text-wrap: balance;
+}
+```
+
+## Custom Properties (CSS Variables)
+
+### Setting up Custom Properties
+
+```css
+:root {
+  --primary-color: #3f51b5;
+  --secondary-color: #f50057;
+  --text-color: #212121;
+  --background-color: #ffffff;
+  --spacing-unit: 1rem;
+}
+```
+
+### Using Custom Properties
+
+```css
+.element {
+  color: var(--text-color);
+  background-color: var(--primary-color);
+  padding: var(--spacing-unit);
+}
+```
+
+### Creating Component APIs with Custom Properties
+
+```css
+.button {
+  --button-color: var(--primary-color);
+  --button-bg: var(--secondary-color);
+  --button-padding: 0.75em 1em;
+  
+  color: var(--button-color);
+  background-color: var(--button-bg);
+  padding: var(--button-padding);
+}
+
+.button--large {
+  --button-padding: 1em 1.5em;
+}
+
+.button--primary {
+  --button-color: white;
+  --button-bg: var(--primary-color);
+}
+```
+
+### Fallback Values
+
+```css
+.element {
+  color: var(--element-color, black);
+  padding: var(--element-padding, 1rem);
+}
+```
+
+## Theming
+
+### Global Themes
+
+```css
+:root {
+  /* Brand colors */
+  --primary: hsl(265, 38%, 13%);
+  --secondary: hsl(283, 6%, 45%);
+  --tertiary: hsl(257, 15%, 91%);
+  --light: hsl(270, 100%, 99%);
+  --accent: hsl(278, 100%, 92%);
+  --accent--alt: hsl(279, 100%, 97%);
+  --accent--ui: hsl(284, 55%, 66%);
+  
+  /* Other global properties */
+  --border-radius: 0.25rem;
+  --transition-speed: 0.3s;
+}
+```
+
+### Color Scheme and Accent Color
+
+```css
+html {
+  color-scheme: light; /* or: light dark */
+  accent-color: var(--accent--ui);
+}
+```
+
+### Dark Mode
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-color: #f0f0f0;
+    --background-color: #121212;
+    /* Adjust other colors for dark mode */
+  }
+}
+```
+
+Or with a class toggle:
+
+```css
+:root {
+  /* Light theme (default) */
+  --text-color: #212121;
+  --background-color: #ffffff;
+}
+
+.dark-theme {
+  --text-color: #f0f0f0;
+  --background-color: #121212;
+}
+```
+
+## Component Architecture
+
+### Component-Based Approach
+
+1. Define baseline styles
+2. Create component API with custom properties
+3. Add variants and states
+4. Use container queries for responsiveness
+
+### Button Component Example
+
+```css
+/* Base styles */
+.button {
+  --button-color: var(--primary);
+  --button-bg: var(--accent);
+  --button-padding: 0.75em 1em;
+  
+  color: var(--button-color);
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: var(--button-padding);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+/* Variants */
+.button--text-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.button--icon-only {
+  padding: 0.5em;
+  border-radius: 50%;
+}
+
+/* States */
+.button:hover {
+  --button-bg: var(--accent--alt);
+}
+
+.button:focus-visible {
+  --outline-style: solid;
+  --outline-width: 2px;
+  --outline-offset: 2px;
+  --outline-color: var(--accent--ui);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+```
+
+### Card Component Example
+
+```css
+.card {
+  --card-padding: 1.5rem;
+  --card-radius: var(--border-radius);
+  --card-bg: var(--light);
+  
+  background-color: var(--card-bg);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Container query for responsive behavior */
+@container (min-width: 35ch) {
+  .card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+  }
+}
+
+/* Variant with featured tag */
+.card:has(.tag) {
+  box-shadow: inset 0 0 0 4px var(--accent);
+}
+```
+
+## Accessibility Enhancements
+
+### Focus Styles
+
+```css
+:focus-visible {
+  --outline-size: max(2px, 0.15em);
+  
+  outline: var(--outline-width, var(--outline-size)) 
+           var(--outline-style, solid)
+           var(--outline-color, currentColor);
+  outline-offset: var(--outline-offset, var(--outline-size));
+}
+```
+
+### Scroll Behavior
+
+```css
+/* Improves experience when jumping to anchors */
+:target {
+  scroll-padding-block-start: 2rem;
+}
+
+/* Ensures focused elements are clearly visible */
+:focus {
+  scroll-padding-block-end: 8vh;
+}
+```
+
+### Ensuring Sufficient Contrast
+
+```css
+::selection {
+  background: yellow;
+  color: black;
+}
+```
+
+### Accessible Form Controls
+
+```css
+input, select, textarea, button {
+  font-size: max(16px, 1rem); /* Prevents iOS zoom */
+}
+
+/* Minimum target size for interactive elements */
+.icon-button {
+  width: max(44px, 2em);
+  height: max(44px, 2em);
+}
+```
+
+## CSS Organization
+
+### CSS Nesting
+
+Native CSS nesting:
+
+```css
+.component {
+  /* Component styles */
+  
+  .component__element {
+    /* Element styles */
+  }
+  
+  &:hover {
+    /* Hover state */
+  }
+  
+  @media (min-width: 40em) {
+    /* Responsive styles */
+  }
+}
+```
+
+### Cascade Layers
+
+```css
+@layer reset, theme, global, layout, components, utilities, states;
+
+@layer reset {
+  /* CSS reset styles */
+}
+
+@layer theme {
+  /* Theme definitions */
+}
+
+@layer layout {
+  /* Layout utilities */
+}
+
+@layer components {
+  /* Component styles */
+}
+
+@layer utilities {
+  /* Utility classes */
+}
+
+@layer states {
+  /* Interactive state styles */
+}
+```
+
+### BEM Naming Convention
+
+```css
+.block {}
+.block__element {}
+.block--modifier {}
+.block__element--modifier {}
+```
+
+## Modern CSS Reset
+
+```css
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Improve text rendering */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove list styles on ul, ol elements with a list role */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+/* Preserve tab index focus styles */
+:focus-visible {
+  --outline-size: max(2px, 0.15em);
+  
+  outline: var(--outline-width, var(--outline-size)) 
+           var(--outline-style, solid)
+           var(--outline-color, currentColor);
+  outline-offset: var(--outline-offset, var(--outline-size));
+}
+
+/* Set core root defaults */
+html {
+  color-scheme: light dark;
+}
+
+/* Enhanced link styles */
+a:not([class]) {
+  text-decoration-thickness: max(0.08em, 1px);
+  text-underline-offset: 0.15em;
+}
+
+/* Improve scroll experience */
+:target {
+  scroll-padding-block-start: 2rem;
+}
+
+:focus {
+  scroll-padding-block-end: 8vh;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+```
+
+## Common Components
+
+Here are pattern snippets for common components using modern CSS techniques:
+
+### Navigation
+
+```css
+.navigation {
+  container: navigation / inline-size;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.navigation__menu {
+  container: menu / inline-size;
+}
+
+/* Mobile-first approach: menu button visible, list hidden */
+.navigation__menu button {
+  display: block;
+}
+
+.navigation__menu ul {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Show full navigation when container is wide enough */
+@container menu (inline-size >= 60ch) {
+  .navigation__menu button {
+    display: none;
+  }
+  
+  .navigation__menu ul {
+    display: flex;
+    gap: 1.5rem;
+  }
+}
+
+/* Quantity query to handle many menu items */
+.navigation__menu:has(li:nth-child(6)) {
+  --show-menu: true;
+}
+
+/* Apply different layout for medium-sized containers with fewer items */
+@container menu (40ch <= inline-size <= 60ch) {
+  @container not style(--show-menu: true) {
+    .navigation__menu button {
+      display: none;
+    }
+    
+    .navigation__menu ul {
+      display: flex;
+    }
+  }
+}
+```
+
+### Pagination
+
+```css
+.pagination-container {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Default: show label, hide list */
+.pagination-list {
+  display: none;
+  grid-auto-flow: column;
+  gap: 0.5rem;
+}
+
+/* Show labels when container is wider */
+@container (min-width: 25ch) {
+  .pagination-nav__label {
+    height: auto;
+    overflow: unset;
+    position: unset;
+    clip-path: unset;
+  }
+}
+
+/* Show full pagination when container is wide enough */
+@container (min-width: 40ch) {
+  .pagination-list {
+    display: grid;
+  }
+  
+  .pagination-label {
+    display: none;
+  }
+  
+  /* But show label instead of list if there are too many items */
+  @container style(--show-label: true) {
+    .pagination-list {
+      display: none;
+    }
+    
+    .pagination-label {
+      display: block;
+    }
+  }
+}
+
+/* Enable style query for many items */
+.pagination-container:has(li:nth-child(11)) {
+  --show-label: true;
+}
+```
+
+### Button
+
+```css
+.button {
+  --button-color: var(--primary);
+  --button-bg: var(--accent);
+  --button-padding: 0.75em 1em;
+  
+  color: var(--button-color);
+  background-color: var(--button-bg);
+  padding: var(--button-padding);
+  border: none;
+  border-radius: var(--border-radius, 0.25em);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:where(:has(.icon)) {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+  }
+  
+  &:where(:has(.inclusively-hidden)) {
+    border-radius: 50%;
+    padding: 0.5em;
+  }
+  
+  &:hover {
+    --button-bg: var(--accent--alt);
+    --button-color: var(--primary);
+  }
+  
+  &:focus-visible {
+    --outline-style: dashed;
+    --outline-offset: -0.35em;
+  }
+}
+```
+
+### Card
+
+```css
+.card {
+  background-color: var(--card-bg, var(--light));
+  padding: 1.5rem;
+  border-radius: var(--card-radius, 0.25rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  /* Make card take full height in grid/flex layouts */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:has(.tag) {
+    box-shadow: inset 0 0 0 4px var(--accent);
+  }
+  
+  & :is(h2, h3):has(.tag) {
+    display: grid;
+    gap: 0.25em;
+    justify-items: start;
+  }
+  
+  &:focus-within {
+    outline: 3px solid var(--accent--ui);
+    outline-offset: -6px;
+  }
+  
+  & a:is(:hover, :focus-visible) {
+    text-decoration: underline;
+  }
+  
+  /* Make whole card clickable */
+  & a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+}
+
+/* Container query for responsive card layout */
+@container grid-item (inline-size > 35ch) {
+  .card {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: start;
+    gap: 5cqi;
+    aspect-ratio: unset;
+  }
+}
+
+/* Fluid typography for card headings */
+.card :is(h2, h3) {
+  font-size: clamp(1.25rem, 5cqi, 1.5rem);
+  text-wrap: balance;
+}
+```
+
+### Form Elements
+
+```css
+/* Base form element styling */
+.form-control {
+  --form-element-bg: var(--light);
+  --form-element-border: var(--secondary);
+  --form-element-padding: 0.75em 1em;
+  
+  background-color: var(--form-element-bg);
+  border: 1px solid var(--form-element-border);
+  border-radius: var(--border-radius, 0.25em);
+  padding: var(--form-element-padding);
+  font-size: max(16px, 1rem); /* Prevent iOS zoom */
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent--ui);
+  box-shadow: 0 0 0 3px rgba(183, 122, 208, 0.25);
+}
+
+/* Custom checkbox */
+.checkbox {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.checkbox__input {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-element-bg);
+  margin: 0;
+  width: 1.25em;
+  height: 1.25em;
+  border: 1px solid var(--form-element-border);
+  border-radius: 0.25em;
+  display: grid;
+  place-content: center;
+}
+
+.checkbox__input::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: transform 0.1s;
+  background-color: var(--accent--ui);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.checkbox__input:checked::before {
+  transform: scale(1);
+}
+
+.checkbox__input:focus-visible {
+  outline: 2px solid var(--accent--ui);
+  outline-offset: 2px;
+}
+
+/* Custom radio button */
+.radio {
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.radio__input {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-element-bg);
+  margin: 0;
+  width: 1.25em;
+  height: 1.25em;
+  border: 1px solid var(--form-element-border);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+}
+
+.radio__input::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.1s;
+  background-color: var(--accent--ui);
+}
+
+.radio__input:checked::before {
+  transform: scale(1);
+}
+
+.radio__input:focus-visible {
+  outline: 2px solid var(--accent--ui);
+  outline-offset: 2px;
+}
+```
+
+### Image Gallery
+
+```css
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius, 0.25em);
+  aspect-ratio: 4/3;
+}
+
+.gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery__item:hover .gallery__image,
+.gallery__item:focus-within .gallery__image {
+  transform: scale(1.05);
+}
+
+.gallery__item:hover .gallery__caption,
+.gallery__item:focus-within .gallery__caption {
+  transform: translateY(0);
+}
+```
+
+## CSS Feature Detection and Fallbacks
+
+### @supports
+
+Use `@supports` to detect feature support and provide fallbacks:
+
+```css
+/* Base styles for all browsers */
+.element {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Enhanced styles for browsers that support grid */
+@supports (display: grid) {
+  .element {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
+```
+
+### Feature Detection for Container Queries
+
+```css
+/* Base styles for all browsers */
+h1 {
+  font-size: 2.5rem;
+}
+
+/* Fluid typography for browsers that support container query units */
+@supports (font-size: 1cqi) {
+  h1 {
+    font-size: clamp(2rem, 5cqi + 1rem, 3rem);
+  }
+}
+```
+
+### Progressive Enhancement with Fallbacks
+
+```css
+/* Fallback for browsers without CSS Grid */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery__item {
+  flex: 0 1 calc(33.333% - 1rem);
+  margin: 0.5rem;
+}
+
+/* Enhanced layout with CSS Grid */
+@supports (display: grid) {
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .gallery__item {
+    margin: 0; /* Reset margin from flex fallback */
+  }
+}
+```
+
+### Feature Detection Libraries
+
+For JavaScript-based detection of CSS features, consider using libraries like:
+
+- [Modernizr](mdc:https:/modernizr.com)
+- [Feature.js](mdc:https:/featurejs.com)
+- [SupportsCSS](mdc:https:/supportscss.dev)
+
+## Best Practices
+
+### Future-Proofing
+
+1. **Design for the unknown context**:
+   - Use relative units
+   - Create responsive components with container queries
+   - Avoid hard-coded dimensions
+
+2. **Build resilient layouts**:
+   - Use flexible layouts (flexbox/grid)
+   - Provide sensible fallbacks
+   - Test across browsers and at different zoom levels
+
+3. **Performance considerations**:
+   - Avoid large CSS frameworks if not needed
+   - Use CSS custom properties efficiently
+   - Consider CSS containment for large applications
+
+### Responsive Development
+
+1. **Mobile-first approach**:
+   - Start with styles for small screens
+   - Progressively enhance for larger screens
+
+2. **Component-driven design**:
+   - Design components to work in any context
+   - Use container queries for component-specific breakpoints
+   - Test components in various layout contexts
+
+3. **Accessibility at all screen sizes**:
+   - Ensure touch targets are at least 44px × 44px
+   - Test navigation patterns on small screens
+   - Ensure appropriate contrast at all sizes
+
+### Debugging and Testing
+
+1. **Browser developer tools**:
+   - Use browser inspection tools
+   - Test with device emulation
+   - Use grid/flexbox inspection tools
+
+2. **Accessibility testing**:
+   - Test with keyboard navigation
+   - Test with screen readers
+   - Verify color contrast
+
+3. **Cross-browser testing**:
+   - Test in multiple browsers
+   - Test with browser zooming
+   - Test with various device capabilities
+
+## Resources
+
+### Learning Resources
+
+- [ModernCSS.dev](mdc:https:/moderncss.dev) - Comprehensive tutorials on modern CSS techniques
+- [SmolCSS.dev](mdc:https:/smolcss.dev) - Minimal snippets for modern CSS layouts and components
+- [MDN Web Docs](mdc:https:/developer.mozilla.org/en-US/docs/Web/CSS) - Detailed CSS documentation
+- [CSS-Tricks](mdc:https:/css-tricks.com) - Articles and tutorials on CSS
+- [Web.dev](mdc:https:/web.dev/learn/css) - Learn CSS course
+
+### Useful Tools
+
+- [Can I Use](mdc:https:/caniuse.com) - Browser support tables for modern web technologies
+- [CSS Specs](mdc:https:/www.w3.org/Style/CSS/specs.en.html) - Official CSS specifications
+- [Polypane](mdc:https:/polypane.app) - Browser for responsive web development
+- [Codepen](mdc:https:/codepen.io) - Online code editor for testing CSS
+
+### Accessibility Resources
+
+- [WCAG Guidelines](mdc:https:/www.w3.org/WAI/WCAG21/quickref) - Web Content Accessibility Guidelines
+- [Inclusive Components](mdc:https:/inclusive-components.design) - Accessible component patterns
+- [A11y Project](mdc:https:/www.a11yproject.com) - Community-driven accessibility resources

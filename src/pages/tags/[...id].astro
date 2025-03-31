@@ -6,18 +6,18 @@ import Container from "@components/Container.astro";
 import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  // Get unique tags
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+	// Get unique tags
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 
-  // Create paths for each tag
-  return tags.map((tag) => ({
-    params: { id: tag },
-    props: {
-      posts: posts.filter((post) => post.data.tags?.includes(tag)),
-    },
-  }));
+	// Create paths for each tag
+	return tags.map((tag) => ({
+		params: { id: tag },
+		props: {
+			posts: posts.filter((post) => post.data.tags?.includes(tag)),
+		},
+	}));
 }
 
 const { id } = Astro.params;
@@ -25,7 +25,7 @@ const { posts } = Astro.props;
 
 // Sort posts by date, most recent first
 const sortedPosts = posts.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+	(a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 ---
 

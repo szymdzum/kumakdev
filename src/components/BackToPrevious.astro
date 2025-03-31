@@ -1,33 +1,88 @@
 ---
 type Props = {
-  href: string;
+	href: string;
 };
 
 const { href } = Astro.props;
 ---
 
-<a
-  href={href}
-  class="not-prose group relative flex w-fit flex-nowrap rounded-sm border border-black/15 py-1.5 pr-3 pl-7 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    class="absolute top-1/2 left-2 size-4 -translate-y-1/2 fill-none stroke-current stroke-2"
-  >
-    <line
-      x1="5"
-      y1="12"
-      x2="19"
-      y2="12"
-      class="translate-x-2 scale-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100 group-focus-visible:translate-x-0 group-focus-visible:scale-x-100"
-    ></line>
-    <polyline
-      points="12 5 5 12 12 19"
-      class="translate-x-1 transition-transform duration-300 ease-in-out group-hover:translate-x-0 group-focus-visible:translate-x-0"
-    ></polyline>
+<a href={href} class="back">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <line x1="5" y1="12" x2="19" y2="12" class="line"></line>
+    <polyline points="12 5 5 12 12 19" class="arrow"></polyline>
   </svg>
-  <div class="text-sm">
+  <div>
     <slot />
   </div>
 </a>
+
+<style>
+  a.back {
+    display: flex;
+    width: fit-content;
+    flex-wrap: nowrap;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.125rem;
+    padding: 0.375rem 0.75rem 0.375rem 1.75rem;
+    transition:
+      background-color 0.3s ease-in-out,
+      color 0.3s ease-in-out;
+  }
+
+  a.back:hover,
+  a.back:focus-visible {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: black;
+  }
+
+  a.back svg {
+    position: absolute;
+    top: 50%;
+    left: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    transform: translateY(-50%);
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  a.back .line {
+    transform: translateX(0.5rem) scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  a.back:hover .line,
+  a.back:focus-visible .line {
+    transform: translateX(0) scaleX(1);
+  }
+
+  a.back .arrow {
+    transform: translateX(0.25rem);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  a.back:hover .arrow,
+  a.back:focus-visible .arrow {
+    transform: translateX(0);
+  }
+
+  a.back div {
+    font-size: 0.875rem;
+  }
+
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    a.back {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    a.back:hover,
+    a.back:focus-visible {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+  }
+</style>

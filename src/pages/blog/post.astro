@@ -1,0 +1,410 @@
+---
+import MainFooter from "../../components/MainFooter.astro";
+import MainNavigation from "../../components/MainNavigation.astro";
+import RootLayout from "../../layouts/RootLayout.astro";
+
+// Example blog post data - in a real app, this would come from a CMS or data fetching
+// Or use Astro's content collections as shown in [slug].astro
+const examplePost = {
+	category: "Design",
+	readTime: "6 min read",
+	title: "The Art of Minimalist Design: Less is More in the Digital Age",
+	author: {
+		name: "Jane Doe",
+		image: "/placeholder.svg?height=40&width=40",
+		fallback: "JD",
+		bio: "UX Designer and writer with over 8 years of experience creating minimalist, accessible digital experiences. Passionate about design systems and user-centered design.",
+	},
+	publishDate: new Date("2023-04-15"),
+	featuredImage: "/placeholder.svg?height=600&width=1200",
+	imageAlt: "Minimalist design workspace with a computer, notebook, and plant",
+	imageCaption:
+		'A clean, minimalist workspace showcasing the "less is more" philosophy',
+	tags: ["minimalism", "design", "ux", "accessibility"],
+	likeCount: 245,
+	commentCount: 42,
+};
+---
+
+<RootLayout
+  title={examplePost.title}
+  description="Exploring the principles and practices of minimalist design in the digital age."
+>
+  <div class="min-h-screen bg-gray-950 text-gray-100">
+    <MainNavigation currentPath="/blog" />
+
+    <main class="container mx-auto px-4 py-8">
+      <article class="mx-auto max-w-3xl">
+        <!-- Article Header -->
+        <header class="mb-8 space-y-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-sm text-emerald-500">
+              <a href={`/category/${examplePost.category.toLowerCase()}`} class="hover:underline">
+                {examplePost.category}
+              </a>
+              <span>•</span>
+              <span class="text-gray-400">{examplePost.readTime}</span>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {examplePost.title}
+            </h1>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-emerald-500">
+              <img
+                src={examplePost.author.image}
+                alt={examplePost.author.name}
+                width="40"
+                height="40"
+              />
+            </div>
+            <div>
+              <div class="font-medium">{examplePost.author.name}</div>
+              <div class="text-sm text-gray-400">
+                Published on <time datetime={examplePost.publishDate.toISOString()}>
+                  {
+                    new Date(examplePost.publishDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  }
+                </time>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        <figure class="my-8 overflow-hidden rounded-lg">
+          <div class="relative aspect-video w-full">
+            <img
+              src={examplePost.featuredImage}
+              alt={examplePost.imageAlt}
+              class="h-full w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-2 text-center text-sm text-gray-400">
+            {examplePost.imageCaption}
+          </figcaption>
+        </figure>
+
+        <!-- Article Content -->
+        <div
+          class="prose prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-p:text-gray-300 prose-a:text-emerald-500 prose-blockquote:border-emerald-500 prose-blockquote:text-gray-300 prose-blockquote:not-italic prose-img:rounded-lg mx-auto max-w-none"
+        >
+          <p class="text-xl leading-relaxed">
+            In a world filled with constant digital noise, minimalist design stands as a beacon of
+            clarity. It's not just about aesthetic appeal—it's about creating experiences that allow
+            users to focus on what truly matter.
+          </p>
+
+          <p>
+            Minimalism in design is often misunderstood as simply removing elements until only the
+            bare essentials remain. However, true minimalist design is a thoughtful process of
+            distillation—identifying the core purpose of each element and refining until perfect
+            balance is achieved.
+          </p>
+
+          <h2>The Core Principles of Minimalist Design</h2>
+
+          <p>
+            At its heart, minimalist design embraces several key principles that guide its
+            implementation across various digital platforms:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Simplicity:</strong> Removing unnecessary elements to focus on what's essential
+            </li>
+            <li>
+              <strong>Clarity:</strong> Creating clear visual hierarchies and intuitive navigation
+            </li>
+            <li>
+              <strong>Purposeful white space:</strong> Using negative space as an active design element
+            </li>
+            <li>
+              <strong>Typography:</strong> Leveraging clean, readable fonts as a central design element
+            </li>
+          </ul>
+
+          <blockquote>
+            <p>
+              "Perfection is achieved not when there is nothing more to add, but when there is
+              nothing left to take away."
+              <cite>— Antoine de Saint-Exupéry</cite>
+            </p>
+          </blockquote>
+
+          <h2>The Impact on User Experience</h2>
+
+          <p>
+            When implemented thoughtfully, minimalist design significantly enhances user experience.
+            By reducing cognitive load and visual clutter, users can navigate interfaces more
+            intuitively and accomplish their goals with less friction.
+          </p>
+
+          <figure class="my-8">
+            <div class="relative aspect-video w-full">
+              <img
+                src="/placeholder.svg?height=400&width=800"
+                alt="Before and after comparison of a website redesign using minimalist principles"
+                class="h-full w-full rounded-lg object-cover"
+              />
+            </div>
+            <figcaption class="mt-2 text-center text-sm text-gray-400">
+              Before and after: A website redesign applying minimalist principles
+            </figcaption>
+          </figure>
+
+          <p>
+            Research consistently shows that websites and applications with minimalist designs have:
+          </p>
+
+          <ul>
+            <li>Higher conversion rates</li>
+            <li>Lower bounce rates</li>
+            <li>Improved user satisfaction scores</li>
+            <li>Better accessibility ratings</li>
+          </ul>
+
+          <h2>Implementing Minimalism in Your Projects</h2>
+
+          <p>
+            Adopting minimalist design principles doesn't happen overnight. It requires a systematic
+            approach and often means challenging assumptions about what elements are truly
+            necessary.
+          </p>
+
+          <h3>Start with Content Strategy</h3>
+
+          <p>
+            Before diving into visual design, begin with content. Identify the core message or
+            functionality and build outward from there. This ensures that every element serves a
+            clear purpose.
+          </p>
+
+          <h3>Embrace Constraints</h3>
+
+          <p>
+            Limitations often spark creativity. By setting constraints—like a limited color palette
+            or typography system—you force yourself to find elegant solutions within boundaries.
+          </p>
+
+          <h3>Iterate and Refine</h3>
+
+          <p>
+            Minimalist design is an iterative process. Create, test, gather feedback, and refine.
+            With each iteration, question whether each element is serving its intended purpose
+            effectively.
+          </p>
+
+          <h2>Common Pitfalls to Avoid</h2>
+
+          <p>While pursuing minimalism, designers sometimes fall into these common traps:</p>
+
+          <ul>
+            <li>
+              <strong>Sacrificing clarity for aesthetics:</strong> Never remove elements that are essential
+              for user understanding
+            </li>
+            <li>
+              <strong>Overminimizing:</strong> Removing too much can leave users confused about how to
+              proceed
+            </li>
+            <li>
+              <strong>Ignoring accessibility:</strong> Minimal doesn't mean inaccessible—ensure your
+              designs work for everyone
+            </li>
+          </ul>
+
+          <p>
+            The journey toward minimalist design is ongoing. As technology evolves and user
+            expectations shift, what constitutes "essential" will change. The most successful
+            designers maintain a flexible approach, always questioning assumptions and refining
+            their work.
+          </p>
+
+          <p>
+            Remember that minimalism isn't about creating something that looks empty—it's about
+            creating space for what matters most. When done well, it creates experiences that feel
+            intuitive, effortless, and even delightful.
+          </p>
+        </div>
+
+        <!-- Tags -->
+        <div class="mt-8">
+          <div class="flex flex-wrap gap-2">
+            {
+              examplePost.tags.map((tag) => (
+                <a
+                  href={`/tag/${tag}`}
+                  class="rounded-full bg-gray-800 px-3 py-1 text-sm text-gray-300 hover:bg-gray-700"
+                >
+                  #{tag}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Article Actions -->
+        <div class="mt-8 flex items-center justify-between border-t border-b border-gray-800 py-4">
+          <div class="flex items-center gap-4">
+            <button
+              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                ></path>
+              </svg>
+              <span>{examplePost.likeCount}</span>
+            </button>
+            <button
+              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>{examplePost.commentCount}</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
+              aria-label="Bookmark this article"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+              </svg>
+            </button>
+            <button
+              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
+              aria-label="Share this article"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <polyline points="16 6 12 2 8 6"></polyline>
+                <line x1="12" x2="12" y1="2" y2="15"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Author Bio -->
+        <div class="mt-8 rounded-lg bg-gray-900 p-6">
+          <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+            <div class="h-16 w-16 overflow-hidden rounded-full border-2 border-emerald-500">
+              <img
+                src={examplePost.author.image}
+                alt={examplePost.author.name}
+                width="64"
+                height="64"
+              />
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-xl font-bold">{examplePost.author.name}</h3>
+              <p class="text-gray-400">{examplePost.author.bio}</p>
+              <div class="flex gap-2">
+                <a
+                  href="https://twitter.com"
+                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                  >
+                    <path
+                      d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                    ></path>
+                  </svg>
+                  <span>Follow</span>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                  >
+                    <path
+                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                    ></path>
+                    <rect width="4" height="12" x="2" y="9"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                  <span>Connect</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <MainFooter />
+  </div>
+</RootLayout>

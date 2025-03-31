@@ -1,0 +1,72 @@
+---
+import Card from "../Card.astro";
+
+interface BlogPost {
+	date: string;
+	readTime: string;
+	title: string;
+	description: string;
+	link: string;
+}
+
+interface Props {
+	blog: {
+		sectionTitle: string;
+		description: string;
+		viewAll: string;
+		posts: BlogPost[];
+	};
+}
+
+const { blog } = Astro.props;
+---
+
+<!-- Featured Blog Posts -->
+<section id="blog" class="blog-section">
+  <div class="container">
+    <div class="section-intro">
+      <h2 class="section-title">{blog.sectionTitle}</h2>
+      <div class="section-subheader">
+        <p class="section-description">{blog.description}</p>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div></div>
+      <!-- Empty div for flex spacing -->
+      <a href="/blog" class="view-all">
+        {blog.viewAll}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="icon-arrow"
+        >
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="blog-grid">
+      {
+        blog.posts.map((post) => (
+          <Card
+            type="blog"
+            date={post.date}
+            readTime={post.readTime}
+            title={post.title}
+            description={post.description}
+            link={post.link}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

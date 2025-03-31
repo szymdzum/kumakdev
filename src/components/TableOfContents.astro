@@ -6,35 +6,85 @@ const { headings } = Astro.props;
 const toc = buildToc(headings);
 
 export interface Heading {
-  depth: number;
-  slug: string;
-  text: string;
+	depth: number;
+	slug: string;
+	text: string;
 }
 
 function buildToc(headings: Heading[]) {
-  const toc: Heading[] = [];
-  const parentHeadings = new Map();
-  headings.forEach((h) => {
-    const heading = { ...h, subheadings: [] };
-    parentHeadings.set(heading.depth, heading);
-    if (heading.depth === 2) {
-      toc.push(heading);
-    } else {
-      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
-    }
-  });
-  return toc;
+	const toc: Heading[] = [];
+	const parentHeadings = new Map();
+	for (const h of headings) {
+		const heading = { ...h, subheadings: [] };
+		parentHeadings.set(heading.depth, heading);
+		if (heading.depth === 2) {
+			toc.push(heading);
+		} else {
+			parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+		}
+	}
+	return toc;
 }
 ---
 
-<details open class="animate group rounded-lg border border-black/15 dark:border-white/20">
-  <summary
-    class="cursor-pointer rounded-t-lg px-3 py-1.5 font-medium transition-colors group-open:bg-black/5 hover:bg-black/5 dark:group-open:bg-white/5 hover:dark:bg-white/5"
-    >Table of Contents</summary
-  >
+<details open class="contents-nav">
+  <summary>Table of Contents</summary>
   <nav>
-    <ul class="py-3">
+    <ul>
       {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
     </ul>
   </nav>
 </details>
+
+<style>
+  details.contents-nav {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.5rem;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  details.contents-nav summary {
+    cursor: pointer;
+    padding: 0.375rem 0.75rem;
+    font-weight: 500;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+  }
+
+  details.contents-nav summary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  details[open].contents-nav summary {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  details.contents-nav ul {
+    padding: 0.75rem 0;
+  }
+
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    details.contents-nav {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    details.contents-nav summary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    details[open].contents-nav summary {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+</style>

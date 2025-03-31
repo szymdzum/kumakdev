@@ -1,0 +1,284 @@
+/*
+ * Vanilla CSS styles
+ * These styles replace Tailwind utilities with vanilla CSS
+ */
+
+/* CSS Variables */
+:root {
+	/* Colors */
+	--color-black: #000000;
+	--color-white: #ffffff;
+	--color-neutral-100: #f5f5f5;
+	--color-neutral-200: #e5e5e5;
+	--color-neutral-300: #d4d4d4;
+	--color-neutral-400: #a3a3a3;
+	--color-neutral-500: #737373;
+	--color-neutral-600: #525252;
+	--color-neutral-700: #404040;
+	--color-neutral-800: #262626;
+	--color-neutral-900: #171717;
+
+	/* Typography */
+	--font-sans: Geist Sans, ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-mono: Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		"Liberation Mono", "Courier New", monospace;
+
+	/* Spacing */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+
+	/* Breakpoints */
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1280px;
+
+	/* Z-index */
+	--z-10: 10;
+	--z-20: 20;
+	--z-30: 30;
+	--z-40: 40;
+	--z-50: 50;
+
+	/* Other */
+	--border-radius-sm: 0.125rem;
+	--border-radius: 0.25rem;
+	--border-radius-lg: 0.5rem;
+	--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+	--shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px
+		rgba(0, 0, 0, 0.06);
+}
+
+/* Theme button styles */
+.theme-button-active {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+	.theme-button-active {
+		background-color: rgba(255, 255, 255, 0.05);
+	}
+}
+
+.dark .theme-button-active {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Animation styles */
+.animate {
+	transform: translateY(-0.75rem);
+	opacity: 0;
+	transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.animate.show {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+/* Back to top button */
+#back-to-top {
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+html.scrolled #back-to-top {
+	pointer-events: auto;
+	opacity: 1;
+}
+
+/* Code block styles */
+pre {
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	padding-top: 1.25rem;
+	padding-bottom: 1.25rem;
+}
+
+.dark pre {
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Copy code button */
+.copy-code {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	display: grid;
+	width: 2.25rem;
+	height: 2.25rem;
+	place-content: center;
+	border-radius: 0.125rem;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background-color: var(--color-neutral-100);
+	text-align: center;
+	transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.copy-code:hover {
+	background-color: #e9e9e9;
+}
+
+.copy-code:active {
+	transform: scale(0.9);
+}
+
+.dark .copy-code {
+	border-color: rgba(255, 255, 255, 0.2);
+	background-color: var(--color-neutral-900);
+}
+
+.dark .copy-code:hover {
+	background-color: #232323;
+}
+
+/* Base layout styles */
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-neutral-100);
+	color: rgba(0, 0, 0, 0.75);
+}
+
+.dark body {
+	background-color: var(--color-neutral-900);
+	color: rgba(255, 255, 255, 0.75);
+}
+
+header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: var(--z-50);
+	padding-top: var(--space-6);
+	padding-bottom: var(--space-6);
+	background-color: rgba(245, 245, 245, 0.75);
+	backdrop-filter: blur(2px);
+	filter: saturate(2);
+}
+
+.dark header {
+	background-color: rgba(23, 23, 23, 0.75);
+}
+
+main {
+	flex: 1;
+}
+
+footer {
+	padding-top: var(--space-6);
+	padding-bottom: var(--space-6);
+	font-size: 0.875rem;
+}
+
+/* Article styles */
+article {
+	max-width: 100%;
+	color: inherit;
+}
+
+article img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+	font-weight: 600;
+	color: black;
+}
+
+.dark article h1,
+.dark article h2,
+.dark article h3,
+.dark article h4,
+.dark article h5,
+.dark article h6 {
+	color: white;
+}
+
+/* Article link styles */
+article a {
+	font-family: var(--font-sans);
+	color: currentColor;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: rgba(0, 0, 0, 0.3);
+	transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
+}
+
+article a:hover {
+	color: black;
+	text-decoration-color: rgba(0, 0, 0, 0.5);
+}
+
+.dark article a {
+	text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark article a:hover {
+	color: white;
+	text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Typography utility classes */
+.text-sm {
+	font-size: 0.875rem;
+}
+
+.text-base {
+	font-size: 1rem;
+}
+
+.text-lg {
+	font-size: 1.125rem;
+}
+
+.text-xl {
+	font-size: 1.25rem;
+}
+
+.text-2xl {
+	font-size: 1.5rem;
+}
+
+.text-3xl {
+	font-size: 1.875rem;
+}
+
+.font-normal {
+	font-weight: 400;
+}
+
+.font-medium {
+	font-weight: 500;
+}
+
+.font-semibold {
+	font-weight: 600;
+}
+
+.font-bold {
+	font-weight: 700;
+}

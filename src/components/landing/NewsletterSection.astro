@@ -1,0 +1,37 @@
+---
+interface Props {
+	newsletter: {
+		sectionTitle: string;
+		description: string;
+		inputPlaceholder: string;
+		inputAriaLabel: string;
+		buttonText: string;
+		privacyNote: string;
+	};
+}
+
+const { newsletter } = Astro.props;
+---
+
+<!-- Newsletter Section -->
+<section id="newsletter" class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-content">
+      <h2 class="section-title">{newsletter.sectionTitle}</h2>
+      <p class="newsletter-description">
+        {newsletter.description}
+      </p>
+
+      <form class="newsletter-form">
+        <input
+          type="email"
+          placeholder={newsletter.inputPlaceholder}
+          aria-label={newsletter.inputAriaLabel}
+          class="newsletter-input"
+        />
+        <button type="submit" class="primary-button">{newsletter.buttonText}</button>
+      </form>
+      <p class="privacy-note">{newsletter.privacyNote}</p>
+    </div>
+  </div>
+</section>

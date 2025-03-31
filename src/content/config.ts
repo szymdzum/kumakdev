@@ -1,26 +1,45 @@
 import { defineCollection, z } from "astro:content";
 
-const blog = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.coerce.date(),
-    draft: z.boolean().optional(),
-    tags: z.array(z.string()).optional(),
-  }),
+// Define the schema for blog posts
+const blogCollection = defineCollection({
+	type: "content",
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		publishDate: z.date(),
+		updatedDate: z.date().optional(),
+		category: z.string(),
+		readTime: z.string(),
+		author: z.object({
+			name: z.string(),
+			image: z.string(),
+			fallback: z.string(),
+			bio: z.string(),
+		}),
+		featuredImage: z.string(),
+		imageAlt: z.string(),
+		imageCaption: z.string(),
+		tags: z.array(z.string()),
+		likeCount: z.number().default(0),
+		commentCount: z.number().default(0),
+		draft: z.boolean().default(false),
+	}),
 });
 
 const projects = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    date: z.coerce.date(),
-    draft: z.boolean().optional(),
-    demoURL: z.string().optional(),
-    repoURL: z.string().optional(),
-  }),
+	type: "content",
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		date: z.coerce.date(),
+		draft: z.boolean().optional(),
+		demoURL: z.string().optional(),
+		repoURL: z.string().optional(),
+	}),
 });
 
-export const collections = { blog, projects };
+// Export collections for use
+export const collections = {
+	blog: blogCollection,
+	projects,
+};
