@@ -2,20 +2,20 @@
 import Card from "../Card.astro";
 
 interface BlogPost {
-	date: string;
-	readTime: string;
-	title: string;
-	description: string;
-	link: string;
+  date: string;
+  readTime: string;
+  title: string;
+  description: string;
+  link: string;
 }
 
 interface Props {
-	blog: {
-		sectionTitle: string;
-		description: string;
-		viewAll: string;
-		posts: BlogPost[];
-	};
+  blog: {
+    sectionTitle: string;
+    description: string;
+    viewAll: string;
+    posts: BlogPost[];
+  };
 }
 
 const { blog } = Astro.props;

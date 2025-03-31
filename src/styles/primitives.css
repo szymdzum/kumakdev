@@ -1,0 +1,64 @@
+/* Layout Primitives based on Every Layout */
+
+/* Box Layout */
+.box {
+  padding: var(--space-3, 1rem);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  border-radius: var(--radius, 0.5rem);
+  background: var(--bg, transparent);
+  color: var(--color, inherit);
+}
+
+.box.invert {
+  background: var(--bg-invert, rgb(17, 24, 39));
+  color: var(--color-invert, white);
+}
+
+/* Stack Layout */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space, 1rem);
+}
+
+.stack > * + * {
+  margin-top: 0;
+}
+
+/* Cluster Layout */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, 1rem);
+  align-items: center;
+}
+
+.cluster.justify-between {
+  justify-content: space-between;
+}
+
+/* Center Layout */
+.center {
+  box-sizing: content-box;
+  max-width: var(--measure, 65ch);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-3, 1rem);
+  padding-right: var(--space-3, 1rem);
+}
+
+.center.intrinsic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-width, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-3, 1rem);
+  padding-right: var(--space-3, 1rem);
+}

@@ -1,18 +1,14 @@
 ---
-title: "Draft example"
-description: "Setting draft flag to true to hide this post."
+title: 'Draft example'
+description: 'Setting draft flag to true to hide this post.'
 publishDate: 2022-12-31
-category: "Example"
-readTime: "1 min read"
-author: {
-  name: "Szymon Dziemak",
-  image: "/images/author.jpg",
-  fallback: "SD",
-  bio: "Software Developer"
-}
-featuredImage: "/images/blog/draft-example.jpg"
-imageAlt: "Draft example"
-imageCaption: "Learn how to use draft mode"
+category: 'Example'
+readTime: '1 min read'
+author:
+  { name: 'Szymon Dziemak', image: '/images/author.jpg', fallback: 'SD', bio: 'Software Developer' }
+featuredImage: '/images/blog/draft-example.jpg'
+imageAlt: 'Draft example'
+imageCaption: 'Learn how to use draft mode'
 tags:
   - example
   - draft

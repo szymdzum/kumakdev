@@ -1,16 +1,16 @@
 ---
-title: "The Art of Minimalist Design: Less is More in the Digital Age"
-description: "Exploring the principles and practices of minimalist design in the digital age"
+title: 'The Art of Minimalist Design: Less is More in the Digital Age'
+description: 'Exploring the principles and practices of minimalist design in the digital age'
 publishDate: 2023-04-15
-category: "Design"
-readTime: "6 min read"
+category: 'Design'
+readTime: '6 min read'
 author:
-  name: "Jane Doe"
-  image: "/placeholder.svg?height=40&width=40"
-  fallback: "JD"
-  bio: "UX Designer and writer with over 8 years of experience creating minimalist, accessible digital experiences. Passionate about design systems and user-centered design."
-featuredImage: "/placeholder.svg?height=600&width=1200"
-imageAlt: "Minimalist design workspace with a computer, notebook, and plant"
+  name: 'Jane Doe'
+  image: '/placeholder.svg?height=40&width=40'
+  fallback: 'JD'
+  bio: 'UX Designer and writer with over 8 years of experience creating minimalist, accessible digital experiences. Passionate about design systems and user-centered design.'
+featuredImage: '/placeholder.svg?height=600&width=1200'
+imageAlt: 'Minimalist design workspace with a computer, notebook, and plant'
 imageCaption: 'A clean, minimalist workspace showcasing the "less is more" philosophy'
 tags:
   - minimalism

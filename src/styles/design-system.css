@@ -4,141 +4,141 @@
  */
 
 :root {
-	/* Brand colors */
-	--color-primary: 210 100% 50%; /* Main brand color */
-	--color-primary-dark: 210 100% 40%; /* Darker variation */
-	--color-primary-light: 210 100% 60%; /* Lighter variation */
+  /* Brand colors */
+  --color-primary: 210 100% 50%; /* Main brand color */
+  --color-primary-dark: 210 100% 40%; /* Darker variation */
+  --color-primary-light: 210 100% 60%; /* Lighter variation */
 
-	/* Typography colors */
-	--color-text: 0 0% 10%; /* Main text color */
-	--color-text-muted: 0 0% 45%; /* Secondary text color */
-	--color-text-disabled: 0 0% 70%; /* Disabled text color */
+  /* Typography colors */
+  --color-text: 0 0% 10%; /* Main text color */
+  --color-text-muted: 0 0% 45%; /* Secondary text color */
+  --color-text-disabled: 0 0% 70%; /* Disabled text color */
 
-	/* UI colors */
-	--color-background: 0 0% 100%; /* Main background */
-	--color-surface: 0 0% 98%; /* Surface/card background */
-	--color-border: 0 0% 85%; /* Border color */
-	--color-success: 142 72% 45%; /* Success state */
-	--color-error: 0 87% 62%; /* Error state */
-	--color-warning: 38 100% 50%; /* Warning state */
-	--color-info: 200 100% 55%; /* Info state */
+  /* UI colors */
+  --color-background: 0 0% 100%; /* Main background */
+  --color-surface: 0 0% 98%; /* Surface/card background */
+  --color-border: 0 0% 85%; /* Border color */
+  --color-success: 142 72% 45%; /* Success state */
+  --color-error: 0 87% 62%; /* Error state */
+  --color-warning: 38 100% 50%; /* Warning state */
+  --color-info: 200 100% 55%; /* Info state */
 
-	/* Spacing system - Consistent spacing scale */
-	--spacing-xs: 0.25rem; /* 4px */
-	--spacing-sm: 0.5rem; /* 8px */
-	--spacing-md: 1rem; /* 16px */
-	--spacing-lg: 1.5rem; /* 24px */
-	--spacing-xl: 2rem; /* 32px */
-	--spacing-2xl: 3rem; /* 48px */
-	--spacing-3xl: 4rem; /* 64px */
+  /* Spacing system - Consistent spacing scale */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
 
-	/* Typography */
-	--font-family-base: "Geist Sans", system-ui, sans-serif;
-	--font-family-mono: "Geist Mono", monospace;
+  /* Typography */
+  --font-family-base: 'Geist Sans', system-ui, sans-serif;
+  --font-family-mono: 'Geist Mono', monospace;
 
-	/* Font sizes */
-	--font-size-xs: 0.75rem; /* 12px */
-	--font-size-sm: 0.875rem; /* 14px */
-	--font-size-md: 1rem; /* 16px - Base font size */
-	--font-size-lg: 1.125rem; /* 18px */
-	--font-size-xl: 1.25rem; /* 20px */
-	--font-size-2xl: 1.5rem; /* 24px */
-	--font-size-3xl: 1.875rem; /* 30px */
-	--font-size-4xl: 2.25rem; /* 36px */
+  /* Font sizes */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px - Base font size */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
 
-	/* Line heights */
-	--line-height-tight: 1.2; /* Headings */
-	--line-height-normal: 1.5; /* Body text */
-	--line-height-loose: 1.8; /* Larger text blocks */
+  /* Line heights */
+  --line-height-tight: 1.2; /* Headings */
+  --line-height-normal: 1.5; /* Body text */
+  --line-height-loose: 1.8; /* Larger text blocks */
 
-	/* Font weights */
-	--font-weight-normal: 400;
-	--font-weight-medium: 500;
-	--font-weight-semibold: 600;
-	--font-weight-bold: 700;
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-	/* Border radius */
-	--radius-sm: 0.25rem; /* 4px */
-	--radius-md: 0.5rem; /* 8px */
-	--radius-lg: 1rem; /* 16px */
-	--radius-full: 9999px; /* Circular */
+  /* Border radius */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-full: 9999px; /* Circular */
 
-	/* Shadows */
-	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px
-		rgb(0 0 0 / 0.1);
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-	/* Transitions */
-	--transition-fast: 150ms;
-	--transition-normal: 250ms;
-	--transition-slow: 350ms;
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 350ms;
 
-	/* Z-index layers */
-	--z-index-dropdown: 1000;
-	--z-index-sticky: 1020;
-	--z-index-fixed: 1030;
-	--z-index-modal-backdrop: 1040;
-	--z-index-modal: 1050;
-	--z-index-tooltip: 1060;
+  /* Z-index layers */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-tooltip: 1060;
 }
 
 /* Dark theme colors */
 .dark {
-	--color-primary: 210 100% 50%; /* Keep the primary color */
-	--color-primary-dark: 210 100% 40%;
-	--color-primary-light: 210 100% 60%;
+  --color-primary: 210 100% 50%; /* Keep the primary color */
+  --color-primary-dark: 210 100% 40%;
+  --color-primary-light: 210 100% 60%;
 
-	--color-text: 0 0% 95%; /* Light text on dark background */
-	--color-text-muted: 0 0% 70%;
-	--color-text-disabled: 0 0% 45%;
+  --color-text: 0 0% 95%; /* Light text on dark background */
+  --color-text-muted: 0 0% 70%;
+  --color-text-disabled: 0 0% 45%;
 
-	--color-background: 222 47% 11%; /* Dark background */
-	--color-surface: 223 47% 13%;
-	--color-border: 220 13% 25%;
+  --color-background: 222 47% 11%; /* Dark background */
+  --color-surface: 223 47% 13%;
+  --color-border: 220 13% 25%;
 
-	/* Same other variables for consistency */
+  /* Same other variables for consistency */
 }
 
 /* Portfolio-specific rules */
 
 /* Content container dimensions */
 .container-content {
-	max-width: 65ch; /* Optimal reading width */
-	margin-left: auto;
-	margin-right: auto;
+  max-width: 65ch; /* Optimal reading width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Blog post styling */
 .blog-post {
-	line-height: var(--line-height-loose);
-	font-size: var(--font-size-md);
+  line-height: var(--line-height-loose);
+  font-size: var(--font-size-md);
 }
 
 .blog-post h1 {
-	font-size: var(--font-size-4xl);
-	line-height: var(--line-height-tight);
-	font-weight: var(--font-weight-bold);
-	margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-lg);
 }
 
 .blog-post h2 {
-	font-size: var(--font-size-2xl);
-	line-height: var(--line-height-tight);
-	font-weight: var(--font-weight-semibold);
-	margin-top: var(--spacing-2xl);
-	margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-md);
 }
 
 /* Project card styling */
 .project-card {
-	border-radius: var(--radius-md);
-	box-shadow: var(--shadow-md);
-	transition: transform var(--transition-normal), box-shadow
-		var(--transition-normal);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
 }
 
 .project-card:hover {
-	transform: translateY(-4px);
-	box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }

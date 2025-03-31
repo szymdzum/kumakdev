@@ -1,18 +1,14 @@
 ---
-title: "Getting started"
-description: "Hit the ground running."
+title: 'Getting started'
+description: 'Hit the ground running.'
 publishDate: 2024-03-22
-category: "Tutorial"
-readTime: "5 min read"
-author: {
-  name: "Szymon Dziemak",
-  image: "/images/author.jpg",
-  fallback: "SD",
-  bio: "Software Developer"
-}
-featuredImage: "/images/blog/getting-started.jpg"
-imageAlt: "Getting started with Astro Micro"
-imageCaption: "Getting started with Astro Micro"
+category: 'Tutorial'
+readTime: '5 min read'
+author:
+  { name: 'Szymon Dziemak', image: '/images/author.jpg', fallback: 'SD', bio: 'Software Developer' }
+featuredImage: '/images/blog/getting-started.jpg'
+imageAlt: 'Getting started with Astro Micro'
+imageCaption: 'Getting started with Astro Micro'
 tags:
   - tutorial
 ---
@@ -51,9 +47,9 @@ To change the website metadata, edit `src/consts.ts`.
 // src/consts.ts
 
 export const SITE: Site = {
-  NAME: "Astro Micro",
-  DESCRIPTION: "Astro Micro is an accessible theme for Astro.",
-  EMAIL: "trevortylerlee@gmail.com",
+  NAME: 'Astro Micro',
+  DESCRIPTION: 'Astro Micro is an accessible theme for Astro.',
+  EMAIL: 'trevortylerlee@gmail.com',
   NUM_POSTS_ON_HOMEPAGE: 3,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
 };
@@ -75,8 +71,8 @@ export const SITE: Site = {
 // src/consts.ts
 
 export const ABOUT: Metadata = {
-  TITLE: "About",
-  DESCRIPTION: "Astro Micro is a fork of Astro Nano.",
+  TITLE: 'About',
+  DESCRIPTION: 'Astro Micro is a fork of Astro Nano.',
 };
 ```
 
@@ -94,16 +90,16 @@ export const ABOUT: Metadata = {
 
 export const SOCIALS: Socials = [
   {
-    NAME: "twitter-x",
-    HREF: "https://twitter.com/boogerbuttcheeks",
+    NAME: 'twitter-x',
+    HREF: 'https://twitter.com/boogerbuttcheeks',
   },
   {
-    NAME: "github",
-    HREF: "https://github.com/trevortylerlee",
+    NAME: 'github',
+    HREF: 'https://github.com/trevortylerlee',
   },
   {
-    NAME: "linkedin",
-    HREF: "https://www.linkedin.com/in/trevortylerlee",
+    NAME: 'linkedin',
+    HREF: 'https://www.linkedin.com/in/trevortylerlee',
   },
 ];
 ```
@@ -136,11 +132,11 @@ Change the `site` option to the deployed site's URL.
 // astro.config.mjs
 
 export default defineConfig({
-  site: "https://astro-micro.vercel.app",
+  site: 'https://astro-micro.vercel.app',
   integrations: [tailwind(), sitemap(), mdx(), pagefind()],
   markdown: {
     shikiConfig: {
-      theme: "css-variables",
+      theme: 'css-variables',
     },
   },
 });
@@ -179,14 +175,14 @@ To change the Giscus themes used, edit the `setGiscusTheme` function in `Head.as
 // src/components/Head.astro
 
 const setGiscusTheme = () => {
-  const giscus = document.querySelector(".giscus-frame");
+  const giscus = document.querySelector('.giscus-frame');
 
-  const isDark = document.documentElement.classList.contains("dark");
+  const isDark = document.documentElement.classList.contains('dark');
 
   if (giscus) {
     const url = new URL(giscus.src);
     // Change "dark" and "light" to other Giscus themes
-    url.searchParams.set("theme", isDark ? "dark" : "light");
+    url.searchParams.set('theme', isDark ? 'dark' : 'light');
     giscus.src = url.toString();
   }
 };

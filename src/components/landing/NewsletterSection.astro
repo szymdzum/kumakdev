@@ -3,9 +3,10 @@ interface Props {
 	newsletter: {
 		sectionTitle: string;
 		description: string;
-		inputPlaceholder: string;
-		inputAriaLabel: string;
-		buttonText: string;
+		form: {
+			emailPlaceholder: string;
+			submitButton: string;
+		};
 		privacyNote: string;
 	};
 }
@@ -13,25 +14,92 @@ interface Props {
 const { newsletter } = Astro.props;
 ---
 
-<!-- Newsletter Section -->
-<section id="newsletter" class="newsletter-section">
-  <div class="container">
-    <div class="newsletter-content">
+<section class="box">
+  <div class="center">
+    <div class="stack">
       <h2 class="section-title">{newsletter.sectionTitle}</h2>
-      <p class="newsletter-description">
-        {newsletter.description}
-      </p>
-
-      <form class="newsletter-form">
-        <input
-          type="email"
-          placeholder={newsletter.inputPlaceholder}
-          aria-label={newsletter.inputAriaLabel}
-          class="newsletter-input"
-        />
-        <button type="submit" class="primary-button">{newsletter.buttonText}</button>
+      <p class="newsletter-description">{newsletter.description}</p>
+      <form class="stack">
+        <div class="cluster">
+          <input
+            type="email"
+            placeholder={newsletter.form.emailPlaceholder}
+            class="newsletter-input"
+            required
+          />
+          <button type="submit" class="newsletter-button">
+            {newsletter.form.submitButton}
+          </button>
+        </div>
       </form>
       <p class="privacy-note">{newsletter.privacyNote}</p>
     </div>
   </div>
 </section>
+
+<style>
+  .section-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-align: center;
+    color: rgb(17, 24, 39);
+  }
+
+  .newsletter-description {
+    text-align: center;
+    color: rgb(75, 85, 99);
+    font-size: 1.125rem;
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    color: rgb(17, 24, 39);
+    background-color: white;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-input:focus {
+    outline: none;
+    border-color: rgb(59, 130, 246);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .newsletter-button {
+    padding: 0.75rem 1.5rem;
+    background-color: rgb(59, 130, 246);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .newsletter-button:hover {
+    background-color: rgb(37, 99, 235);
+  }
+
+  .privacy-note {
+    text-align: center;
+    color: rgb(107, 114, 128);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .cluster {
+      flex-direction: column;
+    }
+
+    .newsletter-button {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,16 +1,16 @@
-import { siteContent as enContent } from "../content/site-text/en";
-import { siteContent as plContent } from "../content/site-text/pl";
+import { siteContent as enContent } from '../content/site-text/en';
+import { siteContent as plContent } from '../content/site-text/pl';
 
-export type Language = "en" | "pl";
+export type Language = 'en' | 'pl';
 
 // Content mapping for different languages
 const contentMap = {
-	en: enContent,
-	pl: plContent,
+  en: enContent,
+  pl: plContent,
 };
 
 // Default language
-export const DEFAULT_LANGUAGE: Language = "en";
+export const DEFAULT_LANGUAGE: Language = 'en';
 
 /**
  * Get the site content for the specified language
@@ -18,7 +18,7 @@ export const DEFAULT_LANGUAGE: Language = "en";
  * @returns The site content in the requested language
  */
 export function getSiteContent(lang: Language = DEFAULT_LANGUAGE): SiteContent {
-	return contentMap[lang];
+  return contentMap[lang];
 }
 
 /**

@@ -1,19 +1,18 @@
 ---
 interface Props {
-	type: "blog" | "project";
-	title: string;
-	description: string;
-	link: string;
-	// Blog specific props
-	date?: string;
-	readTime?: string;
-	// Project specific props
-	tags?: string[];
-	imageUrl?: string;
+  type: "blog" | "project";
+  title: string;
+  description: string;
+  link: string;
+  // Blog specific props
+  date?: string;
+  readTime?: string;
+  // Project specific props
+  tags?: string[];
+  imageUrl?: string;
 }
 
-const { type, title, description, link, date, readTime, tags, imageUrl } =
-	Astro.props;
+const { type, title, description, link, date, readTime, tags, imageUrl } = Astro.props;
 ---
 
 {

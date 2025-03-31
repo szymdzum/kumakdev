@@ -1,18 +1,14 @@
 ---
-title: "Blog Collection"
-description: "How to add posts to the blog."
+title: 'Blog Collection'
+description: 'How to add posts to the blog.'
 publishDate: 2024-03-21
-category: "Tutorial"
-readTime: "4 min read"
-author: {
-  name: "Szymon Dziemak",
-  image: "/images/author.jpg",
-  fallback: "SD",
-  bio: "Software Developer"
-}
-featuredImage: "/images/blog/blog-collection.jpg"
-imageAlt: "Blog collection in Astro Micro"
-imageCaption: "Understanding blog collections in Astro Micro"
+category: 'Tutorial'
+readTime: '4 min read'
+author:
+  { name: 'Szymon Dziemak', image: '/images/author.jpg', fallback: 'SD', bio: 'Software Developer' }
+featuredImage: '/images/blog/blog-collection.jpg'
+imageAlt: 'Blog collection in Astro Micro'
+imageCaption: 'Understanding blog collections in Astro Micro'
 tags:
   - tutorial
 ---

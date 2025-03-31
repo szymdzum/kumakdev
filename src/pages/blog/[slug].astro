@@ -6,18 +6,18 @@ import RootLayout from "../../layouts/RootLayout.astro";
 
 // Generate routes for all blog posts that aren't drafts
 export async function getStaticPaths() {
-	const blogEntries = await getCollection("blog", ({ data }) => {
-		return !data.draft;
-	});
+  const blogEntries = await getCollection("blog", ({ data }) => {
+    return !data.draft;
+  });
 
-	return blogEntries.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
-	}));
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
 
 type Props = {
-	entry: CollectionEntry<"blog">;
+  entry: CollectionEntry<"blog">;
 };
 
 // Get the blog post data from the collection entry
@@ -26,17 +26,17 @@ const { Content } = await entry.render();
 
 // Format the blog post data for display
 const postData = {
-	category: entry.data.category,
-	readTime: entry.data.readTime,
-	title: entry.data.title,
-	author: entry.data.author,
-	publishDate: entry.data.publishDate,
-	featuredImage: entry.data.featuredImage,
-	imageAlt: entry.data.imageAlt,
-	imageCaption: entry.data.imageCaption,
-	tags: entry.data.tags,
-	likeCount: entry.data.likeCount,
-	commentCount: entry.data.commentCount,
+  category: entry.data.category,
+  readTime: entry.data.readTime,
+  title: entry.data.title,
+  author: entry.data.author,
+  publishDate: entry.data.publishDate,
+  featuredImage: entry.data.featuredImage,
+  imageAlt: entry.data.imageAlt,
+  imageCaption: entry.data.imageCaption,
+  tags: entry.data.tags,
+  likeCount: entry.data.likeCount,
+  commentCount: entry.data.commentCount,
 };
 ---
 

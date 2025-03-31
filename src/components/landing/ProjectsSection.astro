@@ -2,20 +2,20 @@
 import Card from "../Card.astro";
 
 interface Project {
-	title: string;
-	description: string;
-	tags: string[];
-	link: string;
-	imageUrl: string;
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  imageUrl: string;
 }
 
 interface Props {
-	projects: {
-		sectionTitle: string;
-		description: string;
-		viewAll: string;
-		items: Project[];
-	};
+  projects: {
+    sectionTitle: string;
+    description: string;
+    viewAll: string;
+    items: Project[];
+  };
 }
 
 const { projects } = Astro.props;
