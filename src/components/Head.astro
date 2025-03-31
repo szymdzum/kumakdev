@@ -103,13 +103,11 @@ const { title, description, image = "/astro-micro.jpg" } = Astro.props;
       updateThemeButtons();
     });
 
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (event) => {
-        if (localStorage.theme === "system") {
-          toggleTheme(event.matches);
-        }
-      });
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+      if (localStorage.theme === "system") {
+        toggleTheme(event.matches);
+      }
+    });
 
     document.addEventListener("scroll", onScroll);
   }
@@ -181,8 +179,8 @@ const { title, description, image = "/astro-micro.jpg" } = Astro.props;
              -ms-transition: none !important;
              transition: none !important;
           }
-        `,
-      ),
+        `
+      )
     );
 
     document.head.appendChild(css);

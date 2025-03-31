@@ -1,12 +1,12 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import Layout from "@layouts/Layout.astro";
+import BackToPrevious from "@components/BackToPrevious.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import { readingTime } from "@lib/utils";
-import BackToPrevious from "@components/BackToPrevious.astro";
 import Link from "@components/Link.astro";
 import TableOfContents from "@components/TableOfContents.astro";
+import Layout from "@layouts/Layout.astro";
+import { readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
@@ -34,11 +34,7 @@ const { Content, headings } = await render(project);
           <FormattedDate date={project.data.date} />
         </div>
         &bull;
-        {
-          project.body && (
-            <div class="font-base text-sm">{readingTime(project.body)}</div>
-          )
-        }
+        {project.body && <div class="font-base text-sm">{readingTime(project.body)}</div>}
       </div>
       <h1 class="text-3xl font-semibold text-black dark:text-white">
         {project.data.title}

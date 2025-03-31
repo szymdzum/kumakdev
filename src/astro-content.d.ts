@@ -30,12 +30,12 @@ declare module "astro:content" {
   };
 
   export function getCollection<T extends keyof typeof collections>(
-    collection: T,
+    collection: T
   ): Promise<CollectionEntry<T>[]>;
 
   export function getEntry<T extends keyof typeof collections>(
     collection: T,
-    slug: string,
+    slug: string
   ): Promise<CollectionEntry<T>>;
 
   export const collections: {

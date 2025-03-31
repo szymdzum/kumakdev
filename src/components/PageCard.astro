@@ -1,10 +1,5 @@
 ---
 import { SITE } from "@/consts";
-
-const cn = (...classes: (string | boolean | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
-
 interface MenuItem {
   label: string;
   href: string;
@@ -83,10 +78,10 @@ const initialExpanded = {
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    class={cn(
+                    class:list={[
                       "transition-transform duration-300",
-                      initialExpanded[item.label] && "rotate-180 transform",
-                    )}
+                      { "rotate-180 transform": initialExpanded[item.label] },
+                    ]}
                     data-chevron={item.label}
                   >
                     <path d="m6 9 6 6 6-6" />
@@ -103,23 +98,19 @@ const initialExpanded = {
 
               {item.subItems && (
                 <div
-                  class={cn(
+                  class:list={[
                     "overflow-hidden transition-all duration-300 ease-in-out",
-                    initialExpanded[item.label]
-                      ? "max-h-40 opacity-100"
-                      : "max-h-0 opacity-0",
-                  )}
+                    initialExpanded[item.label] ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
+                  ]}
                   data-submenu={item.label}
                 >
                   <ul class="mt-2 ml-6 space-y-2 border-l border-gray-700 pl-2">
                     {item.subItems.map((subItem, index) => (
                       <li
-                        class={cn(
+                        class:list={[
                           "transform transition-transform duration-300 ease-out",
-                          initialExpanded[item.label]
-                            ? "translate-y-0"
-                            : "-translate-y-2",
-                        )}
+                          initialExpanded[item.label] ? "translate-y-0" : "-translate-y-2",
+                        ]}
                         style={`transition-delay: ${initialExpanded[item.label] ? index * 50 : 0}ms;`}
                       >
                         <a
