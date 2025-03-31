@@ -1,6 +1,6 @@
 ---
-import Link from "@components/Link.astro";
-import { SITE, SOCIALS } from "@consts";
+import { SITE, SOCIALS } from '@/consts';
+import Link from '@components/navigation/Link.astro';
 ---
 
 <ul class="not-prose flex flex-wrap gap-2">
@@ -10,7 +10,7 @@ import { SITE, SOCIALS } from "@consts";
         <Link href={SOCIAL.HREF} external aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}>
           {SOCIAL.NAME}
         </Link>
-        {"/"}
+        {'/'}
       </li>
     ))
   }

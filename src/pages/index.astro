@@ -1,35 +1,33 @@
 ---
-import AnimatedGradientBackground from "../components/AnimatedGradientBackground.astro";
-import AnimatedText from "../components/AnimatedText.astro";
-import Card from "../components/Card.astro";
-import MobileNav from "../components/MobileNav.astro";
-import RootLayout from "../layouts/RootLayout.astro";
-import "../styles/index.css";
+import AnimatedGradientBackground from '../components/AnimatedGradientBackground.astro';
+import AnimatedText from '../components/AnimatedText.astro';
+import Card from '../components/Card.astro';
+import Header from '../components/navigation/Header.astro';
+import RootLayout from '../layouts/RootLayout.astro';
+import '../styles/index.css';
+import { getCollection } from 'astro:content';
 
 // Import content management
-import { getSiteContent } from "../lib/content";
-import type { Language } from "../lib/content";
+import { getSiteContent } from '../lib/content';
+import type { Language } from '../lib/content';
 
-const language: Language = "en";
+const language: Language = 'en';
 const content = getSiteContent(language);
+
+// Get latest 3 blog posts
+const blogPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+});
+
+// Sort by date (newest first) and take only the latest 3
+const latestPosts = blogPosts
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
 ---
 
 <RootLayout title={content.meta.title} description={content.meta.description}>
   <div class="portfolio">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-container container">
-        <a href="/" class="logo">{content.navigation.logo}</a>
-        <nav class="desktop-nav">
-          <a href="#blog" class="nav-link">{content.navigation.links.blog}</a>
-          <a href="#projects" class="nav-link">{content.navigation.links.projects}</a>
-          <a href="#about" class="nav-link">{content.navigation.links.about}</a>
-          <a href="#contact" class="nav-link">{content.navigation.links.contact}</a>
-        </nav>
-        <a href="/resume" class="resume-button desktop-only">{content.navigation.resume}</a>
-        <MobileNav />
-      </div>
-    </header>
+    <Header language={language} />
 
     <main class="main-content">
       <!-- Hero Section -->
@@ -120,14 +118,18 @@ const content = getSiteContent(language);
 
           <div class="blog-grid">
             {
-              content.blog.posts.map((post) => (
+              latestPosts.map((post) => (
                 <Card
                   type="blog"
-                  date={post.date}
-                  readTime={post.readTime}
-                  title={post.title}
-                  description={post.description}
-                  link={post.link}
+                  date={new Date(post.data.publishDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                  readTime={post.data.readTime}
+                  title={post.data.title}
+                  description={post.data.description}
+                  link={`/blog/${post.slug}`}
                 />
               ))
             }
@@ -206,12 +208,12 @@ const content = getSiteContent(language);
                 content.about.paragraphs.map((paragraph, index) => (
                   <p
                     class:list={[
-                      "reveal-item",
+                      'reveal-item',
                       index === 0
-                        ? "reveal-delay-1"
+                        ? 'reveal-delay-1'
                         : index === 1
-                          ? "reveal-delay-2"
-                          : "reveal-delay-3",
+                          ? 'reveal-delay-2'
+                          : 'reveal-delay-3',
                     ]}
                   >
                     {paragraph}
@@ -324,9 +326,9 @@ const content = getSiteContent(language);
 
 <script>
   // Add client-side language initialization
-  import { initLanguage } from "../lib/language-client";
+  import { initLanguage } from '../lib/language-client';
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     // Initialize language
     initLanguage();
   });
@@ -334,22 +336,22 @@ const content = getSiteContent(language);
   // Scroll detection for header styling
   function handleScroll() {
     if (window.scrollY > 10) {
-      document.documentElement.classList.add("scrolled");
+      document.documentElement.classList.add('scrolled');
     } else {
-      document.documentElement.classList.remove("scrolled");
+      document.documentElement.classList.remove('scrolled');
     }
   }
 
   // Reveal elements on scroll
   function handleRevealElements() {
-    const revealItems = document.querySelectorAll(".reveal-item");
+    const revealItems = document.querySelectorAll('.reveal-item');
 
     revealItems.forEach((item) => {
       const elementTop = item.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
       if (elementTop < windowHeight * 0.85) {
-        item.classList.add("visible");
+        item.classList.add('visible');
       }
     });
   }
@@ -357,10 +359,10 @@ const content = getSiteContent(language);
   // Smooth scroll function for all anchor links
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (this: HTMLAnchorElement, e: Event) {
+      anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
         e.preventDefault();
 
-        const targetId = this.getAttribute("href") || "";
+        const targetId = this.getAttribute('href') || '';
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
@@ -368,18 +370,18 @@ const content = getSiteContent(language);
 
           window.scrollTo({
             top: offsetTop - 80, // Adjust for header height
-            behavior: "smooth",
+            behavior: 'smooth',
           });
 
           // Update URL hash without scrolling
-          history.pushState(null, "", targetId);
+          history.pushState(null, '', targetId);
         }
       });
     });
   }
 
   // Initialize on load
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
     // Check initial scroll position
     handleScroll();
 
@@ -387,15 +389,15 @@ const content = getSiteContent(language);
     handleRevealElements();
 
     // Add scroll event listeners
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("scroll", handleRevealElements);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleRevealElements);
 
     // Setup smooth scrolling
     setupSmoothScroll();
   });
 
   // Handle Astro page transitions
-  document.addEventListener("astro:page-load", () => {
+  document.addEventListener('astro:page-load', () => {
     // Check initial scroll position after page transitions
     handleScroll();
 
