@@ -7,9 +7,6 @@ settings:
 importers:
   .:
     dependencies:
-      "@astrojs/check":
-        specifier: ^0.9.4
-        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2)
       "@astrojs/mdx":
         specifier: ^4.2.1
         version: 4.2.1(astro@5.5.4(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.37.0)(typescript@5.8.2)(yaml@2.7.0))
@@ -53,9 +50,15 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
     devDependencies:
+      "@astrojs/check":
+        specifier: ^0.9.4
+        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.2)
       "@astrojs/rss":
         specifier: ^4.0.11
         version: 4.0.11
+      "@astrojs/ts-plugin":
+        specifier: ^1.10.4
+        version: 1.10.4
       "@tailwindcss/typography":
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.0.15)
@@ -185,6 +188,12 @@ packages:
         integrity: sha512-wxhSKRfKugLwLlr4OFfcqovk+LIFtKwLyGPqMsv+9/ibqqnW3Gv7tBhtKEb0gAyUAC4G9BTVQeQahqnQAhd6IQ==,
       }
     engines: { node: ^18.17.1 || ^20.3.0 || >=22.0.0 }
+
+  "@astrojs/ts-plugin@1.10.4":
+    resolution:
+      {
+        integrity: sha512-rapryQINgv5VLZF884R/wmgX3mM9eH1PC/I3kkPV9rP6lEWrRN1YClF3bGcDHFrf8EtTLc0Wqxne1Uetpevozg==,
+      }
 
   "@astrojs/yaml2ts@0.2.2":
     resolution:
@@ -5251,6 +5260,16 @@ snapshots:
       which-pm-runs: 1.1.0
     transitivePeerDependencies:
       - supports-color
+
+  "@astrojs/ts-plugin@1.10.4":
+    dependencies:
+      "@astrojs/compiler": 2.11.0
+      "@astrojs/yaml2ts": 0.2.2
+      "@jridgewell/sourcemap-codec": 1.5.0
+      "@volar/language-core": 2.4.12
+      "@volar/typescript": 2.4.12
+      semver: 7.7.1
+      vscode-languageserver-textdocument: 1.0.12
 
   "@astrojs/yaml2ts@0.2.2":
     dependencies:

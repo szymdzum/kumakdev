@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import MainFooter from "../../components/MainFooter.astro";
-import Header from "../../components/navigation/Header.astro";
 import RootLayout from "../../layouts/RootLayout.astro";
 
 // Get all blog posts that aren't drafts and sort them by date
@@ -20,8 +19,6 @@ const sortedPosts = blogPosts.sort(
   description="Articles on design, development, and user experience"
 >
   <div class="min-h-screen bg-gray-950 text-gray-100">
-    <Header currentPath="/blog" />
-
     <main class="container mx-auto px-4 py-12">
       <div class="mx-auto max-w-4xl">
         <!-- Page Title -->

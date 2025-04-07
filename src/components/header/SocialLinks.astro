@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+
+// but it should accept an object of SocialLinks
+const { instaUrl } = Astro.props;
+---
+
+<div class="social">
+  <a href={instaUrl} class="instagram" aria-label="Instagram">
+    <Icon name="instagram-ico" />
+  </a>
+</div>
+
+<style>
+  .social {
+    display: flex;
+    align-items: center;
+  }
+
+  .social a {
+    border-radius: 50%;
+    width: 3ch;
+    height: 3ch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--border-sm);
+    cursor: pointer;
+    color: #fff;
+  }
+
+  .social a [data-icon] {
+    font-size: 1.2rem;
+  }
+
+  .social a:hover,
+  .social a:focus {
+    transform: translateY(-4px) translateX(-2px);
+    box-shadow: 2px 5px 0 0 black;
+  }
+
+  .social a:active {
+    transform: translateY(-2px) translateX(-1px);
+    box-shadow: 1px 3px 0 0 var(--neutral-900);
+  }
+
+  .social a.instagram {
+    background: #e4405f;
+  }
+</style>

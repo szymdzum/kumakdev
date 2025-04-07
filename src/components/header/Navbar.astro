@@ -1,0 +1,22 @@
+---
+import Brand from "./Brand.astro";
+import Menu from "./Menu.astro";
+import Header from "./Header.astro";
+import SocialLinks from "./SocialLinks.astro";
+import { getEntry } from "astro:content";
+
+const brandName = "PuttoPack";
+const menu = [
+  {
+    url: "/",
+    text: "Home",
+  },
+];
+const instaUrl = "https://www.instagram.com/puttopack";
+---
+
+<Header>
+  <Brand name={brandName} />
+  <Menu menu={menu} />
+  <SocialLinks instaUrl={instaUrl} />
+</Header>
