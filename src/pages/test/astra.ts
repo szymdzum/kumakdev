@@ -165,14 +165,16 @@ export async function getRelatedContent<T extends CollectionEntry<ContentCollect
 /**
  * Get blog posts with pagination and filtering options
  */
-export async function getBlogPosts(options: ContentOptions = {}) {
+export async function getBlogPosts(
+  options: ContentOptions = {}
+): Promise<CollectionEntry<"blog">[]> {
   return getContentItems("blog", options);
 }
 
 /**
  * Get a single blog post by slug
  */
-export async function getBlogPost(slug: string) {
+export async function getBlogPost(slug: string): Promise<CollectionEntry<"blog"> | null> {
   return getContentItem("blog", slug);
 }
 
@@ -183,20 +185,22 @@ export async function getPaginatedBlogPosts(
   page: number = 1,
   pageSize: number = 10,
   options: Omit<ContentOptions, "limit" | "skip"> = {}
-) {
+): Promise<PaginatedContent<CollectionEntry<"blog">>> {
   return getPaginatedContent("blog", page, pageSize, options);
 }
 
 /**
  * Get projects with filtering options
  */
-export async function getProjects(options: ContentOptions = {}) {
+export async function getProjects(
+  options: ContentOptions = {}
+): Promise<CollectionEntry<"projects">[]> {
   return getContentItems("projects", options);
 }
 
 /**
  * Get a single project by slug
  */
-export async function getProject(slug: string) {
+export async function getProject(slug: string): Promise<CollectionEntry<"projects"> | null> {
   return getContentItem("projects", slug);
 }

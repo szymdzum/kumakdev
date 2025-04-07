@@ -1,5 +1,6 @@
 ---
 import { getBlogPosts } from "./astra";
+import RootLayout from "@layouts/RootLayout.astro";
 
 const recentPosts = await getBlogPosts({
   limit: 3,
@@ -9,17 +10,19 @@ const recentPosts = await getBlogPosts({
 });
 ---
 
-<h1>Test</h1>
+<RootLayout title="Test Page" description="Testing the Astra content API">
+  <h1>Test</h1>
 
-<div>
-  <h2>Recent Blog Posts</h2>
-  <ul>
-    {
-      recentPosts.map((post) => (
-        <li>
-          <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+  <div>
+    <h2>Recent Blog Posts</h2>
+    <ul>
+      {
+        recentPosts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</RootLayout>
