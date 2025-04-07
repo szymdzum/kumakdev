@@ -9,57 +9,11 @@
   overflow-x: hidden;
 }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Header styles */
-.header {
-  padding: 1.5rem 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); /* Safari support */
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-}
-
 /* Make the header more opaque and compact when scrolled for better visibility */
 html.scrolled .header {
   background-color: rgba(0, 0, 0, 0.95);
   padding: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive adjustments for the header */
-@media (max-width: 767px) {
-  .header {
-    padding: 1rem;
-  }
-
-  html.scrolled .header {
-    padding: 0.75rem;
-  }
-}
-
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  text-decoration: none;
-  color: white;
 }
 
 .desktop-nav {
@@ -77,65 +31,6 @@ html.scrolled .header {
 
 .nav-link:hover {
   color: white;
-}
-
-.resume-button {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border: 1px solid rgb(55, 65, 81); /* gray-700 */
-  border-radius: 0.375rem;
-  color: rgb(209, 213, 219); /* gray-300 */
-  background-color: transparent;
-  text-decoration: none;
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.resume-button:hover {
-  color: white;
-  border-color: rgb(107, 114, 128); /* gray-500 */
-}
-
-.menu-button {
-  background: transparent;
-  border: none;
-  color: rgb(209, 213, 219); /* gray-300 */
-  cursor: pointer;
-  padding: 0.5rem;
-  font-size: 0.875rem;
-}
-
-/* Media query for desktop navigation */
-@media (min-width: 768px) {
-  .desktop-nav {
-    display: flex;
-  }
-
-  .desktop-only {
-    display: block;
-  }
-
-  .mobile-only {
-    display: none;
-  }
-}
-
-/* Media query for mobile devices */
-@media (max-width: 767px) {
-  .desktop-only {
-    display: none;
-  }
-
-  .mobile-only {
-    display: block;
-  }
-}
-
-/* Main content styles */
-.main-content {
-  padding-bottom: 4rem;
 }
 
 /* Hero section styles */

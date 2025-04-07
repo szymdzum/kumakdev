@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from 'astro:content';
 import MainFooter from '../../components/MainFooter.astro';
-import MainNavigation from '../../components/navigation/MainNavigation.astro';
+import Header from '../../components/navigation/Header.astro';
 import RootLayout from '../../layouts/RootLayout.astro';
 
 // Generate routes for all blog posts that aren't drafts
@@ -42,7 +42,7 @@ const postData = {
 
 <RootLayout title={entry.data.title} description={entry.data.description}>
   <div class="min-h-screen bg-gray-950 text-gray-100">
-    <MainNavigation currentPath="/blog" />
+    <Header currentPath="/blog" />
 
     <main class="container mx-auto px-4 py-8">
       <article class="mx-auto max-w-3xl">

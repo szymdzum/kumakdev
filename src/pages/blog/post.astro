@@ -1,6 +1,6 @@
 ---
 import MainFooter from '../../components/MainFooter.astro';
-import MainNavigation from '../../components/navigation/MainNavigation.astro';
+import Header from '../../components/navigation/Header.astro';
 import RootLayout from '../../layouts/RootLayout.astro';
 
 // Example blog post data - in a real app, this would come from a CMS or data fetching
@@ -30,7 +30,7 @@ const examplePost = {
   description="Exploring the principles and practices of minimalist design in the digital age."
 >
   <div class="min-h-screen bg-gray-950 text-gray-100">
-    <MainNavigation currentPath="/blog" />
+    <Header currentPath="/blog" />
 
     <main class="container mx-auto px-4 py-8">
       <article class="mx-auto max-w-3xl">

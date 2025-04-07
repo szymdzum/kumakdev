@@ -160,38 +160,38 @@
 </style>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const mobileNavToggle = document.getElementById("mobile-nav-toggle");
-    const mobileNavClose = document.getElementById("mobile-nav-close");
-    const mobileNavPanel = document.getElementById("mobile-nav-panel");
-    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+  document.addEventListener('astro:page-load', () => {
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
+    const mobileNavPanel = document.getElementById('mobile-nav-panel');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
     if (!mobileNavToggle || !mobileNavClose || !mobileNavPanel) return;
 
     // Open mobile navigation
-    mobileNavToggle.addEventListener("click", () => {
-      mobileNavPanel.classList.add("open");
-      document.body.style.overflow = "hidden"; // Prevent scrolling when nav is open
+    mobileNavToggle.addEventListener('click', () => {
+      mobileNavPanel.classList.add('open');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling when nav is open
     });
 
     // Close mobile navigation
     const closeNav = () => {
-      mobileNavPanel.classList.remove("open");
-      document.body.style.overflow = ""; // Restore scrolling
+      mobileNavPanel.classList.remove('open');
+      document.body.style.overflow = ''; // Restore scrolling
     };
 
-    mobileNavClose.addEventListener("click", closeNav);
+    mobileNavClose.addEventListener('click', closeNav);
 
     // Close nav when clicking on a link
     mobileNavLinks.forEach((link) => {
-      link.addEventListener("click", closeNav);
+      link.addEventListener('click', closeNav);
     });
 
     // Close nav when clicking outside
-    document.addEventListener("click", (event) => {
+    document.addEventListener('click', (event) => {
       const target = event.target as Node;
       if (
-        mobileNavPanel.classList.contains("open") &&
+        mobileNavPanel.classList.contains('open') &&
         !mobileNavPanel.contains(target) &&
         target !== mobileNavToggle
       ) {

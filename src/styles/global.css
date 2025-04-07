@@ -1,18 +1,5 @@
-@import "./reset.css";
-@import "./variables.css";
-@import "./utilities.css";
-@import "./primitives.css";
-@import "./design-system.css";
-@import "./vanilla.css";
+@import './reset.css';
+@import './primitives.css';
 
-@import "tailwindcss/preflight";
+@import 'tailwindcss/preflight';
 @tailwind utilities;
-
-@layer base {
-	* {
-		@apply border-[var(--color-border)];
-	}
-	body {
-		@apply bg-[var(--color-background)] text-[var(--color-text)];
-	}
-}
