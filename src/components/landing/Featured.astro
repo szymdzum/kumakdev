@@ -1,0 +1,82 @@
+---
+import Card from "../Card.astro";
+
+interface BlogPost {
+  date: string;
+  readTime: string;
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface Props {
+  blog: {
+    sectionTitle: string;
+    description: string;
+    viewAll: string;
+    posts: BlogPost[];
+  };
+}
+
+const { blog } = Astro.props;
+---
+
+<!-- Featured Blog Posts -->
+<section aria-labelledby="blog-section-title">
+  <header>
+    <h2>{blog.sectionTitle}</h2>
+    <p>{blog.description}</p>
+    <a href="/blog">{blog.viewAll}</a>
+  </header>
+
+  <div class="blog-grid">
+    {
+      blog.posts.map((post) => (
+        <Card
+          date={post.date}
+          readTime={post.readTime}
+          title={post.title}
+          description={post.description}
+          link={post.link}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  section {
+    padding: 4rem 0;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 0 0 1rem 0;
+    max-width: 800px;
+  }
+
+  a {
+    display: inline-block;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>

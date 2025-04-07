@@ -1,119 +1,35 @@
 ---
 // Import global stylesheets
-import '../styles/global.css';
+import "../styles/global.css";
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 // Import Geist fonts that are already in the package.json
-import '@fontsource/geist-sans/400.css';
-import '@fontsource/geist-sans/500.css';
-import '@fontsource/geist-sans/600.css';
-import '@fontsource/geist-sans/700.css';
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "@fontsource/geist-sans/700.css";
 
 interface Props {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
 }
 
-const {
-  title = 'Jane Doe | Designer & Developer',
-  description = 'Personal portfolio and blog showcasing design work, development projects, and articles on accessibility and user experience.',
-} = Astro.props;
+const { title, description } = Astro.props;
 
 // Generate canonical URL
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <!-- Global Metadata -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
-
-    <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-
-    <style>
-      /* Custom CSS that replaces Tailwind classes */
-      body {
-        font-family: 'Geist Sans', sans-serif;
-        background-color: black;
-        color: white;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-      }
-
-      /* Light theme styles */
-      html:not(.dark) body {
-        background-color: white;
-        color: black;
-      }
-    </style>
-  </head>
+<html lang="en">
+  <Head title={title} description={description} />
   <body>
-    <slot />
-
-    <script is:inline>
-      // Preload theme from localStorage or system preference
-      function preloadTheme() {
-        const userTheme = localStorage.getItem('theme');
-
-        if (userTheme === 'light' || userTheme === 'dark') {
-          toggleTheme(userTheme === 'dark');
-        } else {
-          // Use system preference as default
-          toggleTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        }
-      }
-
-      // Toggle theme function
-      function toggleTheme(dark) {
-        // Add transition blocking style to prevent flicker
-        const css = document.createElement('style');
-        css.appendChild(
-          document.createTextNode(
-            `* {
-              -webkit-transition: none !important;
-              -moz-transition: none !important;
-              -o-transition: none !important;
-              -ms-transition: none !important;
-              transition: none !important;
-            }`
-          )
-        );
-        document.head.appendChild(css);
-
-        // Apply theme
-        if (dark) {
-          document.documentElement.classList.add('dark');
-          document.documentElement.style.colorScheme = 'dark';
-        } else {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.style.colorScheme = 'light';
-        }
-
-        // Force reflow and remove transition blocking
-        window.getComputedStyle(css).opacity;
-        document.head.removeChild(css);
-      }
-
-      // Initialize theme
-      preloadTheme();
-
-      // Listen for system theme changes if using system theme
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-        if (localStorage.getItem('theme') === 'system' || !localStorage.getItem('theme')) {
-          toggleTheme(event.matches);
-        }
-      });
-    </script>
+    <Header siteTitle={title} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

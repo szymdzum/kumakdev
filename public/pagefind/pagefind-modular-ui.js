@@ -60,7 +60,7 @@
       if (e.inputElement) {
         if (e.containerElement) {
           console.warn(
-            '[Pagefind Input component]: inputElement and containerElement both supplied. Ignoring the container option.'
+            "[Pagefind Input component]: inputElement and containerElement both supplied. Ignoring the container option."
           );
           return;
         }
@@ -68,27 +68,27 @@
       } else if (e.containerElement) this.initContainer(e.containerElement);
       else {
         console.error(
-          '[Pagefind Input component]: No selector supplied for containerElement or inputElement'
+          "[Pagefind Input component]: No selector supplied for containerElement or inputElement"
         );
         return;
       }
-      this.inputEl.addEventListener('input', async (t) => {
-        if (this.instance && typeof t?.target?.value === 'string') {
+      this.inputEl.addEventListener("input", async (t) => {
+        if (this.instance && typeof t?.target?.value === "string") {
           this.updateState(t.target.value);
           const s = ++this.searchID;
           if ((await T(this.debounceTimeoutMs), s !== this.searchID)) return null;
           this.instance?.triggerSearch(t.target.value);
         }
       }),
-        this.inputEl.addEventListener('keydown', (t) => {
-          t.key === 'Escape' &&
+        this.inputEl.addEventListener("keydown", (t) => {
+          t.key === "Escape" &&
             (++this.searchID,
-            (this.inputEl.value = ''),
-            this.instance?.triggerSearch(''),
-            this.updateState('')),
-            t.key === 'Enter' && t.preventDefault();
+            (this.inputEl.value = ""),
+            this.instance?.triggerSearch(""),
+            this.updateState("")),
+            t.key === "Enter" && t.preventDefault();
         }),
-        this.inputEl.addEventListener('focus', () => {
+        this.inputEl.addEventListener("focus", () => {
           this.instance?.triggerLoad();
         });
     }
@@ -98,38 +98,38 @@
         console.error(`[Pagefind Input component]: No container found for ${e} selector`);
         return;
       }
-      if (t.tagName === 'INPUT')
+      if (t.tagName === "INPUT")
         console.warn(
           `[Pagefind Input component]: Encountered input element for ${e} when a container was expected`
         ),
           console.warn(
-            '[Pagefind Input component]: Treating containerElement option as inputElement and proceeding'
+            "[Pagefind Input component]: Treating containerElement option as inputElement and proceeding"
           ),
           this.initExisting(e);
       else {
-        t.innerHTML = '';
+        t.innerHTML = "";
         let s = 0;
         while (document.querySelector(`#pfmod-input-${s}`)) s += 1;
-        const n = new r('form').class('pagefind-modular-input-wrapper').attrs({
-          role: 'search',
-          'aria-label': 'Search this site',
-          action: 'javascript:void(0);',
+        const n = new r("form").class("pagefind-modular-input-wrapper").attrs({
+          role: "search",
+          "aria-label": "Search this site",
+          action: "javascript:void(0);",
         });
-        new r('label')
-          .attrs({ for: `pfmod-input-${s}`, 'data-pfmod-sr-hidden': 'true' })
-          .text('Search this site')
+        new r("label")
+          .attrs({ for: `pfmod-input-${s}`, "data-pfmod-sr-hidden": "true" })
+          .text("Search this site")
           .addTo(n),
-          (this.inputEl = new r('input')
+          (this.inputEl = new r("input")
             .id(`pfmod-input-${s}`)
-            .class('pagefind-modular-input')
-            .attrs({ autocapitalize: 'none', enterkeyhint: 'search' })
+            .class("pagefind-modular-input")
+            .attrs({ autocapitalize: "none", enterkeyhint: "search" })
             .addTo(n)),
-          (this.clearEl = new r('button')
-            .class('pagefind-modular-input-clear')
-            .attrs({ 'data-pfmod-suppressed': 'true' })
-            .text('Clear')
-            .handle('click', () => {
-              (this.inputEl.value = ''), this.instance.triggerSearch(''), this.updateState('');
+          (this.clearEl = new r("button")
+            .class("pagefind-modular-input-clear")
+            .attrs({ "data-pfmod-suppressed": "true" })
+            .text("Clear")
+            .handle("click", () => {
+              (this.inputEl.value = ""), this.instance.triggerSearch(""), this.updateState("");
             })
             .addTo(n)),
           n.addTo(t);
@@ -141,7 +141,7 @@
         console.error(`[Pagefind Input component]: No input element found for ${e} selector`);
         return;
       }
-      if (t.tagName !== 'INPUT') {
+      if (t.tagName !== "INPUT") {
         console.error(`[Pagefind Input component]: Expected ${e} to be an <input> element`);
         return;
       }
@@ -150,12 +150,12 @@
     updateState(e) {
       this.clearEl &&
         (e?.length
-          ? this.clearEl.removeAttribute('data-pfmod-suppressed')
-          : this.clearEl.setAttribute('data-pfmod-suppressed', 'true'));
+          ? this.clearEl.removeAttribute("data-pfmod-suppressed")
+          : this.clearEl.setAttribute("data-pfmod-suppressed", "true"));
     }
     register(e) {
       (this.instance = e),
-        this.instance.on('search', (t, s) => {
+        this.instance.on("search", (t, s) => {
           this.inputEl &&
             document.activeElement !== this.inputEl &&
             ((this.inputEl.value = t), this.updateState(t));
@@ -168,8 +168,8 @@
   const g = (i) => {
     if (i instanceof Element) return [i];
     if (Array.isArray(i) && i.every((e) => e instanceof Element)) return i;
-    if (typeof i === 'string' || i instanceof String) {
-      const e = document.createElement('div');
+    if (typeof i === "string" || i instanceof String) {
+      const e = document.createElement("div");
       return (e.innerHTML = i), [...e.childNodes];
     }
     return (
@@ -180,7 +180,7 @@
     );
   };
   const v = () => {
-    const i = (e = 30) => '. '.repeat(Math.floor(10 + Math.random() * e));
+    const i = (e = 30) => ". ".repeat(Math.floor(10 + Math.random() * e));
     return `<li class="pagefind-modular-list-result">
     <div class="pagefind-modular-list-thumb" data-pfmod-loading></div>
     <div class="pagefind-modular-list-inner">
@@ -190,29 +190,29 @@
 </li>`;
   };
   const y = (i) => {
-    const e = new r('li').class('pagefind-modular-list-result');
-    const t = new r('div').class('pagefind-modular-list-thumb').addTo(e);
+    const e = new r("li").class("pagefind-modular-list-result");
+    const t = new r("div").class("pagefind-modular-list-thumb").addTo(e);
     i?.meta?.image &&
-      new r('img')
-        .class('pagefind-modular-list-image')
+      new r("img")
+        .class("pagefind-modular-list-image")
         .attrs({ src: i.meta.image, alt: i.meta.image_alt || i.meta.title })
         .addTo(t);
-    const s = new r('div').class('pagefind-modular-list-inner').addTo(e);
-    const n = new r('p').class('pagefind-modular-list-title').addTo(s);
+    const s = new r("div").class("pagefind-modular-list-inner").addTo(e);
+    const n = new r("p").class("pagefind-modular-list-title").addTo(s);
     return (
-      new r('a')
-        .class('pagefind-modular-list-link')
+      new r("a")
+        .class("pagefind-modular-list-link")
         .text(i.meta?.title)
         .attrs({ href: i.meta?.url || i.url })
         .addTo(n),
-      new r('p').class('pagefind-modular-list-excerpt').html(i.excerpt).addTo(s),
+      new r("p").class("pagefind-modular-list-excerpt").html(i.excerpt).addTo(s),
       e.element
     );
   };
   const E = (i) => {
     if (!(i instanceof HTMLElement)) return null;
     const e = window.getComputedStyle(i).overflowY;
-    return e !== 'visible' && e !== 'hidden' ? i : E(i.parentNode);
+    return e !== "visible" && e !== "hidden" ? i : E(i.parentNode);
   };
   const d = class {
     constructor(e = {}) {
@@ -227,7 +227,7 @@
       if (!this.placeholderNodes?.length) return;
       const e = {
         root: this.intersectionEl,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 0.01,
       };
       new IntersectionObserver((s, n) => {
@@ -255,7 +255,7 @@
       )
         this.initContainer(e.containerElement);
       else {
-        console.error('[Pagefind ResultList component]: No selector supplied for containerElement');
+        console.error("[Pagefind ResultList component]: No selector supplied for containerElement");
         return;
       }
     }
@@ -271,9 +271,9 @@
       for (const t of e) this.containerEl.appendChild(t);
     }
     register(e) {
-      e.on('results', (t) => {
+      e.on("results", (t) => {
         this.containerEl &&
-          ((this.containerEl.innerHTML = ''),
+          ((this.containerEl.innerHTML = ""),
           (this.intersectionEl = E(this.containerEl)),
           (this.results = t.results.map((s) => {
             const n = g(this.placeholderTemplate());
@@ -288,8 +288,8 @@
             );
           })));
       }),
-        e.on('loading', () => {
-          this.containerEl && (this.containerEl.innerHTML = '');
+        e.on("loading", () => {
+          this.containerEl && (this.containerEl.innerHTML = "");
         });
     }
   };
@@ -297,13 +297,13 @@
     constructor(e = {}) {
       if (
         ((this.containerEl = null),
-        (this.defaultMessage = e.defaultMessage ?? ''),
-        (this.term = ''),
+        (this.defaultMessage = e.defaultMessage ?? ""),
+        (this.term = ""),
         e.containerElement)
       )
         this.initContainer(e.containerElement);
       else {
-        console.error('[Pagefind Summary component]: No selector supplied for containerElement');
+        console.error("[Pagefind Summary component]: No selector supplied for containerElement");
         return;
       }
     }
@@ -316,19 +316,19 @@
       (this.containerEl = t), (this.containerEl.innerText = this.defaultMessage);
     }
     register(e) {
-      e.on('search', (t, s) => {
+      e.on("search", (t, s) => {
         this.term = t;
       }),
-        e.on('results', (t) => {
+        e.on("results", (t) => {
           if (!this.containerEl || !t) return;
           if (!this.term) {
             this.containerEl.innerText = this.defaultMessage;
             return;
           }
           const s = t?.results?.length ?? 0;
-          this.containerEl.innerText = `${s} result${s === 1 ? '' : 's'} for ${this.term}`;
+          this.containerEl.innerText = `${s} result${s === 1 ? "" : "s"} for ${this.term}`;
         }),
-        e.on('loading', () => {
+        e.on("loading", () => {
           this.containerEl && (this.containerEl.innerText = `Searching for ${this.term}...`);
         });
     }
@@ -340,9 +340,9 @@
         (this.wrapper = null),
         (this.pillContainer = null),
         (this.available = {}),
-        (this.selected = ['All']),
+        (this.selected = ["All"]),
         (this.total = 0),
-        (this.filterMemo = ''),
+        (this.filterMemo = ""),
         (this.filter = e.filter),
         (this.ordering = e.ordering ?? null),
         (this.alwaysShow = e.alwaysShow ?? !1),
@@ -350,14 +350,14 @@
         !this.filter?.length)
       ) {
         console.error(
-          '[Pagefind FilterPills component]: No filter option supplied, nothing to display'
+          "[Pagefind FilterPills component]: No filter option supplied, nothing to display"
         );
         return;
       }
       if (e.containerElement) this.initContainer(e.containerElement);
       else {
         console.error(
-          '[Pagefind FilterPills component]: No selector supplied for containerElement'
+          "[Pagefind FilterPills component]: No selector supplied for containerElement"
         );
         return;
       }
@@ -368,27 +368,27 @@
         console.error(`[Pagefind FilterPills component]: No container found for ${e} selector`);
         return;
       }
-      t.innerHTML = '';
+      t.innerHTML = "";
       const s = `pagefind_modular_filter_pills_${this.filter}`;
-      const n = new r('div')
-        .class('pagefind-modular-filter-pills-wrapper')
-        .attrs({ role: 'group', 'aria-labelledby': s });
-      this.alwaysShow || n.attrs({ 'data-pfmod-hidden': !0 }),
-        new r('div')
+      const n = new r("div")
+        .class("pagefind-modular-filter-pills-wrapper")
+        .attrs({ role: "group", "aria-labelledby": s });
+      this.alwaysShow || n.attrs({ "data-pfmod-hidden": !0 }),
+        new r("div")
           .id(s)
-          .class('pagefind-modular-filter-pills-label')
-          .attrs({ 'data-pfmod-sr-hidden': !0 })
+          .class("pagefind-modular-filter-pills-label")
+          .attrs({ "data-pfmod-sr-hidden": !0 })
           .text(`Filter results by ${this.filter}`)
           .addTo(n),
-        (this.pillContainer = new r('div').class('pagefind-modular-filter-pills').addTo(n)),
+        (this.pillContainer = new r("div").class("pagefind-modular-filter-pills").addTo(n)),
         (this.wrapper = n.addTo(t));
     }
     update() {
-      const e = this.available.map((t) => t[0]).join('~');
+      const e = this.available.map((t) => t[0]).join("~");
       e === this.filterMemo ? this.updateExisting() : (this.renderNew(), (this.filterMemo = e));
     }
     pushFilters() {
-      const e = this.selected.filter((t) => t !== 'All');
+      const e = this.selected.filter((t) => t !== "All");
       this.instance.triggerFilter(this.filter, e);
     }
     pillInner(e, t) {
@@ -398,13 +398,13 @@
     }
     renderNew() {
       this.available.forEach(([e, t]) => {
-        new r('button')
-          .class('pagefind-modular-filter-pill')
+        new r("button")
+          .class("pagefind-modular-filter-pill")
           .html(this.pillInner(e, t))
-          .attrs({ 'aria-pressed': this.selected.includes(e), type: 'button' })
-          .handle('click', () => {
-            e === 'All'
-              ? (this.selected = ['All'])
+          .attrs({ "aria-pressed": this.selected.includes(e), type: "button" })
+          .handle("click", () => {
+            e === "All"
+              ? (this.selected = ["All"])
               : this.selected.includes(e)
                 ? (this.selected = this.selected.filter((s) => s !== e))
                 : this.selectMultiple
@@ -412,8 +412,8 @@
                   : (this.selected = [e]),
               this.selected?.length
                 ? this.selected?.length > 1 &&
-                  (this.selected = this.selected.filter((s) => s !== 'All'))
-                : (this.selected = ['All']),
+                  (this.selected = this.selected.filter((s) => s !== "All"))
+                : (this.selected = ["All"]),
               this.update(),
               this.pushFilters();
           })
@@ -424,12 +424,12 @@
       const e = [...this.pillContainer.childNodes];
       this.available.forEach(([t, s], n) => {
         (e[n].innerHTML = this.pillInner(t, s)),
-          e[n].setAttribute('aria-pressed', this.selected.includes(t));
+          e[n].setAttribute("aria-pressed", this.selected.includes(t));
       });
     }
     register(e) {
       (this.instance = e),
-        this.instance.on('filters', (t) => {
+        this.instance.on("filters", (t) => {
           if (!this.pillContainer) return;
           this.selectMultiple ? (t = t.available) : (t = t.total);
           const s = t[this.filter];
@@ -447,16 +447,16 @@
                   return (m === -1 ? 1 / 0 : m) - (_ === -1 ? 1 / 0 : _);
                 })
               : this.available.sort((n, c) => n[0].localeCompare(c[0])),
-            this.available.unshift(['All', this.total]),
+            this.available.unshift(["All", this.total]),
             this.update();
         }),
-        e.on('results', (t) => {
+        e.on("results", (t) => {
           this.pillContainer &&
             ((this.total = t?.unfilteredResultCount || 0),
-            this.available?.[0]?.[0] === 'All' && (this.available[0][1] = this.total),
+            this.available?.[0]?.[0] === "All" && (this.available[0][1] = this.total),
             this.total || this.alwaysShow
-              ? this.wrapper.removeAttribute('data-pfmod-hidden')
-              : this.wrapper.setAttribute('data-pfmod-hidden', 'true'),
+              ? this.wrapper.removeAttribute("data-pfmod-hidden")
+              : this.wrapper.setAttribute("data-pfmod-hidden", "true"),
             this.update());
         });
     }
@@ -468,7 +468,7 @@
       /^(.*\/)(?:pagefind-)?modular-ui.js.*$/
     )[1];
   } catch {
-    u = '/pagefind/';
+    u = "/pagefind/";
   }
   const p = class {
     constructor(e = {}) {
@@ -482,7 +482,7 @@
           results: [],
         }),
         (this.components = []),
-        (this.searchTerm = ''),
+        (this.searchTerm = ""),
         (this.searchFilters = {}),
         (this.searchResult = {}),
         (this.availableFilters = null),
@@ -505,11 +505,11 @@
     }
     on(e, t) {
       if (!this.__hooks__[e]) {
-        const s = Object.keys(this.__hooks__).join(', ');
+        const s = Object.keys(this.__hooks__).join(", ");
         console.error(`[Pagefind Composable]: Unknown event type ${e}. Supported events: [${s}]`);
         return;
       }
-      if (typeof t !== 'function') {
+      if (typeof t !== "function") {
         console.error(
           `[Pagefind Composable]: Expected callback to be a function, received ${typeof t}`
         );
@@ -522,40 +522,40 @@
     }
     triggerSearch(e) {
       (this.searchTerm = e),
-        this.__dispatch__('search', e, this.searchFilters),
+        this.__dispatch__("search", e, this.searchFilters),
         this.__search__(e, this.searchFilters);
     }
     triggerSearchWithFilters(e, t) {
       (this.searchTerm = e),
         (this.searchFilters = t),
-        this.__dispatch__('search', e, t),
+        this.__dispatch__("search", e, t),
         this.__search__(e, t);
     }
     triggerFilters(e) {
       (this.searchFilters = e),
-        this.__dispatch__('search', this.searchTerm, e),
+        this.__dispatch__("search", this.searchTerm, e),
         this.__search__(this.searchTerm, e);
     }
     triggerFilter(e, t) {
       (this.searchFilters = this.searchFilters || {}),
         (this.searchFilters[e] = t),
-        this.__dispatch__('search', this.searchTerm, this.searchFilters),
+        this.__dispatch__("search", this.searchTerm, this.searchFilters),
         this.__search__(this.searchTerm, this.searchFilters);
     }
     __dispatch__(e, ...t) {
       this.__hooks__[e]?.forEach((s) => s?.(...t));
     }
     async __clear__() {
-      this.__dispatch__('results', { results: [], unfilteredTotalCount: 0 }),
+      this.__dispatch__("results", { results: [], unfilteredTotalCount: 0 }),
         (this.availableFilters = await this.__pagefind__.filters()),
         (this.totalFilters = this.availableFilters),
-        this.__dispatch__('filters', {
+        this.__dispatch__("filters", {
           available: this.availableFilters,
           total: this.totalFilters,
         });
     }
     async __search__(e, t) {
-      this.__dispatch__('loading'), await this.__load__();
+      this.__dispatch__("loading"), await this.__load__();
       const s = ++this.__searchID__;
       if (!e || !e.length) return this.__clear__();
       const n = await this.__pagefind__.search(e, { filters: t });
@@ -565,12 +565,12 @@
           Object.keys(n.filters)?.length &&
           ((this.availableFilters = n.filters),
           (this.totalFilters = n.totalFilters),
-          this.__dispatch__('filters', {
+          this.__dispatch__("filters", {
             available: this.availableFilters,
             total: this.totalFilters,
           })),
         (this.searchResult = n),
-        this.__dispatch__('results', this.searchResult));
+        this.__dispatch__("results", this.searchResult));
     }
     async __load__() {
       if (this.__initializing__) {
@@ -586,15 +586,15 @@
             console.error(
               [
                 `Pagefind couldn't be loaded from ${this.options.bundlePath}pagefind.js`,
-                'You can configure this by passing a bundlePath option to PagefindComposable Instance',
-                `[DEBUG: Loaded from ${document?.currentScript?.src ?? 'no known script location'}]`,
+                "You can configure this by passing a bundlePath option to PagefindComposable Instance",
+                `[DEBUG: Loaded from ${document?.currentScript?.src ?? "no known script location"}]`,
               ].join(`
 `)
             );
         }
         await e.options(this.pagefindOptions || {});
         for (const t of this.options.mergeIndex) {
-          if (!t.bundlePath) throw new Error('mergeIndex requires a bundlePath parameter');
+          if (!t.bundlePath) throw new Error("mergeIndex requires a bundlePath parameter");
           const s = t.bundlePath;
           (t.bundlePath = undefined), await e.mergeIndex(s, t);
         }
@@ -602,7 +602,7 @@
       }
       (this.availableFilters = await this.__pagefind__.filters()),
         (this.totalFilters = this.availableFilters),
-        this.__dispatch__('filters', {
+        this.__dispatch__("filters", {
           available: this.availableFilters,
           total: this.totalFilters,
         });

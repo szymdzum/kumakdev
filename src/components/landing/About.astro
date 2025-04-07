@@ -1,0 +1,26 @@
+---
+interface Props {
+  about: {
+    sectionTitle: string;
+    profileImage: string;
+    imageAlt: string;
+    paragraphs: string[];
+    moreButton: string;
+  };
+}
+
+const { about } = Astro.props;
+---
+
+<!-- About Section -->
+<section id="about" class="about-section">
+  <div class="container">
+    <h2 class="section-title">{about.sectionTitle}</h2>
+
+    <div class="about-content">
+      <div class="profile-image reveal-item">
+        <img src={about.profileImage} alt={about.imageAlt} />
+      </div>
+    </div>
+  </div>
+</section>

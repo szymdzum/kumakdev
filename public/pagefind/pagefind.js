@@ -1,10 +1,10 @@
-const pagefind_version = '1.1.0';
+const pagefind_version = "1.1.0";
 let wasm_bindgen;
 (() => {
   const __exports = {};
   let script_src;
-  if (typeof document !== 'undefined' && document.currentScript !== null) {
-    script_src = new URL('UNHANDLED', location.href).toString();
+  if (typeof document !== "undefined" && document.currentScript !== null) {
+    script_src = new URL("UNHANDLED", location.href).toString();
   }
   let wasm = undefined;
   let cachedUint8Memory0 = null;
@@ -28,15 +28,15 @@ let wasm_bindgen;
     return ret >>> 0;
   };
   const cachedTextEncoder =
-    typeof TextEncoder !== 'undefined'
-      ? new TextEncoder('utf-8')
+    typeof TextEncoder !== "undefined"
+      ? new TextEncoder("utf-8")
       : {
           encode: () => {
-            throw Error('TextEncoder not available');
+            throw Error("TextEncoder not available");
           },
         };
   const encodeString =
-    typeof cachedTextEncoder.encodeInto === 'function'
+    typeof cachedTextEncoder.encodeInto === "function"
       ? (arg, view) => cachedTextEncoder.encodeInto(arg, view)
       : (arg, view) => {
           const buf = cachedTextEncoder.encode(arg);
@@ -107,14 +107,14 @@ let wasm_bindgen;
     return cachedInt32Memory0;
   }
   const cachedTextDecoder =
-    typeof TextDecoder !== 'undefined'
-      ? new TextDecoder('utf-8', { ignoreBOM: true, fatal: true })
+    typeof TextDecoder !== "undefined"
+      ? new TextDecoder("utf-8", { ignoreBOM: true, fatal: true })
       : {
           decode: () => {
-            throw Error('TextDecoder not available');
+            throw Error("TextDecoder not available");
           },
         };
-  if (typeof TextDecoder !== 'undefined') {
+  if (typeof TextDecoder !== "undefined") {
     cachedTextDecoder.decode();
   }
   function getStringFromWasm0(ptr, len) {
@@ -212,14 +212,14 @@ let wasm_bindgen;
     }
   };
   async function __wbg_load(module, imports) {
-    if (typeof Response === 'function' && module instanceof Response) {
-      if (typeof WebAssembly.instantiateStreaming === 'function') {
+    if (typeof Response === "function" && module instanceof Response) {
+      if (typeof WebAssembly.instantiateStreaming === "function") {
         try {
           return await WebAssembly.instantiateStreaming(module, imports);
         } catch (e) {
-          if (module.headers.get('Content-Type') !== 'application/wasm') {
+          if (module.headers.get("Content-Type") !== "application/wasm") {
             console.warn(
-              '`WebAssembly.instantiateStreaming` failed because your server does not serve wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n',
+              "`WebAssembly.instantiateStreaming` failed because your server does not serve wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n",
               e
             );
           } else {
@@ -261,14 +261,14 @@ let wasm_bindgen;
   }
   async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
-    if (typeof input === 'undefined' && typeof script_src !== 'undefined') {
-      input = script_src.replace(/\.js$/, '_bg.wasm');
+    if (typeof input === "undefined" && typeof script_src !== "undefined") {
+      input = script_src.replace(/\.js$/, "_bg.wasm");
     }
     const imports = __wbg_get_imports();
     if (
-      typeof input === 'string' ||
-      (typeof Request === 'function' && input instanceof Request) ||
-      (typeof URL === 'function' && input instanceof URL)
+      typeof input === "string" ||
+      (typeof Request === "function" && input instanceof Request) ||
+      (typeof URL === "function" && input instanceof URL)
     ) {
       input = fetch(input);
     }
@@ -391,20 +391,20 @@ const slc = (v, s, e) => {
   return n;
 };
 const ec = [
-  'unexpected EOF',
-  'invalid block type',
-  'invalid length/literal',
-  'invalid distance',
-  'stream finished',
-  'no stream handler',
+  "unexpected EOF",
+  "invalid block type",
+  "invalid length/literal",
+  "invalid distance",
+  "stream finished",
+  "no stream handler",
   undefined,
-  'no callback',
-  'invalid UTF-8 data',
-  'extra field too long',
-  'date not in range 1980-2099',
-  'filename too long',
-  'stream finishing',
-  'invalid zip data',
+  "no callback",
+  "invalid UTF-8 data",
+  "extra field too long",
+  "date not in range 1980-2099",
+  "filename too long",
+  "stream finishing",
+  "invalid zip data",
 ];
 const err = (ind, msg, nt) => {
   const e = new Error(msg || ec[ind]);
@@ -552,7 +552,7 @@ const inflt = (dat, buf, st) => {
 };
 const et = new u8(0);
 const gzs = (d) => {
-  if (d[0] !== 31 || d[1] !== 139 || d[2] !== 8) err(6, 'invalid gzip data');
+  if (d[0] !== 31 || d[1] !== 139 || d[2] !== 8) err(6, "invalid gzip data");
   const flg = d[3];
   let st = 10;
   if (flg & 4) st += d[10] | ((d[11] << 8) + 2);
@@ -566,7 +566,7 @@ const gzl = (d) => {
 function gunzipSync(data, out) {
   return inflt(data.subarray(gzs(data), -8), out || new u8(gzl(data)));
 }
-const td = typeof TextDecoder !== 'undefined' && new TextDecoder();
+const td = typeof TextDecoder !== "undefined" && new TextDecoder();
 let tds = 0;
 try {
   td.decode(et, { stream: true });
@@ -602,15 +602,15 @@ const calculate_excerpt_region = (word_positions, excerpt_length) => {
   return midpoint;
 };
 const build_excerpt = (content, start, length, locations, not_before, not_from) => {
-  const is_zws_delimited = content.includes('\u200B');
+  const is_zws_delimited = content.includes("\u200B");
   let fragment_words = [];
   if (is_zws_delimited) {
-    fragment_words = content.split('\u200B');
+    fragment_words = content.split("\u200B");
   } else {
     fragment_words = content.split(/[\r\n\s]+/g);
   }
   for (const word of locations) {
-    if (fragment_words[word]?.startsWith('<mark>')) {
+    if (fragment_words[word]?.startsWith("<mark>")) {
       continue;
     }
     fragment_words[word] = `<mark>${fragment_words[word]}</mark>`;
@@ -628,7 +628,7 @@ const build_excerpt = (content, start, length, locations, not_before, not_from) 
   }
   return fragment_words
     .slice(start, start + length)
-    .join(is_zws_delimited ? '' : ' ')
+    .join(is_zws_delimited ? "" : " ")
     .trim();
 };
 const calculate_sub_results = (fragment, desired_excerpt_length) => {
@@ -642,7 +642,7 @@ const calculate_sub_results = (fragment, desired_excerpt_length) => {
     url: fragment.url,
     weighted_locations: [],
     locations: [],
-    excerpt: '',
+    excerpt: "",
   };
   const add_result = (end_range) => {
     if (current_anchor.locations.length) {
@@ -660,7 +660,7 @@ const calculate_sub_results = (fragment, desired_excerpt_length) => {
         ? Math.min(end_range - excerpt_start, desired_excerpt_length)
         : desired_excerpt_length;
       current_anchor.excerpt = build_excerpt(
-        fragment.raw_content ?? '',
+        fragment.raw_content ?? "",
         excerpt_start,
         excerpt_length,
         current_anchor.locations,
@@ -693,7 +693,7 @@ const calculate_sub_results = (fragment, desired_excerpt_length) => {
           }
           const fq_url = new URL(`https://example.com${anchored_url}`);
           fq_url.hash = next_anchor.id;
-          anchored_url = fq_url.toString().replace(/^https:\/\/example.com/, '');
+          anchored_url = fq_url.toString().replace(/^https:\/\/example.com/, "");
         }
       } catch (e) {
         console.error(`Pagefind: Couldn't process ${anchored_url} for a search result`);
@@ -705,7 +705,7 @@ const calculate_sub_results = (fragment, desired_excerpt_length) => {
         anchor: next_anchor,
         weighted_locations: [word],
         locations: [word.location],
-        excerpt: '',
+        excerpt: "",
       };
     }
   }
@@ -719,9 +719,9 @@ const PagefindInstance = class {
   constructor(opts = {}) {
     this.version = pagefind_version;
     this.backend = wasm_bindgen;
-    this.decoder = new TextDecoder('utf-8');
+    this.decoder = new TextDecoder("utf-8");
     this.wasm = null;
-    this.basePath = opts.basePath || '/pagefind/';
+    this.basePath = opts.basePath || "/pagefind/";
     this.primary = opts.primary || false;
     if (this.primary && !opts.basePath) {
       this.initPrimary();
@@ -730,7 +730,7 @@ const PagefindInstance = class {
       this.basePath = `${this.basePath}/`;
     }
     if (window?.location?.origin && this.basePath.startsWith(window.location.origin)) {
-      this.basePath = this.basePath.replace(window.location.origin, '');
+      this.basePath = this.basePath.replace(window.location.origin, "");
     }
     this.baseUrl = opts.baseUrl || this.defaultBaseUrl();
     if (!/^(\/|https?:\/\/)/.test(this.baseUrl)) {
@@ -756,50 +756,50 @@ const PagefindInstance = class {
       console.warn(
         [
           "Pagefind couldn't determine the base of the bundle from the import path. Falling back to the default.",
-          'Set a basePath option when initialising Pagefind to ignore this message.',
-        ].join('\n')
+          "Set a basePath option when initialising Pagefind to ignore this message.",
+        ].join("\n")
       );
     }
   }
   defaultBaseUrl() {
     const default_base = this.basePath.match(/^(.*\/)_?pagefind/)?.[1];
-    return default_base || '/';
+    return default_base || "/";
   }
   async options(options2) {
     const opts = [
-      'basePath',
-      'baseUrl',
-      'indexWeight',
-      'excerptLength',
-      'mergeFilter',
-      'highlightParam',
-      'ranking',
+      "basePath",
+      "baseUrl",
+      "indexWeight",
+      "excerptLength",
+      "mergeFilter",
+      "highlightParam",
+      "ranking",
     ];
     for (const [k, v] of Object.entries(options2)) {
-      if (k === 'mergeFilter') {
+      if (k === "mergeFilter") {
         const filters2 = this.stringifyFilters(v);
         const ptr = await this.getPtr();
         this.raw_ptr = this.backend.add_synthetic_filter(ptr, filters2);
-      } else if (k === 'ranking') {
+      } else if (k === "ranking") {
         await this.set_ranking(options2.ranking);
       } else if (opts.includes(k)) {
-        if (k === 'basePath' && typeof v === 'string') this.basePath = v;
-        if (k === 'baseUrl' && typeof v === 'string') this.baseUrl = v;
-        if (k === 'indexWeight' && typeof v === 'number') this.indexWeight = v;
-        if (k === 'excerptLength' && typeof v === 'number') this.excerptLength = v;
-        if (k === 'mergeFilter' && typeof v === 'object') this.mergeFilter = v;
-        if (k === 'highlightParam' && typeof v === 'string') this.highlightParam = v;
+        if (k === "basePath" && typeof v === "string") this.basePath = v;
+        if (k === "baseUrl" && typeof v === "string") this.baseUrl = v;
+        if (k === "indexWeight" && typeof v === "number") this.indexWeight = v;
+        if (k === "excerptLength" && typeof v === "number") this.excerptLength = v;
+        if (k === "mergeFilter" && typeof v === "object") this.mergeFilter = v;
+        if (k === "highlightParam" && typeof v === "string") this.highlightParam = v;
       } else {
-        console.warn(`Unknown Pagefind option ${k}. Allowed options: [${opts.join(', ')}]`);
+        console.warn(`Unknown Pagefind option ${k}. Allowed options: [${opts.join(", ")}]`);
       }
     }
   }
-  decompress(data, file = 'unknown file') {
-    if (this.decoder.decode(data.slice(0, 12)) === 'pagefind_dcd') {
+  decompress(data, file = "unknown file") {
+    if (this.decoder.decode(data.slice(0, 12)) === "pagefind_dcd") {
       return data.slice(12);
     }
     data = gz_default(data);
-    if (this.decoder.decode(data.slice(0, 12)) !== 'pagefind_dcd') {
+    if (this.decoder.decode(data.slice(0, 12)) !== "pagefind_dcd") {
       console.error(`Decompressing ${file} appears to have failed: Missing signature`);
       return data;
     }
@@ -819,7 +819,7 @@ const PagefindInstance = class {
   async init(language, opts) {
     await this.loadEntry();
     const index = this.findIndex(language);
-    const lang_wasm = index.wasm ? index.wasm : 'unknown';
+    const lang_wasm = index.wasm ? index.wasm : "unknown";
     const resources = [this.loadMeta(index.hash)];
     if (opts.load_wasm === true) {
       resources.push(this.loadWasm(lang_wasm));
@@ -846,42 +846,42 @@ const PagefindInstance = class {
             [
               "Pagefind JS version doesn't match the version in your search index.",
               `Pagefind JS: ${this.version}. Pagefind index: ${entry_json.version}`,
-              'If you upgraded Pagefind recently, you likely have a cached pagefind.js file.',
-              'If you encounter any search errors, try clearing your cache.',
-            ].join('\n')
+              "If you upgraded Pagefind recently, you likely have a cached pagefind.js file.",
+              "If you encounter any search errors, try clearing your cache.",
+            ].join("\n")
           );
         } else {
           console.warn(
             [
-              'Merging a Pagefind index from a different version than the main Pagefind instance.',
+              "Merging a Pagefind index from a different version than the main Pagefind instance.",
               `Main Pagefind JS: ${this.version}. Merged index (${this.basePath}): ${entry_json.version}`,
-              'If you encounter any search errors, make sure that both sites are running the same version of Pagefind.',
-            ].join('\n')
+              "If you encounter any search errors, make sure that both sites are running the same version of Pagefind.",
+            ].join("\n")
           );
         }
       }
     } catch (e) {
       console.error(`Failed to load Pagefind metadata:
 ${e?.toString()}`);
-      throw new Error('Failed to load Pagefind metadata');
+      throw new Error("Failed to load Pagefind metadata");
     }
   }
   findIndex(language) {
     if (this.languages) {
       let index = this.languages[language];
       if (index) return index;
-      index = this.languages[language.split('-')[0]];
+      index = this.languages[language.split("-")[0]];
       if (index) return index;
       const topLang = Object.values(this.languages).sort((a, b) => b.page_count - a.page_count);
       if (topLang[0]) return topLang[0];
     }
-    throw new Error('Pagefind Error: No language indexes found.');
+    throw new Error("Pagefind Error: No language indexes found.");
   }
   async loadMeta(index) {
     try {
       const compressed_resp = await fetch(`${this.basePath}pagefind.${index}.pf_meta`);
       const compressed_meta = await compressed_resp.arrayBuffer();
-      this.searchMeta = this.decompress(new Uint8Array(compressed_meta), 'Pagefind metadata');
+      this.searchMeta = this.decompress(new Uint8Array(compressed_meta), "Pagefind metadata");
     } catch (e) {
       console.error(`Failed to load the meta index:
 ${e?.toString()}`);
@@ -892,9 +892,9 @@ ${e?.toString()}`);
       const wasm_url = `${this.basePath}wasm.${language}.pagefind`;
       const compressed_resp = await fetch(wasm_url);
       const compressed_wasm = await compressed_resp.arrayBuffer();
-      const final_wasm = this.decompress(new Uint8Array(compressed_wasm), 'Pagefind WebAssembly');
+      const final_wasm = this.decompress(new Uint8Array(compressed_wasm), "Pagefind WebAssembly");
       if (!final_wasm) {
-        throw new Error('No WASM after decompression');
+        throw new Error("No WASM after decompression");
       }
       this.wasm = await this.backend(final_wasm);
     } catch (e) {
@@ -919,14 +919,14 @@ ${e?.toString()}`);
   async loadChunk(hash) {
     if (!this.loaded_chunks[hash]) {
       const url = `${this.basePath}index/${hash}.pf_index`;
-      this.loaded_chunks[hash] = this._loadGenericChunk(url, 'load_index_chunk');
+      this.loaded_chunks[hash] = this._loadGenericChunk(url, "load_index_chunk");
     }
     return await this.loaded_chunks[hash];
   }
   async loadFilterChunk(hash) {
     if (!this.loaded_filters[hash]) {
       const url = `${this.basePath}filter/${hash}.pf_filter`;
-      this.loaded_filters[hash] = this._loadGenericChunk(url, 'load_filter_chunk');
+      this.loaded_filters[hash] = this._loadGenericChunk(url, "load_filter_chunk");
     }
     return await this.loaded_filters[hash];
   }
@@ -944,8 +944,8 @@ ${e?.toString()}`);
     fragment.weighted_locations = weighted_locations;
     fragment.locations = weighted_locations.map((l) => l.location);
     if (!fragment.raw_content) {
-      fragment.raw_content = fragment.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      fragment.content = fragment.content.replace(/\u200B/g, '');
+      fragment.raw_content = fragment.content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      fragment.content = fragment.content.replace(/\u200B/g, "");
     }
     if (!fragment.raw_url) {
       fragment.raw_url = fragment.url;
@@ -965,7 +965,7 @@ ${e?.toString()}`);
     if (/^(https?:)?\/\//.test(raw)) {
       return raw;
     }
-    return `${this.baseUrl}/${raw}`.replace(/\/+/g, '/').replace(/^(https?:\/)/, '$1/');
+    return `${this.baseUrl}/${raw}`.replace(/\/+/g, "/").replace(/^(https?:\/)/, "$1/");
   }
   processedUrl(url, search_term) {
     const normalized = this.fullUrl(url);
@@ -985,7 +985,7 @@ ${e?.toString()}`);
         for (const term of individual_terms) {
           processed.searchParams.append(this.highlightParam, term);
         }
-        return processed.toString().replace(/^https:\/\/example\.com/, '');
+        return processed.toString().replace(/^https:\/\/example\.com/, "");
       } catch (e2) {
         return normalized;
       }
@@ -996,19 +996,19 @@ ${e?.toString()}`);
       await asyncSleep(50);
     }
     if (!this.raw_ptr) {
-      console.error('Pagefind: WASM Error (No pointer)');
-      throw new Error('Pagefind: WASM Error (No pointer)');
+      console.error("Pagefind: WASM Error (No pointer)");
+      throw new Error("Pagefind: WASM Error (No pointer)");
     }
     return this.raw_ptr;
   }
   parseFilters(str) {
     const output = {};
     if (!str) return output;
-    for (const block of str.split('__PF_FILTER_DELIM__')) {
+    for (const block of str.split("__PF_FILTER_DELIM__")) {
       const [filter, values] = block.split(/:(.*)$/);
       output[filter] = {};
       if (values) {
-        for (const valueBlock of values.split('__PF_VALUE_DELIM__')) {
+        for (const valueBlock of values.split("__PF_VALUE_DELIM__")) {
           if (valueBlock) {
             const extract = valueBlock.match(/^(.*):(\d+)$/);
             if (extract) {
@@ -1032,20 +1032,20 @@ ${e?.toString()}`);
           `Pagefind was provided multiple sort options in this search, but can only operate on one. Using the ${sort} sort.`
         );
       }
-      if (direction !== 'asc' && direction !== 'desc') {
+      if (direction !== "asc" && direction !== "desc") {
         console.warn(
           `Pagefind was provided a sort with unknown direction ${direction}. Supported: [asc, desc]`
         );
       }
       return `${sort}:${direction}`;
     }
-    return '';
+    return "";
   }
   async filters() {
     let ptr = await this.getPtr();
     const filters2 = this.backend.request_all_filter_indexes(ptr);
     const filter_chunks = filters2
-      .split(' ')
+      .split(" ")
       .filter((v) => v)
       .map((chunk) => this.loadFilterChunk(chunk));
     await Promise.all([...filter_chunks]);
@@ -1065,16 +1065,16 @@ ${e?.toString()}`);
     const start = Date.now();
     let ptr = await this.getPtr();
     const filter_only = term === null;
-    term = term ?? '';
+    term = term ?? "";
     const exact_search = /^\s*".+"\s*$/.test(term);
     if (exact_search) {
-      log('Running an exact search');
+      log("Running an exact search");
     }
     term = term
       .toLowerCase()
       .trim()
-      .replace(/[\.`~!@#\$%\^&\*\(\)\{\}\[\]\\\|:;'",<>\/\?\-]/g, '')
-      .replace(/\s{2,}/g, ' ')
+      .replace(/[\.`~!@#\$%\^&\*\(\)\{\}\[\]\\\|:;'",<>\/\?\-]/g, "")
+      .replace(/\s{2,}/g, " ")
       .trim();
     log(`Normalized search term to ${term}`);
     if (!term?.length && !filter_only) {
@@ -1097,17 +1097,17 @@ ${e?.toString()}`);
     const index_resp = this.backend.request_indexes(ptr, term);
     const filter_resp = this.backend.request_filter_indexes(ptr, filter_list);
     const chunks = index_resp
-      .split(' ')
+      .split(" ")
       .filter((v) => v)
       .map((chunk) => this.loadChunk(chunk));
     const filter_chunks = filter_resp
-      .split(' ')
+      .split(" ")
       .filter((v) => v)
       .map((chunk) => this.loadFilterChunk(chunk));
     await Promise.all([...chunks, ...filter_chunks]);
-    log('Loaded necessary chunks to run search');
+    log("Loaded necessary chunks to run search");
     if (options2.preload) {
-      log('Preload \u2014 bailing out of search operation now.');
+      log("Preload \u2014 bailing out of search operation now.");
       return null;
     }
     ptr = await this.getPtr();
@@ -1120,16 +1120,16 @@ ${e?.toString()}`);
     const filterObj = this.parseFilters(filters2);
     const totalFilterObj = this.parseFilters(totalFilters);
     log(`Remaining filters: ${JSON.stringify(result)}`);
-    const results = all_results.length ? all_results.split(' ') : [];
+    const results = all_results.length ? all_results.split(" ") : [];
     const resultsInterface = results.map((result2) => {
-      const [hash, score, all_locations] = result2.split('@');
+      const [hash, score, all_locations] = result2.split("@");
       log(`Processing result: 
   hash:${hash}
   score:${score}
   locations:${all_locations}`);
       const weighted_locations = all_locations.length
-        ? all_locations.split(',').map((l) => {
-            const [weight, balanced_score, location] = l.split('>');
+        ? all_locations.split(",").map((l) => {
+            const [weight, balanced_score, location] = l.split(">");
             return {
               weight: Number.parseInt(weight) / 24,
               balanced_score: Number.parseFloat(balanced_score),
@@ -1148,7 +1148,7 @@ ${e?.toString()}`);
     const searchTime = Date.now() - searchStart;
     const realTime = Date.now() - start;
     log(
-      `Found ${results.length} result${results.length === 1 ? '' : 's'} for "${term}" in ${Date.now() - searchStart}ms (${Date.now() - start}ms realtime)`
+      `Found ${results.length} result${results.length === 1 ? "" : "s"} for "${term}" in ${Date.now() - searchStart}ms (${Date.now() - start}ms realtime)`
     );
     return {
       results: resultsInterface,
@@ -1166,7 +1166,7 @@ ${e?.toString()}`);
 const Pagefind = class {
   constructor(options2 = {}) {
     this.backend = wasm_bindgen;
-    this.primaryLanguage = 'unknown';
+    this.primaryLanguage = "unknown";
     this.searchID = 0;
     this.primary = new PagefindInstance({ ...options2, primary: true });
     this.instances = [this.primary];
@@ -1177,7 +1177,7 @@ const Pagefind = class {
   }
   async init(overrideLanguage) {
     if (document?.querySelector) {
-      const langCode = document.querySelector('html')?.getAttribute('lang') || 'unknown';
+      const langCode = document.querySelector("html")?.getAttribute("lang") || "unknown";
       this.primaryLanguage = langCode.toLocaleLowerCase();
     }
     await this.primary.init(overrideLanguage ? overrideLanguage : this.primaryLanguage, {

@@ -1,11 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
-import MainFooter from '../../components/MainFooter.astro';
-import Header from '../../components/navigation/Header.astro';
-import RootLayout from '../../layouts/RootLayout.astro';
+import { getCollection } from "astro:content";
+import Footer from "@components/Footer.astro";
+import RootLayout from "@layouts/RootLayout.astro";
 
 // Get all blog posts that aren't drafts and sort them by date
-const blogPosts = await getCollection('blog', ({ data }) => {
+const blogPosts = await getCollection("blog", ({ data }) => {
   return !data.draft;
 });
 
@@ -19,70 +18,56 @@ const sortedPosts = blogPosts.sort(
   title="Blog | MinimalBlog"
   description="Articles on design, development, and user experience"
 >
-  <div class="min-h-screen bg-gray-950 text-gray-100">
-    <Header currentPath="/blog" />
-
-    <main class="container mx-auto px-4 py-12">
-      <div class="mx-auto max-w-4xl">
+  <div>
+    <main>
+      <div>
         <!-- Page Title -->
-        <div class="mb-12 text-center">
-          <h1 class="mb-4 text-4xl font-bold tracking-tight">Blog</h1>
-          <p class="mx-auto max-w-2xl text-gray-400">
+        <div>
+          <h1>Blog</h1>
+          <p>
             Thoughts, articles, and insights on design, development, and creating meaningful digital
             experiences.
           </p>
         </div>
 
         <!-- Blog List -->
-        <div class="grid gap-8 md:grid-cols-2">
+        <div>
           {
             sortedPosts.map((post) => (
-              <a href={`/blog/${post.slug}`} class="group">
-                <div class="space-y-4 rounded-lg border border-gray-800 p-6 transition-colors hover:bg-gray-900">
-                  <div class="flex items-center gap-2 text-sm text-emerald-500">
+              <a href={`/blog/${post.slug}`}>
+                <div>
+                  <div>
                     <span>{post.data.category}</span>
                     <span>•</span>
-                    <span class="text-gray-400">{post.data.readTime}</span>
+                    <span>{post.data.readTime}</span>
                   </div>
 
-                  <h2 class="text-xl leading-tight font-bold transition-colors group-hover:text-emerald-500">
-                    {post.data.title}
-                  </h2>
+                  <h2>{post.data.title}</h2>
 
-                  <p class="line-clamp-2 text-gray-400">{post.data.description}</p>
+                  <p>{post.data.description}</p>
 
-                  <div class="flex items-center gap-3">
-                    <div class="h-8 w-8 overflow-hidden rounded-full border border-gray-700">
-                      <img
-                        src={post.data.author.image}
-                        alt={post.data.author.name}
-                        class="h-full w-full object-cover"
-                      />
+                  <div>
+                    <div>
+                      <img src={post.data.author.image} alt={post.data.author.name} />
                     </div>
-                    <div class="text-sm">
-                      <div class="font-medium">{post.data.author.name}</div>
-                      <div class="text-gray-500">
-                        {new Date(post.data.publishDate).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
+                    <div>
+                      <div>{post.data.author.name}</div>
+                      <div>
+                        {new Date(post.data.publishDate).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
                         })}
                       </div>
                     </div>
                   </div>
 
                   {post.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-2">
+                    <div>
                       {post.data.tags.slice(0, 3).map((tag) => (
-                        <span class="rounded-full bg-gray-800 px-2.5 py-0.5 text-xs text-gray-300">
-                          #{tag}
-                        </span>
+                        <span>#{tag}</span>
                       ))}
-                      {post.data.tags.length > 3 && (
-                        <span class="rounded-full bg-gray-800 px-2.5 py-0.5 text-xs text-gray-300">
-                          +{post.data.tags.length - 3} more
-                        </span>
-                      )}
+                      {post.data.tags.length > 3 && <span>+{post.data.tags.length - 3} more</span>}
                     </div>
                   )}
                 </div>
@@ -93,6 +78,6 @@ const sortedPosts = blogPosts.sort(
       </div>
     </main>
 
-    <MainFooter />
+    <Footer />
   </div>
 </RootLayout>

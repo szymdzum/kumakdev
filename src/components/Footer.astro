@@ -1,15 +1,13 @@
 ---
-import Container from '@components/Container.astro';
-import BackToTop from '@components/navigation/BackToTop.astro';
+
 ---
 
-<footer class="animate">
-  <Container>
-    <div class="relative">
-      <div class="absolute -top-12 right-0">
-        <BackToTop />
-      </div>
+<footer>
+  <div>
+    <div>
+      <p>
+        &copy; {new Date().getFullYear()}
+      </p>
     </div>
-    <div class="flex items-center justify-between"></div>
-  </Container>
+  </div>
 </footer>

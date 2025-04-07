@@ -1,5 +1,15 @@
-@import './reset.css';
-@import './primitives.css';
+@import "./reset.css";
+@import "./primitives.css";
+@import "./theme.css";
 
-@import 'tailwindcss/preflight';
-@tailwind utilities;
+/*
+ * Tailwind CSS directives are commented out to avoid errors.
+ * To use Tailwind, uncomment these lines and ensure PostCSS is properly configured:
+ * 1. Create a postcss.config.js file
+ * 2. Install required plugins: pnpm add -D postcss autoprefixer tailwindcss
+ * 3. Configure Tailwind in postcss.config.js
+ */
+/* @import "tailwindcss/preflight"; */
+/* @tailwind utilities; */
+
+/* Add any custom utilities here */

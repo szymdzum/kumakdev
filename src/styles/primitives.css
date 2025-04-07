@@ -1,50 +1,150 @@
-/* Layout Primitives based on Every Layout */
+/*
+ * Every Layout CSS Library
+ * A complete collection of layout primitives based on Every Layout principles
+ * by Heydon Pickering and Andy Bell
+ */
 
-/* Box Layout */
-.box {
-  padding: var(--space-3, 1rem);
-  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
-  border-radius: var(--radius, 0.5rem);
-  background: var(--bg, transparent);
-  color: var(--color, inherit);
+/* ===== Base Styles ===== */
+:root {
+  /* Modular scale ratio - 1.5 is a good default */
+  --ratio: 1.5;
+
+  /* Space values using modular scale */
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
+
+  /* Measure (line-length) */
+  --measure: 60ch;
+
+  /* Border values */
+  --border-thin: 1px;
+  --border-thick: 0.25rem;
+
+  /* Colors */
+  --color-light: #fff;
+  --color-dark: #222;
 }
 
-.box.invert {
-  background: var(--bg-invert, rgb(17, 24, 39));
-  color: var(--color-invert, white);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  border-style: solid;
+  border-width: 0;
 }
 
-/* Stack Layout */
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: system-ui, sans-serif;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+figcaption {
+  max-width: var(--measure);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+  padding-left: 0;
+}
+
+@media (forced-colors: active) {
+  * {
+    border-color: CanvasText;
+  }
+}
+
+@media (min-width: 40em) {
+  :root {
+    font-size: calc(1rem + 0.25vw);
+  }
+}
+
+/* ===== Stack Layout ===== */
 .stack {
   display: flex;
   flex-direction: column;
-  gap: var(--space, 1rem);
+  justify-content: flex-start;
+}
+
+.stack > * {
+  margin-block: 0;
 }
 
 .stack > * + * {
-  margin-top: 0;
+  margin-block-start: var(--space, var(--s1));
 }
 
-/* Cluster Layout */
-.cluster {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space, 1rem);
-  align-items: center;
+.stack.split {
+  height: 100%;
 }
 
-.cluster.justify-between {
-  justify-content: space-between;
+.stack.split > :nth-child(1) {
+  margin-block-end: auto;
 }
 
-/* Center Layout */
+.stack.recursive * + * {
+  margin-block-start: var(--space, var(--s1));
+}
+
+/* ===== Box Layout ===== */
+.box {
+  padding: var(--padding, var(--s1));
+  border-width: var(--border-width, var(--border-thin));
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  outline: var(--border-width, var(--border-thin)) transparent;
+  outline-offset: calc(var(--border-width, var(--border-thin)) * -1);
+}
+
+.box * {
+  color: inherit;
+}
+
+.box.invert {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+/* ===== Center Layout ===== */
 .center {
   box-sizing: content-box;
-  max-width: var(--measure, 65ch);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--space-3, 1rem);
-  padding-right: var(--space-3, 1rem);
+  max-width: var(--max-width, var(--measure));
+  margin-inline: auto;
+  padding-inline: var(--padding, var(--s1));
+}
+
+.center.text-center {
+  text-align: center;
 }
 
 .center.intrinsic {
@@ -53,12 +153,279 @@
   align-items: center;
 }
 
-/* Container */
-.container {
+/* ===== Cluster Layout ===== */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, var(--s1));
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@supports not (gap: 1rem) {
+  .cluster {
+    margin: calc(var(--space, var(--s1)) / 2 * -1);
+  }
+
+  .cluster > * {
+    margin: calc(var(--space, var(--s1)) / 2);
+  }
+}
+
+/* ===== Sidebar Layout ===== */
+.with-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, var(--s1));
+}
+
+.with-sidebar > .sidebar {
+  flex-basis: var(--sidebar-width, 20rem);
+  flex-grow: 1;
+}
+
+.with-sidebar > .not-sidebar {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-width: var(--content-min, 50%);
+}
+
+.with-sidebar.sidebar-right {
+  flex-direction: row-reverse;
+}
+
+.with-sidebar.no-stretch {
+  align-items: flex-start;
+}
+
+/* ===== Switcher Layout ===== */
+.switcher {
+  --threshold: var(--measure);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space, var(--s1));
+}
+
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--threshold) - 100%) * 999);
+}
+
+.switcher > :nth-last-child(n + 5),
+.switcher > :nth-last-child(n + 5) ~ * {
+  flex-basis: 100%;
+}
+
+@supports (width: min(var(--threshold), 100%)) {
+  .switcher.safe-threshold > * {
+    flex-basis: calc((min(var(--threshold), 100%) - 100%) * 999);
+  }
+}
+
+/* ===== Cover Layout ===== */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--min-height, 100vh);
+  padding: var(--padding, var(--s1));
+}
+
+.cover > * {
+  margin-block: var(--space, var(--s1));
+}
+
+.cover > h1,
+.cover > [data-centered] {
+  margin-block-start: auto;
+  margin-block-end: auto;
+}
+
+.cover > :first-child:not(h1):not([data-centered]) {
+  margin-block-start: 0;
+}
+
+.cover > :last-child:not(h1):not([data-centered]) {
+  margin-block-end: 0;
+}
+
+/* ===== Grid Layout ===== */
+.grid {
+  display: grid;
+  gap: var(--space, var(--s1));
+  --min: var(--grid-min, 250px);
+}
+
+@supports (width: min(var(--min), 100%)) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--min), 100%), 1fr));
+  }
+}
+
+@supports not (width: min(var(--min), 100%)) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid.aboveMin {
+    grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
+  }
+}
+
+/* ===== Frame Layout ===== */
+.frame {
+  --n: 16;
+  --d: 9;
+
+  padding-bottom: calc(var(--n) / var(--d) * 100%);
+  position: relative;
+}
+
+.frame > * {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.frame > img,
+.frame > video {
   width: 100%;
-  max-width: var(--container-width, 1200px);
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--space-3, 1rem);
-  padding-right: var(--space-3, 1rem);
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Reel Layout ===== */
+.reel {
+  --height: auto;
+  --item-width: auto;
+  --space: var(--s1);
+
+  display: flex;
+  height: var(--height);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-color: var(--color-light) var(--color-dark);
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reel::-webkit-scrollbar {
+  height: 1rem;
+}
+
+.reel::-webkit-scrollbar-track {
+  background-color: var(--color-dark);
+}
+
+.reel::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark);
+  background-image: linear-gradient(
+    var(--color-dark) 0,
+    var(--color-dark) 0.25rem,
+    var(--color-light) 0.25rem,
+    var(--color-light) 0.75rem,
+    var(--color-dark) 0.75rem
+  );
+}
+
+.reel > * {
+  flex: 0 0 var(--item-width);
+}
+
+.reel > img {
+  height: 100%;
+  flex-basis: auto;
+  width: auto;
+}
+
+.reel > * + * {
+  margin-left: var(--space);
+}
+
+.reel::after {
+  content: "";
+  flex: 0 0 var(--space);
+}
+
+.reel.overflowing {
+  padding-bottom: var(--space);
+}
+
+.reel.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.reel.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Imposter Layout ===== */
+.imposter {
+  --margin: 0px;
+
+  position: var(--positioning, absolute);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.imposter.contain {
+  overflow: auto;
+  max-width: calc(100% - (var(--margin) * 2));
+  max-height: calc(100% - (var(--margin) * 2));
+}
+
+.imposter.fixed {
+  --positioning: fixed;
+}
+
+/* ===== Icon Layout ===== */
+.icon {
+  height: 0.75em;
+  width: 0.75em;
+  height: 1cap;
+  width: 1cap;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.icon svg {
+  height: 100%;
+  width: 100%;
+  fill: currentColor;
+}
+
+.with-icon {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.with-icon .icon {
+  margin-inline-end: var(--icon-space, 0.5em);
+}
+
+.with-icon.icon-right .icon {
+  order: 1;
+  margin-inline-start: var(--icon-space, 0.5em);
+  margin-inline-end: 0;
+}
+
+/* ===== Utility Classes ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

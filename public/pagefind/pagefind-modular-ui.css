@@ -11,8 +11,8 @@
   --pagefind-ui-image-border-radius: 8px;
   --pagefind-ui-image-box-ratio: 3 / 2;
   --pagefind-ui-font:
-    system, -apple-system, '.SFNSText-Regular', 'San Francisco', 'Roboto', 'Segoe UI',
-    'Helvetica Neue', 'Lucida Grande', sans-serif;
+    system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI",
+    "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
 [data-pfmod-hidden] {
@@ -57,7 +57,7 @@
   height: calc(18px * var(--pagefind-ui-scale));
   top: calc(23px * var(--pagefind-ui-scale));
   left: calc(20px * var(--pagefind-ui-scale));
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   opacity: 0.7;
@@ -207,7 +207,7 @@
   border-color: var(--pagefind-ui-primary);
 }
 
-.pagefind-modular-filter-pill[aria-pressed='true'] {
+.pagefind-modular-filter-pill[aria-pressed="true"] {
   border-color: var(--pagefind-ui-primary);
   color: var(--pagefind-ui-primary);
 }
