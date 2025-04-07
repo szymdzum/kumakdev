@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import ArrowCard from "@components/ArrowCard.astro";
 import BackToPrevious from "@components/navigation/BackToPrevious.astro";
 import RootLayout from "@layouts/RootLayout.astro";
 
@@ -35,7 +34,7 @@ const sortedPosts = posts.sort(
       Posts tagged with "{id}"
     </h1>
     <ul>
-      {sortedPosts.map((post) => <ArrowCard entry={post} />)}
+      {sortedPosts.map((post) => <li>{post.data.title}</li>)}
     </ul>
   </div>
 </RootLayout>
