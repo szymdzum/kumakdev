@@ -1,7 +1,7 @@
 ---
-import MainFooter from "../../components/MainFooter.astro";
-import Header from "../../components/Header.astro";
-import RootLayout from "../../layouts/RootLayout.astro";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
+import RootLayout from "@layouts/RootLayout.astro";
 
 // Example blog post data - in a real app, this would come from a CMS or data fetching
 // Or use Astro's content collections as shown in [slug].astro
@@ -29,28 +29,28 @@ const examplePost = {
   title={examplePost.title}
   description="Exploring the principles and practices of minimalist design in the digital age."
 >
-  <div class="min-h-screen bg-gray-950 text-gray-100">
+  <div>
     <Header siteTitle={examplePost.title} />
 
-    <main class="container mx-auto px-4 py-8">
-      <article class="mx-auto max-w-3xl">
+    <main>
+      <article>
         <!-- Article Header -->
-        <header class="mb-8 space-y-6">
-          <div class="space-y-2">
-            <div class="flex items-center gap-2 text-sm text-emerald-500">
-              <a href={`/category/${examplePost.category.toLowerCase()}`} class="hover:underline">
+        <header>
+          <div>
+            <div>
+              <a href={`/category/${examplePost.category.toLowerCase()}`}>
                 {examplePost.category}
               </a>
               <span>•</span>
-              <span class="text-gray-400">{examplePost.readTime}</span>
+              <span>{examplePost.readTime}</span>
             </div>
-            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            <h1>
               {examplePost.title}
             </h1>
           </div>
 
-          <div class="flex items-center gap-4">
-            <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-emerald-500">
+          <div>
+            <div>
               <img
                 src={examplePost.author.image}
                 alt={examplePost.author.name}
@@ -59,8 +59,8 @@ const examplePost = {
               />
             </div>
             <div>
-              <div class="font-medium">{examplePost.author.name}</div>
-              <div class="text-sm text-gray-400">
+              <div>{examplePost.author.name}</div>
+              <div>
                 Published on <time datetime={examplePost.publishDate.toISOString()}>
                   {
                     new Date(examplePost.publishDate).toLocaleDateString("en-US", {
@@ -76,24 +76,18 @@ const examplePost = {
         </header>
 
         <!-- Featured Image -->
-        <figure class="my-8 overflow-hidden rounded-lg">
-          <div class="relative aspect-video w-full">
-            <img
-              src={examplePost.featuredImage}
-              alt={examplePost.imageAlt}
-              class="h-full w-full object-cover"
-            />
+        <figure>
+          <div>
+            <img src={examplePost.featuredImage} alt={examplePost.imageAlt} />
           </div>
-          <figcaption class="mt-2 text-center text-sm text-gray-400">
+          <figcaption>
             {examplePost.imageCaption}
           </figcaption>
         </figure>
 
         <!-- Article Content -->
-        <div
-          class="prose prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-p:text-gray-300 prose-a:text-emerald-500 prose-blockquote:border-emerald-500 prose-blockquote:text-gray-300 prose-blockquote:not-italic prose-img:rounded-lg mx-auto max-w-none"
-        >
-          <p class="text-xl leading-relaxed">
+        <div>
+          <p>
             In a world filled with constant digital noise, minimalist design stands as a beacon of
             clarity. It's not just about aesthetic appeal—it's about creating experiences that allow
             users to focus on what truly matter.
@@ -144,15 +138,14 @@ const examplePost = {
             intuitively and accomplish their goals with less friction.
           </p>
 
-          <figure class="my-8">
-            <div class="relative aspect-video w-full">
+          <figure>
+            <div>
               <img
                 src="/placeholder.svg?height=400&width=800"
                 alt="Before and after comparison of a website redesign using minimalist principles"
-                class="h-full w-full rounded-lg object-cover"
               />
             </div>
-            <figcaption class="mt-2 text-center text-sm text-gray-400">
+            <figcaption>
               Before and after: A website redesign applying minimalist principles
             </figcaption>
           </figure>
@@ -233,27 +226,16 @@ const examplePost = {
         </div>
 
         <!-- Tags -->
-        <div class="mt-8">
-          <div class="flex flex-wrap gap-2">
-            {
-              examplePost.tags.map((tag) => (
-                <a
-                  href={`/tag/${tag}`}
-                  class="rounded-full bg-gray-800 px-3 py-1 text-sm text-gray-300 hover:bg-gray-700"
-                >
-                  #{tag}
-                </a>
-              ))
-            }
+        <div>
+          <div>
+            {examplePost.tags.map((tag) => <a href={`/tag/${tag}`}>#{tag}</a>)}
           </div>
         </div>
 
         <!-- Article Actions -->
-        <div class="mt-8 flex items-center justify-between border-t border-b border-gray-800 py-4">
-          <div class="flex items-center gap-4">
-            <button
-              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
-            >
+        <div>
+          <div>
+            <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -264,7 +246,6 @@ const examplePost = {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="h-4 w-4"
               >
                 <path
                   d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
@@ -272,9 +253,7 @@ const examplePost = {
               </svg>
               <span>{examplePost.likeCount}</span>
             </button>
-            <button
-              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
-            >
+            <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -285,18 +264,14 @@ const examplePost = {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="h-4 w-4"
               >
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
               </svg>
               <span>{examplePost.commentCount}</span>
             </button>
           </div>
-          <div class="flex items-center gap-2">
-            <button
-              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
-              aria-label="Bookmark this article"
-            >
+          <div>
+            <button aria-label="Bookmark this article">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -307,15 +282,11 @@ const examplePost = {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="h-4 w-4"
               >
                 <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
               </svg>
             </button>
-            <button
-              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
-              aria-label="Share this article"
-            >
+            <button aria-label="Share this article">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -326,7 +297,6 @@ const examplePost = {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="h-4 w-4"
               >
                 <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                 <polyline points="16 6 12 2 8 6"></polyline>
@@ -337,9 +307,9 @@ const examplePost = {
         </div>
 
         <!-- Author Bio -->
-        <div class="mt-8 rounded-lg bg-gray-900 p-6">
-          <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
-            <div class="h-16 w-16 overflow-hidden rounded-full border-2 border-emerald-500">
+        <div>
+          <div>
+            <div>
               <img
                 src={examplePost.author.image}
                 alt={examplePost.author.name}
@@ -347,14 +317,11 @@ const examplePost = {
                 height="64"
               />
             </div>
-            <div class="space-y-2">
-              <h3 class="text-xl font-bold">{examplePost.author.name}</h3>
-              <p class="text-gray-400">{examplePost.author.bio}</p>
-              <div class="flex gap-2">
-                <a
-                  href="https://twitter.com"
-                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
-                >
+            <div>
+              <h3>{examplePost.author.name}</h3>
+              <p>{examplePost.author.bio}</p>
+              <div>
+                <a href="https://twitter.com">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -365,7 +332,6 @@ const examplePost = {
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    class="h-4 w-4"
                   >
                     <path
                       d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
@@ -373,10 +339,7 @@ const examplePost = {
                   </svg>
                   <span>Follow</span>
                 </a>
-                <a
-                  href="https://linkedin.com"
-                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
-                >
+                <a href="https://linkedin.com">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -387,7 +350,6 @@ const examplePost = {
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    class="h-4 w-4"
                   >
                     <path
                       d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
@@ -404,6 +366,6 @@ const examplePost = {
       </article>
     </main>
 
-    <MainFooter />
+    <Footer />
   </div>
 </RootLayout>

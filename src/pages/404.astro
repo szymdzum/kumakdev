@@ -1,20 +1,17 @@
 ---
 import { SITE } from "@/consts";
-import Container from "@components/Container.astro";
 import BackToPrevious from "@components/navigation/BackToPrevious.astro";
-import Layout from "@layouts/Layout.astro";
+import RootLayout from "@layouts/RootLayout.astro";
 ---
 
-<Layout title="404" description={SITE.DESCRIPTION}>
-  <Container>
-    <div class="error-container">
-      <h4 class="error-title">404: Page not found</h4>
-      <span class="error-action">
-        <BackToPrevious href="/">Go to home page</BackToPrevious>
-      </span>
-    </div>
-  </Container>
-</Layout>
+<RootLayout title="404" description={SITE.DESCRIPTION}>
+  <div class="error-container">
+    <h4 class="error-title">404: Page not found</h4>
+    <span class="error-action">
+      <BackToPrevious href="/">Go to home page</BackToPrevious>
+    </span>
+  </div>
+</RootLayout>
 
 <style>
   .error-container {

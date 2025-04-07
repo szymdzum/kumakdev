@@ -22,53 +22,71 @@ const { projects } = Astro.props;
 ---
 
 <!-- Projects Section -->
-<section id="projects" class="projects-section">
-  <div class="projects-wrapper">
-    <div class="container">
-      <div class="section-intro">
-        <h2 class="section-title">{projects.sectionTitle}</h2>
-        <div class="section-subheader">
-          <p class="section-description">{projects.description}</p>
-        </div>
-      </div>
+<section aria-labelledby="projects-section-title">
+  <header>
+    <h2>{projects.sectionTitle}</h2>
+    <p>{projects.description}</p>
+    <a href="/projects">{projects.viewAll}</a>
+  </header>
 
-      <div class="section-header">
-        <div></div>
-        <!-- Empty div for flex spacing -->
-        <a href="/projects" class="view-all">
-          {projects.viewAll}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="icon-arrow"
-          >
-            <path d="M5 12h14"></path>
-            <path d="m12 5 7 7-7 7"></path>
-          </svg>
-        </a>
-      </div>
-
-      <div class="projects-grid">
-        {
-          projects.items.map((project) => (
-            <Card
-              type="project"
-              title={project.title}
-              description={project.description}
-              tags={project.tags}
-              link={project.link}
-              imageUrl={project.imageUrl}
-            />
-          ))
-        }
-      </div>
-    </div>
+  <div class="projects-grid">
+    {
+      projects.items.map((project) => (
+        <Card
+          title={project.title}
+          description={project.description}
+          tags={project.tags}
+          link={project.link}
+          imageUrl={project.imageUrl}
+        />
+      ))
+    }
   </div>
 </section>
+
+<style>
+  section {
+    padding: 4rem 0;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 0 0 1rem 0;
+    max-width: 800px;
+  }
+
+  a.view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  a.view-all:hover {
+    text-decoration: underline;
+  }
+
+  .icon-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  a.view-all:hover .icon-arrow {
+    transform: translateX(4px);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+</style>
