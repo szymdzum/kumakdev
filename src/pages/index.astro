@@ -5,14 +5,9 @@ import Projects from "../components/landing/Projects.astro";
 import About from "../components/landing/About.astro";
 import Newsletter from "../components/landing/Newsletter.astro";
 import RootLayout from "../layouts/RootLayout.astro";
-import "../styles/index.css";
 
-// Import content management
-import { getSiteContent } from "../lib/content";
-import type { Language } from "../lib/content";
-
-const language: Language = "en";
-const content = getSiteContent(language);
+// Import English content directly
+import { siteContent as content } from "../content/site-text/en";
 ---
 
 <RootLayout title={content.meta.title} description={content.meta.description}>
@@ -51,14 +46,6 @@ const content = getSiteContent(language);
 </RootLayout>
 
 <script>
-  // Add client-side language initialization
-  import { initLanguage } from "../lib/language-client";
-
-  document.addEventListener("DOMContentLoaded", () => {
-    // Initialize language
-    initLanguage();
-  });
-
   // Scroll detection for header styling
   function handleScroll() {
     if (window.scrollY > 10) {

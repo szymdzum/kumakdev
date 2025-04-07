@@ -1,7 +1,4 @@
 ---
-import AnimatedGradientBackground from "../AnimatedGradientBackground.astro";
-import AnimatedText from "../AnimatedText.astro";
-
 interface Props {
   hero: {
     mainTitle: string;
@@ -20,41 +17,161 @@ const { hero } = Astro.props;
 
 <!-- Hero Section -->
 <section class="hero-section">
-  <AnimatedGradientBackground />
-  <div class="hero-content">
-    <div class="hero-header">
-      <h1 class="hero-main-title">
-        <span class="hero-title-line">{hero.mainTitle}</span>
-        <span class="hero-title-line hero-title-line-alt">{hero.secondaryTitle}</span>
-      </h1>
-    </div>
-    <div class="hero-text">
-      <h2 class="hero-subtitle">
-        <AnimatedText text={hero.subtitle} />
-      </h2>
-      <p class="hero-description fade-in">
-        {hero.description}
-      </p>
-    </div>
-    <div class="hero-buttons fade-in-delay">
-      <a href="#projects" class="primary-button">{hero.cta.primary}</a>
-      <a href="#contact" class="outline-button">{hero.cta.secondary}</a>
+  <div class="box">
+    <div class="cover" style="--min-height: 100vh; --padding: var(--s2);">
+      <div class="center">
+        <div class="stack" style="--space: var(--s2); text-align: center;">
+          <div class="hero-header">
+            <h1 class="hero-main-title">
+              <span class="hero-title-line">{hero.mainTitle}</span>
+              <span class="hero-title-line hero-title-line-alt">{hero.secondaryTitle}</span>
+            </h1>
+          </div>
+          <div class="hero-text">
+            <h2 class="hero-subtitle">
+              {hero.subtitle}
+            </h2>
+            <p class="hero-description fade-in">
+              {hero.description}
+            </p>
+          </div>
+          <div class="cluster fade-in-delay justify-center">
+            <a href="#projects" class="primary-button">{hero.cta.primary}</a>
+            <a href="#contact" class="outline-button">{hero.cta.secondary}</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <a href="#blog" class="scroll-indicator" aria-label="Scroll to next section">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M12 5v14"></path>
-      <path d="m19 12-7 7-7-7"></path>
-    </svg>
-  </a>
 </section>
+
+<style>
+  .hero-section {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    margin-top: -80px; /* Offset for the header */
+    padding-top: 80px; /* Ensure content isn't hidden behind the header */
+  }
+
+  .box {
+    background-color: transparent;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-main-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero-title-line {
+    display: block;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: slideIn 0.8s ease forwards;
+  }
+
+  .hero-title-line-alt {
+    font-size: 0.85em;
+    animation-delay: 0.3s;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin: 1.5rem 0;
+    max-width: 35ch;
+    margin: 0 auto;
+  }
+
+  .primary-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .outline-button {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .scroll-indicator svg {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0) translateX(-50%);
+    }
+    40% {
+      transform: translateY(-20px) translateX(-50%);
+    }
+    60% {
+      transform: translateY(-10px) translateX(-50%);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-main-title {
+      font-size: 5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 2.5rem;
+    }
+  }
+</style>

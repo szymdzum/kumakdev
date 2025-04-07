@@ -1,0 +1,11 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+
+Always use semantic HTML. 
+Use vanilla CSS. 
+Always create Astro components. 
