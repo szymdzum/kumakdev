@@ -1,11 +1,5 @@
 ---
 import { SITE } from "@/consts";
-
-const cn = (...classes: (string | boolean | undefined)[]) => {
-  return classes.filter(Boolean).join(' ');
-};
-
-
 interface MenuItem {
   label: string;
   href: string;
@@ -19,7 +13,10 @@ const menuItems: MenuItem[] = [
     label: "Projects",
     href: "/projects",
     subItems: [
-      { label: "TypeScript Result Monad", href: "https://github.com/szymdzum/ts-result-monad" },
+      {
+        label: "TypeScript Result Monad",
+        href: "https://github.com/szymdzum/ts-result-monad",
+      },
     ],
   },
   {
@@ -27,7 +24,10 @@ const menuItems: MenuItem[] = [
     href: "/posts",
     subItems: [
       { label: "A Guide To ADHD Engineering", href: "/posts/adhd-engineering" },
-      { label: "Oldschool Form Validation", href: "/posts/oldschool-form-validation" },
+      {
+        label: "Oldschool Form Validation",
+        href: "/posts/oldschool-form-validation",
+      },
     ],
   },
   { label: "Contact", href: "/contact" },
@@ -41,86 +41,97 @@ const initialExpanded = {
 ---
 
 <div class="w-full max-w-[320px] rounded-xl bg-[#1a1a1a] p-6 shadow-lg">
-  <div class="flex flex-row justify-between mb-6">
-    <button class="flex items-center justify-between  text-left text-[#d4b863] hover:text-[#f0d080] transition-colors focus:outline-none">
+  <div class="mb-6 flex flex-row justify-between">
+    <button
+      class="flex items-center justify-between text-left text-[#d4b863] transition-colors hover:text-[#f0d080] focus:outline-none"
+    >
       Kumak.dev
     </button>
 
     <button
       id="close-button"
-      class="text-gray-400 text-sm hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none relative overflow-hidden group"
+      class="group relative transform overflow-hidden text-sm text-gray-400 transition-all duration-300 ease-in-out hover:scale-105 hover:text-white focus:outline-none"
     >
       <span class="relative">&lt;close/&gt;</span>
-
     </button>
   </div>
 
   <nav class="mt-6 mb-6">
     <ul class="space-y-6">
-      {menuItems.map((item) => (
-        <li>
-          <div class="flex flex-col">
-            {item.subItems ? (
-              <button
-                data-menu-toggle={item.label}
-                class="flex items-center justify-between w-full text-left text-[#d4b863] hover:text-[#f0d080] transition-colors focus:outline-none"
-              >
-                <span>{item.label}</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class={cn(
-                    "transition-transform duration-300",
-                    initialExpanded[item.label] && "transform rotate-180"
-                  )}
-                  data-chevron={item.label}
+      {
+        menuItems.map((item) => (
+          <li>
+            <div class="flex flex-col">
+              {item.subItems ? (
+                <button
+                  data-menu-toggle={item.label}
+                  class="flex w-full items-center justify-between text-left text-[#d4b863] transition-colors hover:text-[#f0d080] focus:outline-none"
                 >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-            ) : (
-              <a href={item.href} class="text-[#d4b863] hover:text-[#f0d080] transition-colors block">
-                {item.label}
-              </a>
-            )}
+                  <span>{item.label}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class:list={[
+                      "transition-transform duration-300",
+                      { "rotate-180 transform": initialExpanded[item.label] },
+                    ]}
+                    data-chevron={item.label}
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+              ) : (
+                <a
+                  href={item.href}
+                  class="block text-[#d4b863] transition-colors hover:text-[#f0d080]"
+                >
+                  {item.label}
+                </a>
+              )}
 
-            {item.subItems && (
-              <div
-                class={cn(
-                  "overflow-hidden transition-all duration-300 ease-in-out",
-                  initialExpanded[item.label] ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                )}
-                data-submenu={item.label}
-              >
-                <ul class="ml-6 mt-2 space-y-2 border-l border-gray-700 pl-2">
-                  {item.subItems.map((subItem, index) => (
-                    <li
-                      class={cn(
-                        "transform transition-transform duration-300 ease-out",
-                        initialExpanded[item.label] ? "translate-y-0" : "-translate-y-2"
-                      )}
-                      style={`transition-delay: ${initialExpanded[item.label] ? index * 50 : 0}ms;`}
-                    >
-                      <a href={subItem.href} class="text-gray-300 hover:text-white transition-colors block py-1">
-                        {subItem.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </li>
-      ))}
+              {item.subItems && (
+                <div
+                  class:list={[
+                    "overflow-hidden transition-all duration-300 ease-in-out",
+                    initialExpanded[item.label] ? "max-h-40 opacity-100" : "max-h-0 opacity-0",
+                  ]}
+                  data-submenu={item.label}
+                >
+                  <ul class="mt-2 ml-6 space-y-2 border-l border-gray-700 pl-2">
+                    {item.subItems.map((subItem, index) => (
+                      <li
+                        class:list={[
+                          "transform transition-transform duration-300 ease-out",
+                          initialExpanded[item.label] ? "translate-y-0" : "-translate-y-2",
+                        ]}
+                        style={`transition-delay: ${initialExpanded[item.label] ? index * 50 : 0}ms;`}
+                      >
+                        <a
+                          href={subItem.href}
+                          class="block py-1 text-gray-300 transition-colors hover:text-white"
+                        >
+                          {subItem.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </li>
+        ))
+      }
     </ul>
-    <div class="text-gray-400 text-sm mt-4">&copy; {new Date().getFullYear()} • {SITE.TITLE}</div>
+    <div class="mt-4 text-sm text-gray-400">
+      &copy; {new Date().getFullYear()} • {SITE.TITLE}
+    </div>
   </nav>
 </div>
 

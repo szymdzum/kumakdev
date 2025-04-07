@@ -1,5 +1,12 @@
 declare module 'clsx' {
-  export type ClassValue = string | number | boolean | undefined | null | { [key: string]: any } | ClassValue[];
+  export type ClassValue =
+    | string
+    | number
+    | boolean
+    | undefined
+    | null
+    | { [key: string]: string | number | boolean | undefined | null }
+    | ClassValue[];
   export function clsx(...inputs: ClassValue[]): string;
   export default clsx;
 }

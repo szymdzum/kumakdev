@@ -1,0 +1,275 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import MainFooter from '../../components/MainFooter.astro';
+import Header from '../../components/navigation/Header.astro';
+import RootLayout from '../../layouts/RootLayout.astro';
+
+// Generate routes for all blog posts that aren't drafts
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog', ({ data }) => {
+    return !data.draft;
+  });
+
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'blog'>;
+};
+
+// Get the blog post data from the collection entry
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Format the blog post data for display
+const postData = {
+  category: entry.data.category,
+  readTime: entry.data.readTime,
+  title: entry.data.title,
+  author: entry.data.author,
+  publishDate: entry.data.publishDate,
+  featuredImage: entry.data.featuredImage,
+  imageAlt: entry.data.imageAlt,
+  imageCaption: entry.data.imageCaption,
+  tags: entry.data.tags,
+  likeCount: entry.data.likeCount,
+  commentCount: entry.data.commentCount,
+};
+---
+
+<RootLayout title={entry.data.title} description={entry.data.description}>
+  <div class="min-h-screen bg-gray-950 text-gray-100">
+    <Header currentPath="/blog" />
+
+    <main class="container mx-auto px-4 py-8">
+      <article class="mx-auto max-w-3xl">
+        <!-- Article Header -->
+        <header class="mb-8 space-y-6">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 text-sm text-emerald-500">
+              <a href={`/category/${postData.category.toLowerCase()}`} class="hover:underline">
+                {postData.category}
+              </a>
+              <span>•</span>
+              <span class="text-gray-400">{postData.readTime}</span>
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+              {postData.title}
+            </h1>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 overflow-hidden rounded-full border-2 border-emerald-500">
+              <img src={postData.author.image} alt={postData.author.name} width="40" height="40" />
+            </div>
+            <div>
+              <div class="font-medium">{postData.author.name}</div>
+              <div class="text-sm text-gray-400">
+                Published on <time datetime={postData.publishDate.toISOString()}>
+                  {
+                    new Date(postData.publishDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })
+                  }
+                </time>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        <figure class="my-8 overflow-hidden rounded-lg">
+          <div class="relative aspect-video w-full">
+            <img
+              src={postData.featuredImage}
+              alt={postData.imageAlt}
+              class="h-full w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-2 text-center text-sm text-gray-400">
+            {postData.imageCaption}
+          </figcaption>
+        </figure>
+
+        <!-- Article Content -->
+        <div
+          class="prose prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-p:text-gray-300 prose-a:text-emerald-500 prose-blockquote:border-emerald-500 prose-blockquote:text-gray-300 prose-blockquote:not-italic prose-img:rounded-lg mx-auto max-w-none"
+        >
+          <Content />
+        </div>
+
+        <!-- Tags -->
+        <div class="mt-8">
+          <div class="flex flex-wrap gap-2">
+            {
+              postData.tags.map((tag) => (
+                <a
+                  href={`/tag/${tag}`}
+                  class="rounded-full bg-gray-800 px-3 py-1 text-sm text-gray-300 hover:bg-gray-700"
+                >
+                  #{tag}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Article Actions -->
+        <div class="mt-8 flex items-center justify-between border-t border-b border-gray-800 py-4">
+          <div class="flex items-center gap-4">
+            <button
+              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path
+                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                ></path>
+              </svg>
+              <span>{postData.likeCount}</span>
+            </button>
+            <button
+              class="flex items-center gap-2 rounded-md bg-transparent px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>{postData.commentCount}</span>
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
+              aria-label="Bookmark this article"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+              </svg>
+            </button>
+            <button
+              class="flex h-8 w-8 items-center justify-center rounded-md bg-transparent text-gray-300 hover:text-white"
+              aria-label="Share this article"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4"
+              >
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <polyline points="16 6 12 2 8 6"></polyline>
+                <line x1="12" x2="12" y1="2" y2="15"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Author Bio -->
+        <div class="mt-8 rounded-lg bg-gray-900 p-6">
+          <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+            <div class="h-16 w-16 overflow-hidden rounded-full border-2 border-emerald-500">
+              <img src={postData.author.image} alt={postData.author.name} width="64" height="64" />
+            </div>
+            <div class="space-y-2">
+              <h3 class="text-xl font-bold">{postData.author.name}</h3>
+              <p class="text-gray-400">{postData.author.bio}</p>
+              <div class="flex gap-2">
+                <a
+                  href="https://twitter.com"
+                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                  >
+                    <path
+                      d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                    ></path>
+                  </svg>
+                  <span>Follow</span>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  class="flex h-8 items-center gap-2 rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-300 hover:border-gray-500 hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                  >
+                    <path
+                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                    ></path>
+                    <rect width="4" height="12" x="2" y="9"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                  <span>Connect</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <MainFooter />
+  </div>
+</RootLayout>

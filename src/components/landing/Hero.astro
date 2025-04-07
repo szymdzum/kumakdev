@@ -1,0 +1,60 @@
+---
+import AnimatedGradientBackground from "../AnimatedGradientBackground.astro";
+import AnimatedText from "../AnimatedText.astro";
+
+interface Props {
+  hero: {
+    mainTitle: string;
+    secondaryTitle: string;
+    subtitle: string;
+    description: string;
+    cta: {
+      primary: string;
+      secondary: string;
+    };
+  };
+}
+
+const { hero } = Astro.props;
+---
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <AnimatedGradientBackground />
+  <div class="hero-content">
+    <div class="hero-header">
+      <h1 class="hero-main-title">
+        <span class="hero-title-line">{hero.mainTitle}</span>
+        <span class="hero-title-line hero-title-line-alt">{hero.secondaryTitle}</span>
+      </h1>
+    </div>
+    <div class="hero-text">
+      <h2 class="hero-subtitle">
+        <AnimatedText text={hero.subtitle} />
+      </h2>
+      <p class="hero-description fade-in">
+        {hero.description}
+      </p>
+    </div>
+    <div class="hero-buttons fade-in-delay">
+      <a href="#projects" class="primary-button">{hero.cta.primary}</a>
+      <a href="#contact" class="outline-button">{hero.cta.secondary}</a>
+    </div>
+  </div>
+  <a href="#blog" class="scroll-indicator" aria-label="Scroll to next section">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M12 5v14"></path>
+      <path d="m19 12-7 7-7-7"></path>
+    </svg>
+  </a>
+</section>

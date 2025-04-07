@@ -1,7 +1,14 @@
 ---
-title: "Blog Collection"
-description: "How to add posts to the blog."
-date: "2024-03-21"
+title: 'Blog Collection'
+description: 'How to add posts to the blog.'
+publishDate: 2024-03-21
+category: 'Tutorial'
+readTime: '4 min read'
+author:
+  { name: 'Szymon Dziemak', image: '/images/author.jpg', fallback: 'SD', bio: 'Software Developer' }
+featuredImage: '/images/blog/blog-collection.jpg'
+imageAlt: 'Blog collection in Astro Micro'
+imageCaption: 'Understanding blog collections in Astro Micro'
 tags:
   - tutorial
 ---
@@ -37,18 +44,17 @@ title: "Blog Collection";
 description: "How to add posts to the blog.";
 date: "2024-03-21";
 draft: false;
-tags:
-  - tutorial
+tags: -tutorial;
 ---
 ```
 
-| Field       | Req | Type    | Remarks                                          |
-| :---------- | :-- | :------ | :----------------------------------------------- |
-| title       | Yes | string  | Title of the content. Used in SEO and RSS.       |
-| description | Yes | string  | Description of the content. Used in SEO and RSS. |
-| date        | Yes | string  | Must be a valid date string (able to be parsed). |
-| draft       | No  | boolean | If draft: true, content will not be published.   |
-| tags        | No  | string array | Tags to organize content |
+| Field       | Req | Type         | Remarks                                          |
+| :---------- | :-- | :----------- | :----------------------------------------------- |
+| title       | Yes | string       | Title of the content. Used in SEO and RSS.       |
+| description | Yes | string       | Description of the content. Used in SEO and RSS. |
+| date        | Yes | string       | Must be a valid date string (able to be parsed). |
+| draft       | No  | boolean      | If draft: true, content will not be published.   |
+| tags        | No  | string array | Tags to organize content                         |
 
 ---
 
@@ -60,8 +66,7 @@ title: "Blog Collection";
 description: "How to add posts to the blog.";
 date: "2024-03-21";
 draft: false;
-tags:
-  - tutorial
+tags: -tutorial;
 ---
 
 ## Working with the blog collection

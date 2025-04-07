@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Format files
+echo "Running Prettier format check..."
+pnpm run format:check || (echo "❌ Prettier check failed. Run 'pnpm run format' to fix." && exit 1)
+
+# Lint files
+echo "Running ESLint check..."
+pnpm run lint || (echo "❌ ESLint check failed. Fix the issues and try again." && exit 1)
+
+# Success!
+echo "✅ Commit checks passed!"

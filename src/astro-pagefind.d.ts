@@ -6,10 +6,10 @@ declare module 'astro-pagefind/components/Search' {
       showImages?: boolean;
       excerptLength?: number;
       resetStyles?: boolean;
-      [key: string]: any;
+      [key: string]: boolean | number | string | undefined;
     };
   }
 
-  const Search: (props: SearchProps) => any;
+  const Search: (props: SearchProps) => JSX.Element;
   export default Search;
 }

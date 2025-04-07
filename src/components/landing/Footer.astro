@@ -1,0 +1,106 @@
+---
+import { Icon } from 'astro-icon';
+
+interface Props {
+  footer: {
+    logo: string;
+    tagline: string;
+    socialAriaLabels: {
+      twitter: string;
+      github: string;
+    };
+    links: {
+      privacy: string;
+      terms: string;
+    };
+    // eslint-disable-next-line no-unused-vars
+    copyright: (year: number) => string;
+  };
+}
+
+const { footer } = Astro.props;
+---
+
+<footer class="box invert">
+  <div class="container">
+    <div class="stack">
+      <div class="cluster justify-between">
+        <div class="stack">
+          <a href="/" class="footer-logo">{footer.logo}</a>
+          <p class="footer-tagline">{footer.tagline}</p>
+        </div>
+        <div class="cluster">
+          <a
+            href="https://twitter.com/kumakdev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={footer.socialAriaLabels.twitter}
+            class="social-link"
+          >
+            <Icon name="mdi:twitter" class="social-icon" />
+          </a>
+          <a
+            href="https://github.com/kumakdev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={footer.socialAriaLabels.github}
+            class="social-link"
+          >
+            <Icon name="mdi:github" class="social-icon" />
+          </a>
+        </div>
+      </div>
+      <div class="cluster justify-between">
+        <p class="copyright">{footer.copyright(new Date().getFullYear())}</p>
+        <nav class="cluster">
+          <a href="/privacy" class="footer-link">{footer.links.privacy}</a>
+          <a href="/terms" class="footer-link">{footer.links.terms}</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+  }
+
+  .footer-tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+  }
+
+  .social-link {
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s ease;
+  }
+
+  .social-link:hover {
+    color: white;
+  }
+
+  .social-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .copyright {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+  }
+
+  .footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: white;
+  }
+</style>

@@ -1,0 +1,231 @@
+---
+interface Props {
+  type: "blog" | "project";
+  title: string;
+  description: string;
+  link: string;
+  // Blog specific props
+  date?: string;
+  readTime?: string;
+  // Project specific props
+  tags?: string[];
+  imageUrl?: string;
+}
+
+const { type, title, description, link, date, readTime, tags, imageUrl } = Astro.props;
+---
+
+{
+  type === "blog" ? (
+    <article class="card blog-card">
+      <header class="card-header">
+        {date && readTime && (
+          <div class="card-meta">
+            {date} • {readTime}
+          </div>
+        )}
+        <h3 class="card-title">{title}</h3>
+      </header>
+      <div class="card-content">
+        <p class="card-description">{description}</p>
+      </div>
+      <footer class="card-footer">
+        <a href={link} class="card-link">
+          Read article
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon-arrow"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
+      </footer>
+    </article>
+  ) : (
+    <article class="card project-card">
+      <div class="card-inner">
+        {imageUrl && (
+          <div class="card-image-container">
+            <img src={imageUrl} alt={`${title} project thumbnail`} class="card-image" />
+          </div>
+        )}
+        <header class="card-header project-header">
+          <h3 class="card-title">{title}</h3>
+          <p class="card-description">{description}</p>
+        </header>
+        <footer class="card-footer project-footer">
+          {tags && tags.length > 0 && <div class="card-tags">{tags.join(" • ")}</div>}
+          <a href={link} class="card-link">
+            View project
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="icon-external"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </footer>
+      </div>
+    </article>
+  )
+}
+
+<style>
+  .card {
+    background-color: rgb(23, 23, 23); /* gray-900 */
+    border: 1px solid rgb(38, 38, 38); /* gray-800 */
+    border-radius: 0.5rem;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative; /* Establish stacking context */
+    z-index: 1; /* Ensure proper stacking */
+    /* Remove transition for transform to avoid strange hover behavior */
+    transition: box-shadow 0.2s ease;
+  }
+
+  .card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+  }
+
+  .card:hover {
+    /* Remove transform to avoid strange behavior */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Blog card specific styles */
+  .blog-card {
+    background-color: rgb(16, 19, 27); /* Darker navy/blue-black color */
+    border-color: rgb(30, 34, 45);
+  }
+
+  .blog-card .card-header {
+    padding: 1.5rem 1.5rem 0.75rem;
+  }
+
+  .card-meta {
+    font-size: 0.875rem;
+    color: rgb(156, 163, 175); /* gray-400 */
+    margin-bottom: 0.75rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0;
+    letter-spacing: -0.015em;
+    color: white;
+  }
+
+  .card-content {
+    padding: 0.25rem 1.5rem 1rem;
+  }
+
+  .card-description {
+    color: rgb(156, 163, 175); /* gray-400 */
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .card-footer {
+    padding: 1rem 1.5rem 1.5rem;
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: none;
+    margin-top: 0;
+  }
+
+  .card-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: rgb(209, 213, 219); /* gray-300 */
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .card-link:hover {
+    color: white;
+  }
+
+  .icon-arrow,
+  .icon-external {
+    width: 20px;
+    height: 20px;
+    margin-left: 0.25rem;
+    stroke-width: 2px;
+  }
+
+  .card-tags {
+    font-size: 0.75rem;
+    color: rgb(156, 163, 175); /* gray-400 */
+  }
+
+  /* Project card specific styles */
+  .card-image-container {
+    position: relative;
+    height: 12rem;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgb(17, 17, 17); /* Slightly darker than card background */
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Remove transition for image scaling on hover */
+  }
+
+  /* Remove hover effect for project card images */
+  .project-card:hover .card-image {
+    transform: none;
+  }
+
+  .project-header {
+    padding: 1.25rem 1.25rem 0.75rem;
+  }
+
+  .project-card .card-description {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-footer {
+    padding: 0.75rem 1.25rem 1.25rem;
+    margin-top: auto;
+  }
+</style>

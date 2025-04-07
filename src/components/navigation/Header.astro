@@ -1,0 +1,136 @@
+---
+import type { Language } from '../../lib/content';
+import { getSiteContent } from '../../lib/content';
+import MobileNav from './MobileNav.astro';
+
+interface Props {
+  language?: Language;
+  currentPath?: string;
+}
+
+const { language = 'en', currentPath = '' } = Astro.props;
+const content = getSiteContent(language);
+
+// Navigation links
+const navLinks = [
+  { href: '/blog', label: content.navigation.links.blog },
+  { href: '/projects', label: content.navigation.links.projects },
+  { href: '/about', label: content.navigation.links.about },
+];
+
+// Function to check if a link is active
+const isActive = (href: string) => {
+  if (href === '/') {
+    return currentPath === href;
+  }
+  return currentPath.startsWith(href);
+};
+---
+
+<header transition:persist>
+  <div class="container">
+    <div class="navigation">
+      <a href="/" class="brand">
+        {content.navigation.logo}
+      </a>
+
+      <nav aria-label="Main navigation">
+        <div class="menu-container">
+          <MobileNav />
+          <ul class="menu">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a href={link.href} class:list={['nav-link', { active: isActive(link.href) }]}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .navigation {
+    container: navigation / inline-size;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .menu-container {
+    container: menu / inline-size;
+  }
+
+  .menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--accent-color, #3b82f6);
+  }
+
+  .nav-link.active {
+    color: var(--accent-color, #3b82f6);
+  }
+
+  /* Show full navigation when container is wide enough */
+  @container menu (inline-size >= 60ch) {
+    .menu-button {
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+    }
+  }
+
+  /* Quantity query to handle many menu items */
+  .menu-container:has(li:nth-child(6)) {
+    --show-menu: true;
+  }
+
+  /* Apply different layout for medium-sized containers with fewer items */
+  @container menu (40ch <= inline-size <= 60ch) {
+    @container not style(--show-menu: true) {
+      .menu-button {
+        display: none;
+      }
+
+      .menu {
+        display: flex;
+      }
+    }
+  }
+</style>

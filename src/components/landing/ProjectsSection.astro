@@ -1,0 +1,74 @@
+---
+import Card from "../Card.astro";
+
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  imageUrl: string;
+}
+
+interface Props {
+  projects: {
+    sectionTitle: string;
+    description: string;
+    viewAll: string;
+    items: Project[];
+  };
+}
+
+const { projects } = Astro.props;
+---
+
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+  <div class="projects-wrapper">
+    <div class="container">
+      <div class="section-intro">
+        <h2 class="section-title">{projects.sectionTitle}</h2>
+        <div class="section-subheader">
+          <p class="section-description">{projects.description}</p>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div></div>
+        <!-- Empty div for flex spacing -->
+        <a href="/projects" class="view-all">
+          {projects.viewAll}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="icon-arrow"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="projects-grid">
+        {
+          projects.items.map((project) => (
+            <Card
+              type="project"
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              link={project.link}
+              imageUrl={project.imageUrl}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

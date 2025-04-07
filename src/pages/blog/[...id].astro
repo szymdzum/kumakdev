@@ -1,31 +1,31 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Container from "@/components/Container.astro";
-import FormattedDate from "@/components/FormattedDate.astro";
-import { readingTime } from "@/lib/utils";
-import BackToPrevious from "@/components/BackToPrevious.astro";
-import PostNavigation from "@/components/PostNavigation.astro";
-import TableOfContents from "@/components/TableOfContents.astro";
-import Giscus from "@/components/Giscus.astro";
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Container from '@/components/Container.astro';
+import FormattedDate from '@/components/FormattedDate.astro';
+import Giscus from '@/components/Giscus.astro';
+import TableOfContents from '@/components/TableOfContents.astro';
+import BackToPrevious from '@/components/navigation/BackToPrevious.astro';
+import PostNavigation from '@/components/navigation/PostNavigation.astro';
+import Layout from '@/layouts/Layout.astro';
+import { readingTime } from '@/lib/utils';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog"))
+  const posts = (await getCollection('blog'))
     .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
   return posts.map((post) => ({
     params: { id: post.id },
     props: post,
   }));
 }
-type Props = CollectionEntry<"blog">;
+type Props = CollectionEntry<'blog'>;
 
-const posts = (await getCollection("blog"))
+const posts = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
 function getNextPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
     if (post.id === Astro.params.id) {
       postIndex = posts.indexOf(post);
@@ -35,7 +35,7 @@ function getNextPost() {
 }
 
 function getPrevPost() {
-  let postIndex;
+  let postIndex: number;
   for (const post of posts) {
     if (post.id === Astro.params.id) {
       postIndex = posts.indexOf(post);
@@ -59,14 +59,10 @@ const { Content, headings } = await render(post);
     <div class="my-10 space-y-1">
       <div class="animate flex items-center gap-1.5">
         <div class="font-base text-sm">
-          <FormattedDate date={post.data.date} />
+          <FormattedDate date={post.data.publishDate} />
         </div>
         &bull;
-        {post.body && (
-          <div class="font-base text-sm">
-            {readingTime(post.body)}
-          </div>
-        )}
+        {post.body && <div class="font-base text-sm">{readingTime(post.body)}</div>}
       </div>
       <h1 class="animate text-3xl font-semibold text-black dark:text-white">
         {post.data.title}

@@ -1,0 +1,65 @@
+---
+type Props = {
+  href: string;
+  external?: boolean;
+  underline?: boolean;
+  group?: boolean;
+};
+
+const { href, external, underline = true, group = false, ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : "_self"}
+  class:list={["custom-link", { "with-underline": underline }, { "link-group": group }]}
+  {...rest}
+>
+  <slot />
+</a>
+
+<style>
+  .custom-link {
+    display: inline-block;
+    color: currentColor;
+    text-decoration-color: rgba(0, 0, 0, 0.3);
+    transition:
+      color 0.3s ease-in-out,
+      text-decoration-color 0.3s ease-in-out;
+  }
+
+  .custom-link:hover,
+  .custom-link:focus-visible {
+    color: black;
+    text-decoration-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .with-underline {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Dark mode styles */
+  @media (prefers-color-scheme: dark) {
+    .custom-link {
+      text-decoration-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .custom-link:hover,
+    .custom-link:focus-visible {
+      color: white;
+      text-decoration-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  /* For .dark class-based approach */
+  :global(.dark) .custom-link {
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+  }
+
+  :global(.dark) .custom-link:hover,
+  :global(.dark) .custom-link:focus-visible {
+    color: white;
+    text-decoration-color: rgba(255, 255, 255, 0.5);
+  }
+</style>
