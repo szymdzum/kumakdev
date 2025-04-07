@@ -1,4 +1,4 @@
-declare module 'clsx' {
+declare module "clsx" {
   export type ClassValue =
     | string
     | number
@@ -11,21 +11,21 @@ declare module 'clsx' {
   export default clsx;
 }
 
-declare module 'tailwind-merge' {
+declare module "tailwind-merge" {
   export function twMerge(...inputs: string[]): string;
 }
 
 declare namespace astroHTML.JSX {
   interface HTMLAttributes {
-    'transition:persist'?: boolean;
-    'transition:animate'?: string;
-    'transition:name'?: string;
+    "transition:persist"?: boolean;
+    "transition:animate"?: string;
+    "transition:name"?: string;
   }
 }
 
-declare module 'astro:transitions' {
+declare module "astro:transitions" {
   interface ViewTransitionsOptions {
-    fallback?: 'animate' | 'swap' | 'none';
+    fallback?: "animate" | "swap" | "none";
     persist?: string[];
     handleForms?: boolean;
   }

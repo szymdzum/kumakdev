@@ -1,21 +1,21 @@
 ---
-import AnimatedGradientBackground from '../components/AnimatedGradientBackground.astro';
-import AnimatedText from '../components/AnimatedText.astro';
-import Card from '../components/Card.astro';
-import Header from '../components/navigation/Header.astro';
-import RootLayout from '../layouts/RootLayout.astro';
-import '../styles/index.css';
-import { getCollection } from 'astro:content';
+import AnimatedGradientBackground from "../components/AnimatedGradientBackground.astro";
+import AnimatedText from "../components/AnimatedText.astro";
+import Card from "../components/Card.astro";
+import Header from "../components/navigation/Header.astro";
+import RootLayout from "../layouts/RootLayout.astro";
+import "../styles/index.css";
+import { getCollection } from "astro:content";
 
 // Import content management
-import { getSiteContent } from '../lib/content';
-import type { Language } from '../lib/content';
+import { getSiteContent } from "../lib/content";
+import type { Language } from "../lib/content";
 
-const language: Language = 'en';
+const language: Language = "en";
 const content = getSiteContent(language);
 
 // Get latest 3 blog posts
-const blogPosts = await getCollection('blog', ({ data }) => {
+const blogPosts = await getCollection("blog", ({ data }) => {
   return !data.draft;
 });
 
@@ -121,10 +121,10 @@ const latestPosts = blogPosts
               latestPosts.map((post) => (
                 <Card
                   type="blog"
-                  date={new Date(post.data.publishDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
+                  date={new Date(post.data.publishDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
                   })}
                   readTime={post.data.readTime}
                   title={post.data.title}
@@ -208,12 +208,12 @@ const latestPosts = blogPosts
                 content.about.paragraphs.map((paragraph, index) => (
                   <p
                     class:list={[
-                      'reveal-item',
+                      "reveal-item",
                       index === 0
-                        ? 'reveal-delay-1'
+                        ? "reveal-delay-1"
                         : index === 1
-                          ? 'reveal-delay-2'
-                          : 'reveal-delay-3',
+                          ? "reveal-delay-2"
+                          : "reveal-delay-3",
                     ]}
                   >
                     {paragraph}
@@ -326,9 +326,9 @@ const latestPosts = blogPosts
 
 <script>
   // Add client-side language initialization
-  import { initLanguage } from '../lib/language-client';
+  import { initLanguage } from "../lib/language-client";
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // Initialize language
     initLanguage();
   });
@@ -336,22 +336,22 @@ const latestPosts = blogPosts
   // Scroll detection for header styling
   function handleScroll() {
     if (window.scrollY > 10) {
-      document.documentElement.classList.add('scrolled');
+      document.documentElement.classList.add("scrolled");
     } else {
-      document.documentElement.classList.remove('scrolled');
+      document.documentElement.classList.remove("scrolled");
     }
   }
 
   // Reveal elements on scroll
   function handleRevealElements() {
-    const revealItems = document.querySelectorAll('.reveal-item');
+    const revealItems = document.querySelectorAll(".reveal-item");
 
     revealItems.forEach((item) => {
       const elementTop = item.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
       if (elementTop < windowHeight * 0.85) {
-        item.classList.add('visible');
+        item.classList.add("visible");
       }
     });
   }
@@ -359,10 +359,10 @@ const latestPosts = blogPosts
   // Smooth scroll function for all anchor links
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+      anchor.addEventListener("click", function (this: HTMLAnchorElement, e: Event) {
         e.preventDefault();
 
-        const targetId = this.getAttribute('href') || '';
+        const targetId = this.getAttribute("href") || "";
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
@@ -370,18 +370,18 @@ const latestPosts = blogPosts
 
           window.scrollTo({
             top: offsetTop - 80, // Adjust for header height
-            behavior: 'smooth',
+            behavior: "smooth",
           });
 
           // Update URL hash without scrolling
-          history.pushState(null, '', targetId);
+          history.pushState(null, "", targetId);
         }
       });
     });
   }
 
   // Initialize on load
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     // Check initial scroll position
     handleScroll();
 
@@ -389,15 +389,15 @@ const latestPosts = blogPosts
     handleRevealElements();
 
     // Add scroll event listeners
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleRevealElements);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleRevealElements);
 
     // Setup smooth scrolling
     setupSmoothScroll();
   });
 
   // Handle Astro page transitions
-  document.addEventListener('astro:page-load', () => {
+  document.addEventListener("astro:page-load", () => {
     // Check initial scroll position after page transitions
     handleScroll();
 

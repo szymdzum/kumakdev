@@ -1,14 +1,14 @@
 ---
-title: 'Projects Collection'
-description: 'How to add projects to your portfolio.'
+title: "Projects Collection"
+description: "How to add projects to your portfolio."
 publishDate: 2024-03-20
-category: 'Tutorial'
-readTime: '3 min read'
+category: "Tutorial"
+readTime: "3 min read"
 author:
-  { name: 'Szymon Dziemak', image: '/images/author.jpg', fallback: 'SD', bio: 'Software Developer' }
-featuredImage: '/images/blog/projects.jpg'
-imageAlt: 'Projects collection guide'
-imageCaption: 'Learn how to manage your project portfolio'
+  { name: "Szymon Dziemak", image: "/images/author.jpg", fallback: "SD", bio: "Software Developer" }
+featuredImage: "/images/blog/projects.jpg"
+imageAlt: "Projects collection guide"
+imageCaption: "Learn how to manage your project portfolio"
 tags:
   - tutorial
   - projects

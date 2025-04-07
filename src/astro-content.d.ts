@@ -1,6 +1,6 @@
-declare module 'astro:content' {
+declare module "astro:content" {
   export type CollectionEntry<T extends keyof typeof collections> = {
-    data: T extends 'blog'
+    data: T extends "blog"
       ? {
           title: string;
           description: string;
@@ -8,7 +8,7 @@ declare module 'astro:content' {
           draft?: boolean;
           tags?: string[];
         }
-      : T extends 'projects'
+      : T extends "projects"
         ? {
             title: string;
             description: string;

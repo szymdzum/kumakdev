@@ -1,4 +1,4 @@
-declare module 'astro-pagefind/components/Search' {
+declare module "astro-pagefind/components/Search" {
   interface SearchProps {
     id?: string;
     className?: string;

@@ -2,15 +2,15 @@
 
 declare namespace astroHTML.JSX {
   interface HTMLAttributes {
-    'transition:persist'?: boolean | string;
-    'transition:animate'?: string;
-    'transition:name'?: string;
+    "transition:persist"?: boolean | string;
+    "transition:animate"?: string;
+    "transition:name"?: string;
   }
 }
 
 /// <reference types="astro/content" />
 
-declare module 'astro-icon' {
+declare module "astro-icon" {
   interface Props {
     name: string;
     class?: string;

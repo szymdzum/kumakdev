@@ -1,7 +1,7 @@
-import { siteContent as enContent } from '../content/site-text/en';
-import { siteContent as plContent } from '../content/site-text/pl';
+import { siteContent as enContent } from "../content/site-text/en";
+import { siteContent as plContent } from "../content/site-text/pl";
 
-export type Language = 'en' | 'pl';
+export type Language = "en" | "pl";
 
 // Content mapping for different languages
 const contentMap = {
@@ -10,7 +10,7 @@ const contentMap = {
 };
 
 // Default language
-export const DEFAULT_LANGUAGE: Language = 'en';
+export const DEFAULT_LANGUAGE: Language = "en";
 
 /**
  * Get the site content for the specified language

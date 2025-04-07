@@ -1,25 +1,25 @@
 ---
-import MainFooter from '../../components/MainFooter.astro';
-import Header from '../../components/navigation/Header.astro';
-import RootLayout from '../../layouts/RootLayout.astro';
+import MainFooter from "../../components/MainFooter.astro";
+import Header from "../../components/navigation/Header.astro";
+import RootLayout from "../../layouts/RootLayout.astro";
 
 // Example blog post data - in a real app, this would come from a CMS or data fetching
 // Or use Astro's content collections as shown in [slug].astro
 const examplePost = {
-  category: 'Design',
-  readTime: '6 min read',
-  title: 'The Art of Minimalist Design: Less is More in the Digital Age',
+  category: "Design",
+  readTime: "6 min read",
+  title: "The Art of Minimalist Design: Less is More in the Digital Age",
   author: {
-    name: 'Jane Doe',
-    image: '/placeholder.svg?height=40&width=40',
-    fallback: 'JD',
-    bio: 'UX Designer and writer with over 8 years of experience creating minimalist, accessible digital experiences. Passionate about design systems and user-centered design.',
+    name: "Jane Doe",
+    image: "/placeholder.svg?height=40&width=40",
+    fallback: "JD",
+    bio: "UX Designer and writer with over 8 years of experience creating minimalist, accessible digital experiences. Passionate about design systems and user-centered design.",
   },
-  publishDate: new Date('2023-04-15'),
-  featuredImage: '/placeholder.svg?height=600&width=1200',
-  imageAlt: 'Minimalist design workspace with a computer, notebook, and plant',
+  publishDate: new Date("2023-04-15"),
+  featuredImage: "/placeholder.svg?height=600&width=1200",
+  imageAlt: "Minimalist design workspace with a computer, notebook, and plant",
   imageCaption: 'A clean, minimalist workspace showcasing the "less is more" philosophy',
-  tags: ['minimalism', 'design', 'ux', 'accessibility'],
+  tags: ["minimalism", "design", "ux", "accessibility"],
   likeCount: 245,
   commentCount: 42,
 };
@@ -63,10 +63,10 @@ const examplePost = {
               <div class="text-sm text-gray-400">
                 Published on <time datetime={examplePost.publishDate.toISOString()}>
                   {
-                    new Date(examplePost.publishDate).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                    new Date(examplePost.publishDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })
                   }
                 </time>

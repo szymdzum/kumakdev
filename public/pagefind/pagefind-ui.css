@@ -102,7 +102,7 @@
   position: relative;
 }
 .pagefind-ui__result-nested.svelte-4xnkmf .pagefind-ui__result-link.svelte-4xnkmf:before {
-  content: '\2937  ';
+  content: "\2937  ";
   position: absolute;
   top: 0;
   right: calc(100% + 0.1em);
@@ -212,7 +212,7 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
 }
 .pagefind-ui__filter-name.svelte-1v2r7ls.svelte-1v2r7ls:after {
   position: absolute;
-  content: '';
+  content: "";
   right: calc(6px * var(--pagefind-ui-scale));
   top: 50%;
   width: calc(8px * var(--pagefind-ui-scale));
@@ -239,7 +239,7 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
 }
 .pagefind-ui__filter-value.svelte-1v2r7ls.svelte-1v2r7ls:before {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   left: calc(8px * var(--pagefind-ui-scale));
   width: 0px;
@@ -326,14 +326,14 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
 .pagefind-ui--reset :where([hidden]) {
   display: none;
 }
-.pagefind-ui--reset :where([contenteditable]:not([contenteditable='false'])) {
+.pagefind-ui--reset :where([contenteditable]:not([contenteditable="false"])) {
   -moz-user-modify: read-write;
   -webkit-user-modify: read-write;
   overflow-wrap: break-word;
   -webkit-line-break: after-white-space;
   -webkit-user-select: auto;
 }
-.pagefind-ui--reset :where([draggable='true']) {
+.pagefind-ui--reset :where([draggable="true"]) {
   -webkit-user-drag: element;
 }
 .pagefind-ui--reset mark {
@@ -351,8 +351,8 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
   --pagefind-ui-image-border-radius: 8px;
   --pagefind-ui-image-box-ratio: 3 / 2;
   --pagefind-ui-font:
-    system, -apple-system, 'BlinkMacSystemFont', '.SFNSText-Regular', 'San Francisco', 'Roboto',
-    'Segoe UI', 'Helvetica Neue', 'Lucida Grande', 'Ubuntu', 'arial', sans-serif;
+    system, -apple-system, "BlinkMacSystemFont", ".SFNSText-Regular", "San Francisco", "Roboto",
+    "Segoe UI", "Helvetica Neue", "Lucida Grande", "Ubuntu", "arial", sans-serif;
 }
 .pagefind-ui.svelte-e9gkc3 {
   width: 100%;
@@ -375,7 +375,7 @@ legend.svelte-1v2r7ls.svelte-1v2r7ls {
   height: calc(18px * var(--pagefind-ui-scale));
   top: calc(23px * var(--pagefind-ui-scale));
   left: calc(20px * var(--pagefind-ui-scale));
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   opacity: 0.7;

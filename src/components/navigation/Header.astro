@@ -1,26 +1,26 @@
 ---
-import type { Language } from '../../lib/content';
-import { getSiteContent } from '../../lib/content';
-import MobileNav from './MobileNav.astro';
+import type { Language } from "../../lib/content";
+import { getSiteContent } from "../../lib/content";
+import MobileNav from "./MobileNav.astro";
 
 interface Props {
   language?: Language;
   currentPath?: string;
 }
 
-const { language = 'en', currentPath = '' } = Astro.props;
+const { language = "en", currentPath = "" } = Astro.props;
 const content = getSiteContent(language);
 
 // Navigation links
 const navLinks = [
-  { href: '/blog', label: content.navigation.links.blog },
-  { href: '/projects', label: content.navigation.links.projects },
-  { href: '/about', label: content.navigation.links.about },
+  { href: "/blog", label: content.navigation.links.blog },
+  { href: "/projects", label: content.navigation.links.projects },
+  { href: "/about", label: content.navigation.links.about },
 ];
 
 // Function to check if a link is active
 const isActive = (href: string) => {
-  if (href === '/') {
+  if (href === "/") {
     return currentPath === href;
   }
   return currentPath.startsWith(href);
@@ -41,7 +41,7 @@ const isActive = (href: string) => {
             {
               navLinks.map((link) => (
                 <li>
-                  <a href={link.href} class:list={['nav-link', { active: isActive(link.href) }]}>
+                  <a href={link.href} class:list={["nav-link", { active: isActive(link.href) }]}>
                     {link.label}
                   </a>
                 </li>
