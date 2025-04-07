@@ -21,7 +21,7 @@
   gap: var(--space, 1rem);
 }
 
-.stack > * + * {
+.stack>*+* {
   margin-top: 0;
 }
 
@@ -61,4 +61,101 @@
   margin-right: auto;
   padding-left: var(--space-3, 1rem);
   padding-right: var(--space-3, 1rem);
+}
+
+/* Frame Layout - For maintaining aspect ratios */
+.frame {
+  position: relative;
+  padding-bottom: var(--ratio, 56.25%);
+  /* Default 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.frame>* {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame.ratio-1\:1 {
+  --ratio: 100%;
+  /* 1:1 square */
+}
+
+.frame.ratio-4\:3 {
+  --ratio: 75%;
+  /* 4:3 */
+}
+
+.frame.ratio-16\:9 {
+  --ratio: 56.25%;
+  /* 16:9 */
+}
+
+/* Cover Layout - For full-height sections */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--min-height, 100vh);
+  padding: var(--cover-padding, 1rem);
+}
+
+.cover>* {
+  margin-top: var(--cover-space, 1rem);
+  margin-bottom: var(--cover-space, 1rem);
+}
+
+.cover> :first-child:not(h1) {
+  margin-top: 0;
+}
+
+.cover> :last-child:not(h1) {
+  margin-bottom: 0;
+}
+
+.cover>h1,
+.cover>[data-cover-center] {
+  margin-block: auto;
+}
+
+/* Grid Layout - For responsive grid layouts */
+.grid {
+  display: grid;
+  gap: var(--grid-gap, 1rem);
+  grid-template-columns: repeat(auto-fit,
+      minmax(min(100%, var(--grid-min, 250px)), 1fr));
+}
+
+/* Alignment Utilities */
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Card Component */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }

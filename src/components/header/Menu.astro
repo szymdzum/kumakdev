@@ -24,20 +24,18 @@ const { menu } = Astro.props;
 </ul>
 
 <style>
-  .menu {
-    li {
-      display: inline-block;
-    }
+  .menu li {
+    display: inline-block;
+  }
 
-    .nav-link {
-      font-weight: 600;
-      text-transform: uppercase;
-      padding: var(--space-2xs);
+  .menu .nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: var(--space-2xs);
+  }
 
-      &:focus,
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  .menu .nav-link:focus,
+  .menu .nav-link:hover {
+    text-decoration: underline;
   }
 </style>
