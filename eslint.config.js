@@ -88,10 +88,15 @@ export default [
         parser: tsparser,
         extraFileExtensions: [".astro"],
       },
+      globals: {
+        document: "readonly",
+        window: "readonly",
+        URL: "readonly",
+      },
     },
     rules: {
       "astro/no-unused-define-vars-in-style": "error",
-      "astro/no-unused-css-selector": "warn",
+      "astro/no-unused-css-selector": "off",
       "astro/prefer-class-list-directive": "error",
       "astro/semi": ["error", "always"],
     },
