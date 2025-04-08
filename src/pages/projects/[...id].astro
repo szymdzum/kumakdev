@@ -1,7 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import FormattedDate from "@components/FormattedDate.astro";
-import TableOfContents from "@components/TableOfContents.astro";
 import BackToPrevious from "@components/navigation/BackToPrevious.astro";
 import Link from "@components/navigation/Link.astro";
 import RootLayout from "@layouts/RootLayout.astro";
@@ -19,7 +18,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
-const { Content, headings } = await render(project);
+const { Content } = await render(project);
 ---
 
 <RootLayout title={project.data.title} description={project.data.description}>
@@ -55,7 +54,6 @@ const { Content, headings } = await render(project);
       )
     }
   </div>
-  <TableOfContents headings={headings} />
   <article>
     <Content />
   </article>

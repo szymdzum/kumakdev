@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import Giscus from "@/components/Giscus.astro";
-import TableOfContents from "@/components/TableOfContents.astro";
 import BackToPrevious from "@/components/navigation/BackToPrevious.astro";
 import PostNavigation from "@/components/navigation/PostNavigation.astro";
 import RootLayout from "@/layouts/RootLayout.astro";
@@ -47,7 +46,7 @@ const nextPost = getNextPost();
 const prevPost = getPrevPost();
 
 const post = Astro.props;
-const { Content, headings } = await render(post);
+const { Content } = await render(post);
 ---
 
 <RootLayout title={post.data.title} description={post.data.description}>
@@ -75,7 +74,7 @@ const { Content, headings } = await render(post);
       ) : null
     }
   </div>
-  {headings.length > 0 && <TableOfContents headings={headings} />}
+
   <article>
     <Content />
     <div>
