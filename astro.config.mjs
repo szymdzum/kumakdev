@@ -1,7 +1,7 @@
 import path from "node:path";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwindcss from "@tailwindcss/vite";
+// import tailwindcss from "@tailwindcss/vite"; // Removed
 import pagefind from "astro-pagefind";
 import { defineConfig } from "astro/config";
 
@@ -10,7 +10,7 @@ export default defineConfig({
   site: "https://astro-micro.vercel.app",
   integrations: [sitemap(), mdx(), pagefind()],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [], // Removed tailwindcss()
     resolve: {
       alias: {
         "@components": path.resolve("./src/components"),
