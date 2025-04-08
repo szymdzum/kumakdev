@@ -41,7 +41,9 @@ const description = "kumak does dev";
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL("/astro-micro.jpg", Astro.url)} />
 
-<!-- PageFind
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-<script is:inline src="/pagefind/pagefind-ui.js"></script>
- -->
+<!-- PageFind -->
+<!-- Uncomment if you need direct PageFind access -->
+<!--
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" crossorigin="anonymous" />
+<script is:inline src="/pagefind/pagefind-ui.js" type="text/javascript" crossorigin="anonymous" fetchpriority="low" defer></script>
+-->

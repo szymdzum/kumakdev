@@ -30,66 +30,93 @@ import Search from "astro-pagefind/components/Search";
 </aside>
 
 <script is:inline>
-  const magnifyingGlass = document.getElementById("magnifying-glass");
-  const backdrop = document.getElementById("backdrop");
+  // Use a self-executing function to create a closure and avoid global scope pollution
+  (function () {
+    // Get references to DOM elements safely
+    const magnifyingGlass = document.getElementById("magnifying-glass");
+    const backdrop = document.getElementById("backdrop");
 
-  function openPagefind() {
-    const searchDiv = document.getElementById("search");
-    const search = searchDiv.querySelector("input");
-    setTimeout(() => {
-      search.focus();
-    }, 0);
-    backdrop?.classList.remove("invisible");
-    backdrop?.classList.add("visible");
-  }
+    // Define functions within the closure
+    function openPagefind() {
+      const searchDiv = document.getElementById("search");
+      if (!searchDiv) return;
 
-  function closePagefind() {
-    const search = document.getElementById("search");
-    search.value = "";
-    backdrop?.classList.remove("visible");
-    backdrop?.classList.add("invisible");
-  }
+      const search = searchDiv.querySelector("input");
+      if (search) {
+        setTimeout(() => {
+          search.focus();
+        }, 0);
+      }
 
-  // open pagefind
-  magnifyingGlass?.addEventListener("click", () => {
-    openPagefind();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "/") {
-      e.preventDefault();
-      openPagefind();
-    } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-      e.preventDefault();
-      openPagefind();
+      if (backdrop) {
+        backdrop.classList.remove("invisible");
+        backdrop.classList.add("visible");
+      }
     }
-  });
 
-  // close pagefind
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePagefind();
+    function closePagefind() {
+      const search = document.getElementById("search");
+      if (search && search.value) {
+        search.value = "";
+      }
+
+      if (backdrop) {
+        backdrop.classList.remove("visible");
+        backdrop.classList.add("invisible");
+      }
     }
-  });
 
-  // close pagefind when searched result(link) clicked
-  document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("pagefind-ui__result-link")) {
-      closePagefind();
+    // Add event listeners safely
+    if (magnifyingGlass) {
+      magnifyingGlass.addEventListener("click", () => {
+        openPagefind();
+      });
     }
-  });
 
-  backdrop?.addEventListener("click", (event) => {
-    if (!event.target.closest("#pagefind-container")) {
-      closePagefind();
+    // Global keyboard shortcuts
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "/") {
+        e.preventDefault();
+        openPagefind();
+      } else if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        openPagefind();
+      } else if (e.key === "Escape") {
+        closePagefind();
+      }
+    });
+
+    // Close pagefind when search result is clicked
+    document.addEventListener("click", (event) => {
+      if (
+        event.target &&
+        event.target.classList &&
+        event.target.classList.contains("pagefind-ui__result-link")
+      ) {
+        closePagefind();
+      }
+    });
+
+    // Close pagefind when clicking outside container
+    if (backdrop) {
+      backdrop.addEventListener("click", (event) => {
+        if (
+          (event.target && !event.target.closest) ||
+          !event.target.closest("#pagefind-container")
+        ) {
+          closePagefind();
+        }
+      });
     }
-  });
 
-  // prevent form submission
-  const form = document.getElementById("form");
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
+    // Prevent form submission
+    const form = document.getElementById("form");
+    if (form) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+      });
+    }
+  })();
 </script>
 
 <style is:global>

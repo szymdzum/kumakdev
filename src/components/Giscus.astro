@@ -1,18 +1,59 @@
-<div class="giscus"></div>
+---
+// Configuration for Giscus comments
+const giscusConfig = {
+  repo: "szymdzum/kumakdev",
+  repoId: "R_kgDOOOLMgQ",
+  category: "Comments", // Replace with your actual category
+  categoryId: "DIC_kwDOOOLMgc4CY-EA", // Replace with your actual category ID
+  mapping: "pathname",
+  reactionsEnabled: "1",
+  emitMetadata: "0",
+  inputPosition: "bottom",
+  theme: "preferred_color_scheme",
+  lang: "en",
+  loading: "lazy",
+};
+---
 
-<script
-  src="https://giscus.app/client.js"
-  data-repo="szymdzum/kumakdev"
-  data-repo-id="R_kgDOOOLMgQ"
-  data-category="[ENTER CATEGORY NAME HERE]"
-  data-category-id="[ENTER CATEGORY ID HERE]"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="bottom"
-  data-theme="preferred_color_scheme"
-  data-lang="en"
-  data-loading="lazy"
-  crossorigin="anonymous"
-  async></script>
+<div class="giscus-wrapper">
+  <script define:vars={{ config: giscusConfig }}>
+    // Create a clean dataset to avoid cross-origin issues
+    const giscusAttributes = {
+      src: "https://giscus.app/client.js",
+      "data-repo": config.repo,
+      "data-repo-id": config.repoId,
+      "data-category": config.category,
+      "data-category-id": config.categoryId,
+      "data-mapping": config.mapping,
+      "data-strict": "0",
+      "data-reactions-enabled": config.reactionsEnabled,
+      "data-emit-metadata": config.emitMetadata,
+      "data-input-position": config.inputPosition,
+      "data-theme": config.theme,
+      "data-lang": config.lang,
+      "data-loading": config.loading,
+      crossorigin: "anonymous",
+    };
+
+    // Create script element programmatically
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => {
+      giscusScript.setAttribute(key, value);
+    });
+    giscusScript.async = true;
+
+    // Create a container for Giscus
+    const giscusContainer = document.createElement("div");
+    giscusContainer.className = "giscus";
+
+    // Add the elements to the page
+    document.currentScript.parentNode.appendChild(giscusContainer);
+    document.currentScript.parentNode.appendChild(giscusScript);
+  </script>
+</div>
+
+<style>
+  .giscus-wrapper {
+    margin-top: 2rem;
+  }
+</style>
