@@ -13,7 +13,7 @@
   --color-border: #e2e8f0;
 
   /* Typography */
-  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-family-heading: var(--font-family-base);
 
   /* Fluid typography scales using clamp */
@@ -223,23 +223,23 @@ a:hover {
 }
 
 /* Flow utility for consistent vertical rhythm */
-.flow>*+* {
+.flow > * + * {
   margin-top: var(--flow-space-md);
 }
 
-.flow-xs>*+* {
+.flow-xs > * + * {
   margin-top: var(--flow-space-xs);
 }
 
-.flow-sm>*+* {
+.flow-sm > * + * {
   margin-top: var(--flow-space-sm);
 }
 
-.flow-lg>*+* {
+.flow-lg > * + * {
   margin-top: var(--flow-space-lg);
 }
 
-.flow-xl>*+* {
+.flow-xl > * + * {
   margin-top: var(--flow-space-xl);
 }
 
@@ -330,7 +330,6 @@ footer {
 
 /* Add styles that use container queries */
 @container layout (min-width: 45rem) {
-
   /* Header navigation becomes horizontal on larger container sizes */
   header details {
     display: none;
@@ -368,7 +367,6 @@ footer {
 /* Fallback for browsers that don't support container queries */
 @supports not (container-type: inline-size) {
   @media (min-width: 45rem) {
-
     /* Header navigation becomes horizontal on larger screens */
     header details {
       display: none;
@@ -402,7 +400,6 @@ footer {
       align-items: center;
     }
 
-
     .about-text {
       flex: 1;
     }
@@ -413,7 +410,9 @@ footer {
 .reveal-item {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .reveal-item.revealed {
