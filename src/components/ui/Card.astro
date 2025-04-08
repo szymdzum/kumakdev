@@ -82,17 +82,33 @@ const {
 
 <style>
   .card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    background-color: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
     transition:
       transform 0.2s ease,
-      box-shadow 0.2s ease;
+      border-color 0.2s ease;
   }
 
   .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+  }
+
+  .card-content {
+    padding: var(--space-md);
+  }
+
+  .card-title {
+    color: var(--color-light);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-xl);
+  }
+
+  .card-description {
+    color: var(--color-muted);
+    margin-bottom: var(--space-sm);
   }
 
   .ratio-16:9 {

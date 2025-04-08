@@ -37,9 +37,36 @@ const recentPosts = await getBlogPosts({
 </section>
 
 <style>
-  .featured-section {
+  .featured {
     padding: var(--space-xl) 0;
-    background-color: var(--color-background);
+    background-color: var(--color-dark);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+    color: var(--color-light);
+    text-align: center;
+  }
+
+  .featured-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .view-all {
+    display: block;
+    text-align: center;
+    margin-top: var(--space-lg);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .view-all:hover {
+    color: var(--color-primary-light);
   }
 
   header {
@@ -47,10 +74,6 @@ const recentPosts = await getBlogPosts({
     flex-direction: column;
     gap: var(--space-xs);
     margin-bottom: var(--space-lg);
-  }
-
-  h2 {
-    margin-bottom: 0;
   }
 
   p {

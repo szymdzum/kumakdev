@@ -1,0 +1,69 @@
+---
+interface Props {
+  width?: number;
+  height?: number;
+  className?: string;
+}
+
+const { width = 40, height = 40, className = "" } = Astro.props;
+---
+
+<div class:list={["grid-pattern-container", className]}>
+  <svg
+    class="grid-pattern"
+    width="100%"
+    height="100%"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+  >
+    <pattern id="grid" x="0" y="0" width={width} height={height} patternUnits="userSpaceOnUse">
+      <rect
+        width={width - 1}
+        height={height - 1}
+        fill="none"
+        stroke-width="0.5"
+        stroke="currentColor"></rect>
+    </pattern>
+    <rect id="grid-bg" width="100%" height="100%" fill="url(#grid)"></rect>
+  </svg>
+</div>
+
+<style>
+  .grid-pattern-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    opacity: 0.06;
+  }
+
+  .grid-pattern {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-opacity: 0.2;
+  }
+
+  #grid-bg {
+    animation: pulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #grid-bg {
+      animation: none;
+    }
+  }
+</style>
