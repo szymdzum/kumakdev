@@ -2,15 +2,65 @@
 
 ---
 
-<section>
+<section class="hero" aria-labelledby="hero-heading" role="region">
   <div class="center">
     <div class="stack">
-      <h1>Welcome to Our Site</h1>
+      <h1 id="hero-heading">Welcome to Our Site</h1>
       <p>A brief introduction or tagline.</p>
-      <div class="cluster justify-center">
-        <button>Primary Action</button>
-        <button>Secondary Action</button>
+      <div class="cluster justify-center" role="group" aria-label="Call to action buttons">
+        <button type="button" class="primary-button">Primary Action</button>
+        <button type="button" class="secondary-button">Secondary Action</button>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .hero {
+    padding: var(--space-2xl) 0;
+    background-color: var(--color-light);
+  }
+
+  h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-lg);
+    max-width: 50ch;
+    margin-inline: auto;
+  }
+
+  button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  button:hover {
+    background-color: var(--color-primary-dark);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--color-primary-dark);
+    outline-offset: 2px;
+  }
+
+  .secondary-button {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+
+  .secondary-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+</style>

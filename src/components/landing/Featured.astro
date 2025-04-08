@@ -10,22 +10,154 @@ const recentPosts = await getBlogPosts({
 ---
 
 <!-- Featured Blog Posts -->
-<section aria-labelledby="blog-section-title">
+<section aria-labelledby="blog-section-title" class="featured-section">
   <div class="container flow">
     <header>
       <h2 id="blog-section-title">Blog</h2>
       <p>Latest posts</p>
-      <a href="/blog">View all posts</a>
+      <a href="/blog" aria-label="View all blog posts" class="view-all-link">View all posts</a>
     </header>
 
-    <ul>
+    <ul class="post-list" role="list">
       {
         recentPosts.map((post) => (
           <li>
-            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+            <article class="post-card">
+              <h3 class="post-title">
+                <a href={`/blog/${post.slug}`} aria-label={`Read more about ${post.data.title}`}>
+                  {post.data.title}
+                </a>
+              </h3>
+            </article>
           </li>
         ))
       }
     </ul>
   </div>
 </section>
+
+<style>
+  .featured-section {
+    padding: var(--space-xl) 0;
+    background-color: var(--color-background);
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
+  }
+
+  h2 {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+    color: var(--color-muted);
+  }
+
+  .view-all-link {
+    align-self: flex-start;
+    margin-top: var(--space-xs);
+  }
+
+  .view-all-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .post-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .post-list li {
+    margin: 0;
+  }
+
+  .post-card {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    height: 100%;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+
+  .post-title a {
+    display: block;
+    color: var(--color-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .post-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-title a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    color: var(--color-primary);
+  }
+
+  @container layout (min-width: 45rem) {
+    header {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    header p {
+      margin-left: auto;
+      margin-right: var(--space-md);
+    }
+
+    header a {
+      margin-top: 0;
+    }
+
+    .post-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @supports not (container-type: inline-size) {
+    @media (min-width: 45rem) {
+      header {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+
+      header p {
+        margin-left: auto;
+        margin-right: var(--space-md);
+      }
+
+      header a {
+        margin-top: 0;
+      }
+
+      .post-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+</style>

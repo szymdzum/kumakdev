@@ -2,19 +2,175 @@
 
 ---
 
-<header>
+<header role="banner">
   <div class="container">
-    <a href="/">kumak.dev</a>
-    <details>
-      <summary>Menu</summary>
-      <nav>
-        <ul>
-          <li><a href="/layouts">Layouts</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/test">Test</a></li>
-          <li><a href="/tags">Tags</a></li>
+    <a href="/" class="site-title">kumak.dev</a>
+    <details id="menu-container">
+      <summary aria-haspopup="true" aria-controls="primary-navigation" aria-label="Open main menu">
+        <span>Menu</span>
+      </summary>
+      <nav aria-label="Primary navigation" id="primary-navigation">
+        <ul role="menu">
+          <li role="menuitem"><a href="/layouts">Layouts</a></li>
+          <li role="menuitem"><a href="/blog">Blog</a></li>
+          <li role="menuitem"><a href="/test">Test</a></li>
+          <li role="menuitem"><a href="/tags">Tags</a></li>
         </ul>
       </nav>
     </details>
   </div>
 </header>
+
+<script>
+  // Add the appropriate aria-expanded state when menu is opened/closed
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector("#menu-container summary");
+    const menuContainer = document.querySelector("#menu-container");
+
+    if (menuToggle && menuContainer) {
+      // Set initial state
+      menuToggle.setAttribute("aria-expanded", "false");
+
+      // Update state on toggle
+      menuContainer.addEventListener("toggle", () => {
+        const isOpen = menuContainer.hasAttribute("open");
+        menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    }
+  });
+</script>
+
+<style>
+  header {
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  a {
+    font-weight: 600;
+  }
+
+  .site-title {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Mobile Navigation */
+  details {
+    position: relative;
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-light);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  nav {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: var(--space-xs);
+    background-color: var(--color-light);
+    border-radius: var(--radius-md);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    min-width: 10rem;
+    padding: var(--space-xs);
+    z-index: 10;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li {
+    padding: var(--space-xs);
+  }
+
+  nav a {
+    display: block;
+    padding: var(--space-xs);
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s ease;
+  }
+
+  nav a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  nav a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Responsive navigation */
+  @container layout (min-width: 45rem) {
+    details {
+      display: none; /* Hide the menu toggle */
+    }
+
+    nav {
+      position: static;
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    nav li {
+      padding: 0;
+    }
+  }
+
+  /* Fallback for browsers that don't support container queries */
+  @supports not (container-type: inline-size) {
+    @media (min-width: 45rem) {
+      details {
+        display: none;
+      }
+
+      nav {
+        position: static;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav ul {
+        display: flex;
+        gap: var(--space-md);
+      }
+
+      nav li {
+        padding: 0;
+      }
+    }
+  }
+</style>

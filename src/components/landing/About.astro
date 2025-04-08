@@ -2,13 +2,85 @@
 
 ---
 
-<section id="about" class="about-section">
+<section id="about" class="about-section" aria-labelledby="about-heading">
   <div class="container flow">
-    <h2 class="section-title">About</h2>
+    <h2 id="about-heading" class="section-title">About</h2>
     <div class="about-content">
-      <div class="about-text">
+      <article class="about-text">
         <p>I'm a software engineer with a passion for building scalable and efficient systems.</p>
-      </div>
+        <ul class="skills-list">
+          <li>Frontend Development</li>
+          <li>Backend Architecture</li>
+          <li>Performance Optimization</li>
+        </ul>
+      </article>
     </div>
   </div>
 </section>
+
+<style>
+  .about-section {
+    padding: var(--space-xl) 0;
+  }
+
+  .section-title {
+    margin-bottom: var(--space-md);
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .about-text {
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+
+  .about-text p {
+    margin-bottom: var(--space-sm);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  .skills-list li {
+    background-color: var(--color-light);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Apply responsive styles with container queries */
+  @container layout (min-width: 45rem) {
+    .about-content {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+  }
+
+  /* Fallback for browsers without container query support */
+  @supports not (container-type: inline-size) {
+    @media (min-width: 45rem) {
+      .about-content {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+    }
+  }
+</style>

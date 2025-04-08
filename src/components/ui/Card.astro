@@ -24,15 +24,15 @@ const {
 } = Astro.props;
 ---
 
-<article class="box">
+<article class="box card">
   <div class="stack">
     {
       imageUrl && (
         <figure>
           <div class="frame ratio-16:9">
-            <img src={imageUrl} alt={`${title} thumbnail`} />
+            <img src={imageUrl} alt={`${title}`} loading="lazy" />
           </div>
-          <figcaption class="sr-only">{title} image</figcaption>
+          <figcaption class="sr-only">{title}</figcaption>
         </figure>
       )
     }
@@ -40,14 +40,14 @@ const {
     <header>
       {
         date && readTime && (
-          <div class="cluster">
+          <div class="cluster" aria-label="Publication info">
             <time datetime={date}>{date}</time>
             <span aria-hidden="true">•</span>
-            <span>{readTime}</span>
+            <span>{readTime} read</span>
           </div>
         )
       }
-      <h3>{title}</h3>
+      <h3 id={`card-heading-${title.replace(/\s+/g, "-").toLowerCase()}`}>{title}</h3>
     </header>
 
     <p>{description}</p>
@@ -55,17 +55,25 @@ const {
     <footer>
       {
         tags && tags.length > 0 && (
-          <ul class="cluster" aria-label="Tags">
+          <ul class="cluster tags" aria-label={`Tags for ${title}`}>
             {tags.map((tag) => (
-              <li>{tag}</li>
+              <li>
+                <span class="tag">{tag}</span>
+              </li>
             ))}
           </ul>
         )
       }
 
-      {price && <p class="price">{price}</p>}
+      {
+        price && (
+          <p class="price" aria-label="Price">
+            {price}
+          </p>
+        )
+      }
 
-      <a href={link} class="with-icon" aria-label={`${buttonText} for ${title}`}>
+      <a href={link} class="with-icon card-link" aria-label={`${buttonText} for ${title}`}>
         {buttonText}
       </a>
     </footer>
@@ -73,6 +81,20 @@ const {
 </article>
 
 <style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
   .ratio-16:9 {
     --n: 16;
     --d: 9;
@@ -102,13 +124,36 @@ const {
     gap: var(--s1);
   }
 
-  a {
+  .card-link {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+    font-weight: 500;
+    color: var(--color-primary);
+    transition: color 0.2s ease;
   }
 
-  ul {
+  .card-link:hover {
+    color: var(--color-primary-dark);
+  }
+
+  .card-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .tags {
     list-style: none;
     padding: 0;
     margin: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-light);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: var(--color-muted);
   }
 </style>
