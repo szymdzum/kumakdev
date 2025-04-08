@@ -1,38 +1,12 @@
 ---
 import Hero from "../components/landing/Hero.astro";
 import Featured from "../components/landing/Featured.astro";
-import Projects from "../components/landing/Projects.astro";
 import About from "../components/landing/About.astro";
-import Newsletter from "../components/landing/Newsletter.astro";
 import Layout from "../layouts/Layout.astro";
-
-// Import English content directly
-import { siteContent as content } from "../content/site-text/en";
 ---
 
-<Layout title={content.meta.title} description={content.meta.description}>
-  <!-- Hero Section -->
-  <Hero hero={content.hero} />
-
-  <!-- Featured Blog Posts -->
-  <Featured blog={content.blog} />
-
-  <!-- Projects Section -->
-  <Projects projects={content.projects} />
-
-  <!-- About Section -->
-  <About about={content.about} />
-
-  <!-- Newsletter Section -->
-  <Newsletter
-    newsletter={{
-      sectionTitle: content.newsletter.sectionTitle,
-      description: content.newsletter.description,
-      form: {
-        emailPlaceholder: content.newsletter.inputPlaceholder,
-        submitButton: content.newsletter.buttonText,
-      },
-      privacyNote: content.newsletter.privacyNote,
-    }}
-  />
+<Layout>
+  <Hero />
+  <Featured />
+  <About />
 </Layout>
