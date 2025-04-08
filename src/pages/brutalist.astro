@@ -1,0 +1,245 @@
+---
+import BrutalistLayout from "../layouts/BrutalistLayout.astro";
+---
+
+<BrutalistLayout>
+  <div slot="head">
+    <title>TECHNO.LOG_ | Dark Brutalist Tech Blog</title>
+    <meta
+      name="description"
+      content="A dark minimalist brutalist tech blog focused on bleeding-edge technology and code."
+    />
+  </div>
+
+  <section class="hero">
+    <h1>&gt; MACHINE_DIALOGUES</h1>
+    <p class="intro-text">
+      Raw insights on technology, code, and digital culture from the terminal to your screen. No UI
+      sugar-coating—just pure content.
+    </p>
+
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-number">42</span>
+        <span class="stat-label">POSTS</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">1337</span>
+        <span class="stat-label">LINES OF CODE</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">08</span>
+        <span class="stat-label">PROJECTS</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured">
+    <h2>&gt; LATEST_TRANSMISSIONS</h2>
+
+    <div class="brutalist-card">
+      <span class="post-date">2024-08-26</span>
+      <h3>The Politics of Web3 Infrastructure</h3>
+      <p>
+        Examining how decentralized networks restructure power dynamics in digital spaces and
+        challenge traditional governance models.
+      </p>
+      <div class="tags">
+        <span class="tag">WEB3</span>
+        <span class="tag">BLOCKCHAIN</span>
+        <span class="tag">POLITICS</span>
+      </div>
+      <a href="#" class="post-link">READ_MORE</a>
+    </div>
+
+    <div class="brutalist-card">
+      <span class="post-date">2024-08-21</span>
+      <h3>Custom Terminal Configurations for Maximum Efficiency</h3>
+      <p>
+        Step-by-step guide to optimizing your command line interface with custom scripts, aliases,
+        and productivity hacks.
+      </p>
+      <div class="tags">
+        <span class="tag">CLI</span>
+        <span class="tag">PRODUCTIVITY</span>
+        <span class="tag">BASH</span>
+      </div>
+      <a href="#" class="post-link">READ_MORE</a>
+    </div>
+  </section>
+
+  <section class="code-feature">
+    <h2>&gt; CODE_SNIPPET</h2>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span>terminal.js</span>
+        <span>158 LINES</span>
+      </div>
+      <pre><code is:raw>/**
+ * Terminal emulator for web
+ */
+class Terminal {
+  constructor(element, options = {}) {
+    this.element = element;
+    this.options = {
+      prompt: '> ',
+      greeting: 'Welcome to TECHNO.LOG_ Terminal v1.0.0',
+      ...options
+    };
+
+    this.history = [];
+    this.historyIndex = 0;
+
+    this.initialize();
+  }
+
+  initialize() {
+    this.element.classList.add('terminal');
+    this.element.innerHTML = `
+      <div class="terminal-output">
+        <div class="terminal-line">${this.options.greeting}</div>
+      </div>
+      <div class="terminal-input-line">
+        <span class="terminal-prompt">${this.options.prompt}</span>
+        <input type="text" class="terminal-input" autofocus>
+      </div>
+    `;
+
+    this.input = this.element.querySelector('.terminal-input');
+    this.output = this.element.querySelector('.terminal-output');
+
+    this.input.addEventListener('keydown', this.handleKeydown.bind(this));
+  }
+
+  handleKeydown(event) {
+    // Implementation details
+  }
+}</code></pre>
+    </div>
+  </section>
+
+  <section class="projects">
+    <h2>&gt; ACTIVE_PROJECTS</h2>
+
+    <ul class="project-list">
+      <li class="brutalist-card">
+        <h3>Neural.Glitch()</h3>
+        <p>
+          Experimental image processing library that applies neural network-based distortion filters
+          to create digital glitch art.
+        </p>
+        <a href="#" class="brutalist-button">VIEW_CODE</a>
+      </li>
+      <li class="brutalist-card">
+        <h3>Term.OS</h3>
+        <p>
+          A minimalist browser-based operating system that runs entirely in the terminal, with file
+          system and app support.
+        </p>
+        <a href="#" class="brutalist-button">VIEW_CODE</a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="newsletter">
+    <h2>&gt; SUBSCRIBE_TO_FEED</h2>
+    <p>
+      Receive raw data transmissions directly to your inbox. No tracking, no cookies, just pure
+      content.
+    </p>
+
+    <form class="subscribe-form">
+      <input type="email" placeholder="YOUR@EMAIL.COM" required class="email-input" />
+      <button type="submit" class="brutalist-button">SUBSCRIBE</button>
+    </form>
+  </section>
+</BrutalistLayout>
+
+<style>
+  .hero {
+    margin-bottom: var(--space-xl);
+  }
+
+  .intro-text {
+    font-size: var(--font-size-lg);
+    max-width: 650px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .stats {
+    display: flex;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-number {
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-light);
+    margin-top: var(--space-xs);
+  }
+
+  .featured,
+  .projects,
+  .code-feature,
+  .newsletter {
+    margin: var(--space-xl) 0;
+  }
+
+  .post-link {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .project-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-lg) 0;
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .email-input {
+    flex: 1;
+    background-color: var(--color-dark);
+    border: 2px solid var(--color-border);
+    color: var(--color-foreground);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-base);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .email-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .stats {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .subscribe-form {
+      flex-direction: column;
+    }
+  }
+</style>

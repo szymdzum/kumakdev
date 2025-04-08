@@ -1,0 +1,80 @@
+---
+import "../styles/brutalist.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💾</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+    <header class="brutalist-header">
+      <div class="container">
+        <a href="/" class="site-title">&gt; TECHNO.LOG_</a>
+
+        <nav aria-label="Main navigation">
+          <ul>
+            <li><a href="/blog">BLOG</a></li>
+            <li><a href="/code">CODE</a></li>
+            <li><a href="/projects">PROJECTS</a></li>
+            <li><a href="/about">ABOUT</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <footer class="brutalist-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="copyright">
+            <p>&copy; <span id="current-year">2025</span> TECHNO.LOG_</p>
+            <p class="terminal-text">&gt; END_TRANSMISSION</p>
+          </div>
+
+          <nav aria-label="Footer navigation">
+            <ul>
+              <li><a href="/rss.xml">RSS</a></li>
+              <li><a href="/sitemap.xml">SITEMAP</a></li>
+              <li><a href="https://github.com">GITHUB</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      const yearElement = document.getElementById("current-year");
+      if (yearElement) {
+        yearElement.textContent = new Date().getFullYear().toString();
+      }
+
+      // Add cursor blink effect to site title
+      const titleElement = document.querySelector(".site-title");
+      if (titleElement) {
+        setInterval(() => {
+          titleElement.classList.toggle("cursor-blink");
+        }, 800);
+      }
+    </script>
+  </body>
+</html>

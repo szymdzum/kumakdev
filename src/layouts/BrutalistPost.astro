@@ -1,0 +1,195 @@
+---
+import BrutalistLayout from "./BrutalistLayout.astro";
+
+interface Props {
+  title: string;
+  publishDate: string;
+  description: string;
+  tags: string[];
+  readTime?: string;
+}
+
+const { title, publishDate, description, tags, readTime = "5 min" } = Astro.props;
+---
+
+<BrutalistLayout>
+  <Fragment slot="head">
+    <title>{title} | TECHNO.LOG_</title>
+    <meta name="description" content={description} />
+  </Fragment>
+
+  <article class="post">
+    <header class="post-header">
+      <div class="post-meta">
+        <time datetime={publishDate} class="post-date">{publishDate}</time>
+        <span class="read-time">{readTime} read</span>
+      </div>
+
+      <h1>{title}</h1>
+
+      {
+        tags && tags.length > 0 && (
+          <div class="tags">
+            {tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <footer class="post-footer">
+      <div class="post-navigation">
+        <a href="/brutalist" class="brutalist-button">BACK_TO_INDEX</a>
+      </div>
+
+      <div class="post-share">
+        <p class="share-label">SHARE_KNOWLEDGE</p>
+        <div class="share-links">
+          <a href="#" class="share-link">TWITTER</a>
+          <a href="#" class="share-link">GITHUB</a>
+          <a href="#" class="share-link">COPY_URL</a>
+        </div>
+      </div>
+    </footer>
+  </article>
+</BrutalistLayout>
+
+<style>
+  .post {
+    margin: 0 auto;
+  }
+
+  .post-header {
+    margin-bottom: var(--space-xl);
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: var(--space-lg);
+  }
+
+  .post-meta {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    font-family: var(--font-family-mono);
+    color: var(--color-light);
+    font-size: var(--font-size-sm);
+  }
+
+  .post-date::before {
+    content: "DATE: ";
+  }
+
+  .read-time::before {
+    content: "READ_TIME: ";
+  }
+
+  .post-content {
+    margin-bottom: var(--space-xl);
+  }
+
+  .post-footer {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 2px solid var(--color-border);
+  }
+
+  .post-navigation {
+    margin-bottom: var(--space-lg);
+  }
+
+  .post-share {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .share-label {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-light);
+    margin-bottom: var(--space-xs);
+  }
+
+  .share-links {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .share-link {
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .share-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* Content styling */
+  .post-content :global(h2) {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .post-content :global(h3) {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .post-content :global(p) {
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .post-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    margin: var(--space-lg) 0;
+    border: 2px solid var(--color-border);
+  }
+
+  .post-content :global(blockquote) {
+    margin: var(--space-lg) 0;
+    padding-left: var(--space-md);
+    border-left: 4px solid var(--color-accent);
+    font-style: italic;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-lg);
+  }
+
+  .post-content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .post-content :global(pre) {
+    margin: var(--space-lg) 0;
+    background-color: var(--color-code-bg);
+    padding: var(--space-md);
+    overflow-x: auto;
+    border-left: 4px solid var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .share-links {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .share-link {
+      display: inline-block;
+    }
+  }
+</style>
