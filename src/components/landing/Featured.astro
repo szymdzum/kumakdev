@@ -11,34 +11,21 @@ const recentPosts = await getBlogPosts({
 
 <!-- Featured Blog Posts -->
 <section aria-labelledby="blog-section-title">
-  <header>
-    <h2>Blog</h2>
-    <p>Latest posts</p>
-    <a href="/blog">View all posts</a>
-  </header>
+  <div class="container flow">
+    <header>
+      <h2 id="blog-section-title">Blog</h2>
+      <p>Latest posts</p>
+      <a href="/blog">View all posts</a>
+    </header>
 
-  <ul>
-    {
-      recentPosts.map((post) => (
-        <li>
-          <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
+    <ul>
+      {
+        recentPosts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </section>
-
-<style>
-  section {
-    padding: 4rem 0;
-  }
-
-  header {
-    margin-bottom: 2rem;
-  }
-
-  h2 {
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
-  }
-</style>

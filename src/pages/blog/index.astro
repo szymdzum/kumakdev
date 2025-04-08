@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import Footer from "@components/landing/Footer.astro";
 import Layout from "@layouts/Layout.astro";
 
 // Get all blog posts that aren't drafts and sort them by date
@@ -77,7 +76,5 @@ const sortedPosts = blogPosts.sort(
         </div>
       </div>
     </main>
-
-    <Footer />
   </div>
 </Layout>

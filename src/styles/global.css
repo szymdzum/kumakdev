@@ -1,3 +1,483 @@
-@import "./reset.css";
-@import "./primitives.css";
-@import "./typography.css";
+/* ====== ROOT VARIABLES & DESIGN TOKENS ====== */
+:root {
+  /* Color system */
+  --color-primary: #3b82f6;
+  --color-primary-light: #60a5fa;
+  --color-primary-dark: #2563eb;
+  --color-secondary: #64748b;
+  --color-dark: #0f172a;
+  --color-light: #f8fafc;
+  --color-background: #ffffff;
+  --color-text: #334155;
+  --color-muted: #94a3b8;
+  --color-border: #e2e8f0;
+
+  /* Typography */
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: var(--font-family-base);
+
+  /* Fluid typography scales using clamp */
+  --font-size-base: clamp(1rem, 1vw + 0.75rem, 1.125rem);
+  --font-size-sm: clamp(0.875rem, 0.8vw + 0.75rem, 1rem);
+  --font-size-lg: clamp(1.125rem, 1.2vw + 0.9rem, 1.25rem);
+  --font-size-xl: clamp(1.25rem, 1.5vw + 1rem, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 2vw + 1.25rem, 2rem);
+  --font-size-3xl: clamp(1.875rem, 2.5vw + 1.5rem, 2.5rem);
+  --font-size-4xl: clamp(2.25rem, 3vw + 1.75rem, 3rem);
+
+  /* Spacing system */
+  --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+  --space-md: clamp(1rem, 3vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 5vw, 2.5rem);
+  --space-xl: clamp(2rem, 7vw, 3.5rem);
+  --space-2xl: clamp(3rem, 10vw, 5rem);
+
+  /* Container sizes */
+  --container-max: min(90%, 75rem);
+  --container-narrow: min(90%, 45rem);
+
+  /* Block flow spacings (vertical rhythm) */
+  --flow-space-xs: min(1rem, 2vh);
+  --flow-space-sm: min(1.5rem, 3vh);
+  --flow-space-md: min(2rem, 5vh);
+  --flow-space-lg: min(3rem, 8vh);
+  --flow-space-xl: min(4rem, 12vh);
+
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}
+
+/* ====== BASE STYLES ====== */
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ====== TYPOGRAPHY ====== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-md);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-sm);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-sm);
+}
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ====== LAYOUT PRIMITIVES ====== */
+.container {
+  width: min(100% - var(--space-md), var(--container-max));
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.narrow-container {
+  width: min(100% - var(--space-md), var(--container-narrow));
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* Stack - vertical layout with consistent spacing */
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  /* Default gap */
+}
+
+.stack-xs {
+  gap: var(--space-xs);
+}
+
+.stack-sm {
+  gap: var(--space-sm);
+}
+
+.stack-lg {
+  gap: var(--space-lg);
+}
+
+.stack-xl {
+  gap: var(--space-xl);
+}
+
+/* Cluster - horizontal layout that wraps */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.cluster-xs {
+  gap: var(--space-xs);
+}
+
+.cluster-sm {
+  gap: var(--space-sm);
+}
+
+.cluster-lg {
+  gap: var(--space-lg);
+}
+
+/* Justify variants */
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* Center - both horizontally and vertically */
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+/* Grid layout with auto-fit */
+.grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.grid-sm {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.grid-lg {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+}
+
+/* Flow utility for consistent vertical rhythm */
+.flow>*+* {
+  margin-top: var(--flow-space-md);
+}
+
+.flow-xs>*+* {
+  margin-top: var(--flow-space-xs);
+}
+
+.flow-sm>*+* {
+  margin-top: var(--flow-space-sm);
+}
+
+.flow-lg>*+* {
+  margin-top: var(--flow-space-lg);
+}
+
+.flow-xl>*+* {
+  margin-top: var(--flow-space-xl);
+}
+
+/* ====== COMPONENT STYLES ====== */
+/* Header */
+header {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  font-weight: 600;
+}
+
+/* Mobile Navigation */
+header details {
+  position: relative;
+}
+
+header summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-light);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+}
+
+header summary::-webkit-details-marker {
+  display: none;
+}
+
+header nav {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: var(--space-xs);
+  background-color: var(--color-light);
+  border-radius: var(--radius-md);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  min-width: 10rem;
+  padding: var(--space-xs);
+  z-index: 10;
+}
+
+header nav ul {
+  list-style: none;
+}
+
+header nav li {
+  padding: var(--space-xs);
+}
+
+header nav a {
+  display: block;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+header nav a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Footer */
+footer {
+  padding: var(--space-lg) 0;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  text-align: center;
+}
+
+/* ====== CONTAINER QUERIES ====== */
+/* Apply container query support where available */
+main,
+section,
+header,
+footer {
+  container-type: inline-size;
+  container-name: layout;
+}
+
+/* Add styles that use container queries */
+@container layout (min-width: 45rem) {
+
+  /* Header navigation becomes horizontal on larger container sizes */
+  header details {
+    display: none;
+    /* Hide the menu toggle */
+  }
+
+  header nav {
+    position: static;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  header nav ul {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  header nav li {
+    padding: 0;
+  }
+
+  /* Make blog post list more grid-like */
+  section[aria-labelledby="blog-section-title"] ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Larger bottom margin for hero title */
+  section:first-of-type h1 {
+    margin-bottom: var(--space-md);
+  }
+}
+
+/* Fallback for browsers that don't support container queries */
+@supports not (container-type: inline-size) {
+  @media (min-width: 45rem) {
+
+    /* Header navigation becomes horizontal on larger screens */
+    header details {
+      display: none;
+    }
+
+    header nav {
+      position: static;
+      background: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    header nav ul {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    header nav li {
+      padding: 0;
+    }
+
+    /* Make blog post list more grid-like */
+    section[aria-labelledby="blog-section-title"] ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* About section becomes a row */
+    .about-content {
+      flex-direction: row;
+      align-items: center;
+    }
+
+
+    .about-text {
+      flex: 1;
+    }
+  }
+}
+
+/* ====== UTILITY CLASSES ====== */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Spacing utilities */
+.mt-xs {
+  margin-top: var(--space-xs);
+}
+
+.mt-sm {
+  margin-top: var(--space-sm);
+}
+
+.mt-md {
+  margin-top: var(--space-md);
+}
+
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+
+.mt-xl {
+  margin-top: var(--space-xl);
+}
+
+.mb-xs {
+  margin-bottom: var(--space-xs);
+}
+
+.mb-sm {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-xl {
+  margin-bottom: var(--space-xl);
+}
+
+.p-xs {
+  padding: var(--space-xs);
+}
+
+.p-sm {
+  padding: var(--space-sm);
+}
+
+.p-md {
+  padding: var(--space-md);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.p-xl {
+  padding: var(--space-xl);
+}
