@@ -1,7 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
-import Footer from "@components/Footer.astro";
+import Footer from "@components/landing/Footer.astro";
 // Generate routes for all blog posts that aren't drafts
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog", ({ data }) => {
