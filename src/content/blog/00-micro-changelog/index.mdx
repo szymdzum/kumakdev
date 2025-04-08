@@ -14,10 +14,6 @@ tags:
   - updates
 ---
 
-import Callout from "@/components/Callout.astro";
-
----
-
 ## Pagefind search 🔎
 
 [Pagefind](https://pagefind.app) is a search library for static websites. Micro uses [Sergey Shishkin's](https://github.com/shishkin) [astro-pagefind](https://github.com/shishkin/astro-pagefind) integration. This integration simplifies development and does not require any changes to the default build script.
@@ -26,9 +22,7 @@ Press <kbd>/</kbd> or <kbd>CTRL</kbd> + <kbd>K</kbd> to open the search dialog. 
 
 ### Build and develop
 
-<Callout type="error">
-  The site **must** be built at least once so Pagefind can index the content.
-</Callout>
+> **Note:** The site **must** be built at least once so Pagefind can index the content.
 
 ```bash
 # Pagefind must index the site to function
@@ -47,25 +41,17 @@ When developing you can continue to use `npm run dev` and Pagefind will use the 
 
 ## Callout component 🆕
 
-<Callout>
-  Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
-  ullamco nostrud non.
-</Callout>
+> Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
+> ullamco nostrud non.
 
-<Callout type="info">
-  Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
-  ullamco nostrud non.
-</Callout>
+> **Info:** Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
+> ullamco nostrud non.
 
-<Callout type="warning">
-  Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
-  ullamco nostrud non.
-</Callout>
+> **Warning:** Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
+> ullamco nostrud non.
 
-<Callout type="error">
-  Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
-  ullamco nostrud non.
-</Callout>
+> **Error:** Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation labore consequat
+> ullamco nostrud non.
 
 ---
 

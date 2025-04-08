@@ -1,13 +1,5 @@
 {
-  "include": [
-    ".astro/types.d.ts",
-    "**/*",
-    "src/types.d.ts",
-    "src/astro-types.d.ts",
-    "src/astro-transitions.d.ts",
-    "src/astro-content.d.ts",
-    "src/astro-pagefind.d.ts"
-  ],
+  "include": [".astro/types.d.ts", "**/*", "src/astro-content.d.ts"],
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,

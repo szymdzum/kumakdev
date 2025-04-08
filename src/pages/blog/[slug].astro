@@ -1,6 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import RootLayout from "@layouts/RootLayout.astro";
+import Layout from "@layouts/Layout.astro";
 import Footer from "@components/Footer.astro";
 // Generate routes for all blog posts that aren't drafts
 export async function getStaticPaths() {
@@ -38,7 +38,7 @@ const postData = {
 };
 ---
 
-<RootLayout title={entry.data.title} description={entry.data.description}>
+<Layout title={entry.data.title} description={entry.data.description}>
   <div>
     <main>
       <article>
@@ -141,4 +141,4 @@ const postData = {
 
     <Footer />
   </div>
-</RootLayout>
+</Layout>
