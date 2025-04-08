@@ -9,7 +9,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
-      "@consts/*": ["src/consts/*"]
+      "@consts/*": ["src/consts/*"],
+      "@landing/*": ["src/components/landing/*"]
     },
     "target": "ESNext",
     "module": "ESNext",
