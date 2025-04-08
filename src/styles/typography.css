@@ -1,0 +1,162 @@
+/* Typography */
+
+/* Base font settings */
+:root {
+  --font-family-base: "Geist Sans", system-ui, -apple-system, blinkmacsystemfont, sans-serif;
+  --font-family-mono: "Geist Mono", monospace;
+
+  --font-size-xs: 0.75rem;
+  /* 12px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-lg: 1.125rem;
+  /* 18px */
+  --font-size-xl: 1.25rem;
+  /* 20px */
+  --font-size-2xl: 1.5rem;
+  /* 24px */
+  --font-size-3xl: 1.875rem;
+  /* 30px */
+  --font-size-4xl: 2.25rem;
+  /* 36px */
+  --font-size-5xl: 3rem;
+  /* 48px */
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-base: 1.5;
+  --line-height-loose: 1.75;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-dark, #222);
+}
+
+/* Heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+/* Explicitly style h1 elements - especially those in sectioning elements */
+h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: 1rem;
+}
+
+/* Specific styling for h1 elements within sectioning elements (section, article, etc.) */
+section h1,
+article h1,
+aside h1,
+nav h1,
+header h1,
+footer h1 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+  margin-bottom: 0.5rem;
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+  margin-bottom: 0.5rem;
+}
+
+h6 {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraph styles */
+p {
+  margin: 0 0 1rem 0;
+}
+
+/* Link styles */
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.15em;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Text emphasis */
+strong,
+b {
+  font-weight: var(--font-weight-bold);
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+/* Code styles */
+code,
+pre {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Lists */
+ol,
+ul {
+  margin: 0 0 1rem 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid currentcolor;
+  margin-left: 0;
+  padding-left: 1rem;
+  opacity: 0.8;
+}
+
+/* Small text */
+small {
+  font-size: var(--font-size-sm);
+}

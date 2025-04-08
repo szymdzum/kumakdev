@@ -1,0 +1,10 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "comment-empty-line-before": null,
+    "custom-property-empty-line-before": null,
+    "rule-empty-line-before": null,
+    "value-keyword-case": ["lower", { "ignoreProperties": ["font-family"] }],
+    "shorthand-property-no-redundant-values": null
+  }
+}
