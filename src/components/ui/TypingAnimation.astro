@@ -1,0 +1,97 @@
+---
+interface Props {
+  text: string;
+  className?: string;
+  duration?: number;
+  delay?: number;
+  as?: string;
+  cursor?: boolean;
+}
+
+const {
+  text,
+  className = "",
+  duration = 80,
+  delay = 0,
+  as: Element = "div",
+  cursor = true,
+} = Astro.props;
+---
+
+<Element
+  class:list={["typing-animation", className]}
+  data-typing-text={text}
+  data-duration={duration}
+  data-delay={delay}
+>
+  <span class="typing-text"></span>
+  {cursor && <span class="typing-cursor">|</span>}
+</Element>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const typingElements = document.querySelectorAll(".typing-animation");
+
+    typingElements.forEach((element) => {
+      const textContent = element.getAttribute("data-typing-text") || "";
+      const textElement = element.querySelector(".typing-text") as HTMLElement;
+      const duration = Number(element.getAttribute("data-duration")) || 80;
+      const delay = Number(element.getAttribute("data-delay")) || 0;
+
+      if (textElement) {
+        setTimeout(() => {
+          let currentIndex = 0;
+
+          const typingInterval = setInterval(() => {
+            if (currentIndex < textContent.length) {
+              textElement.textContent += textContent[currentIndex];
+              currentIndex++;
+            } else {
+              clearInterval(typingInterval);
+
+              // Hide cursor after typing finishes
+              const cursor = element.querySelector(".typing-cursor");
+              if (cursor) {
+                setTimeout(() => {
+                  cursor.classList.add("typing-cursor-hidden");
+                }, 1500);
+              }
+            }
+          }, duration);
+        }, delay);
+      }
+    });
+  });
+</script>
+
+<style>
+  .typing-animation {
+    display: inline-block;
+  }
+
+  .typing-cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    opacity: 0.7;
+  }
+
+  .typing-cursor-hidden {
+    opacity: 0;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typing-cursor {
+      animation: none;
+    }
+  }
+</style>

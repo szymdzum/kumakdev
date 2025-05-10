@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import BackToPrevious from "@components/navigation/BackToPrevious.astro";
-import RootLayout from "@layouts/RootLayout.astro";
+import BackToPrevious from "@components/ui/BackToPrevious.astro";
+import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -27,7 +27,7 @@ const sortedPosts = posts.sort(
 );
 ---
 
-<RootLayout title={`Tag: ${id}`} description={`Posts with the tag: ${id}`}>
+<Layout title={`Tag: ${id}`} description={`Posts with the tag: ${id}`}>
   <div data-pagefind-ignore>
     <BackToPrevious href="/tags"> All tags </BackToPrevious>
     <h1>
@@ -37,4 +37,4 @@ const sortedPosts = posts.sort(
       {sortedPosts.map((post) => <li>{post.data.title}</li>)}
     </ul>
   </div>
-</RootLayout>
+</Layout>

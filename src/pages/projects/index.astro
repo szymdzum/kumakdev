@@ -1,14 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import { PROJECTS } from "@/consts.ts";
-import RootLayout from "@layouts/RootLayout.astro";
+import Layout from "@layouts/Layout.astro";
 
 const projects = (await getCollection("projects"))
   .filter((project) => !project.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<RootLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+<Layout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
   <aside data-pagefind-ignore>
     <div>
       <div>Projects</div>
@@ -17,4 +17,4 @@ const projects = (await getCollection("projects"))
       </ul>
     </div>
   </aside>
-</RootLayout>
+</Layout>

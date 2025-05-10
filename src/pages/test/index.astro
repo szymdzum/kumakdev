@@ -1,6 +1,6 @@
 ---
 import { getBlogPosts } from "./astra";
-import RootLayout from "@layouts/RootLayout.astro";
+import Layout from "@layouts/Layout.astro";
 
 const recentPosts = await getBlogPosts({
   limit: 3,
@@ -10,7 +10,7 @@ const recentPosts = await getBlogPosts({
 });
 ---
 
-<RootLayout title="Test Page" description="Testing the Astra content API">
+<Layout title="Test Page" description="Testing the Astra content API">
   <h1>Test</h1>
 
   <div>
@@ -25,4 +25,4 @@ const recentPosts = await getBlogPosts({
       }
     </ul>
   </div>
-</RootLayout>
+</Layout>

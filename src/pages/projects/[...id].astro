@@ -1,10 +1,9 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import FormattedDate from "@components/FormattedDate.astro";
-import TableOfContents from "@components/TableOfContents.astro";
-import BackToPrevious from "@components/navigation/BackToPrevious.astro";
-import Link from "@components/navigation/Link.astro";
-import RootLayout from "@layouts/RootLayout.astro";
+import FormattedDate from "@components/ui/FormattedDate.astro";
+import BackToPrevious from "@components/ui/BackToPrevious.astro";
+import Link from "@components/ui/Link.astro";
+import Layout from "@layouts/Layout.astro";
 import { readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
@@ -19,10 +18,10 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"projects">;
 
 const project = Astro.props;
-const { Content, headings } = await render(project);
+const { Content } = await render(project);
 ---
 
-<RootLayout title={project.data.title} description={project.data.description}>
+<Layout title={project.data.title} description={project.data.description}>
   <div>
     <BackToPrevious href="/projects">Back to projects</BackToPrevious>
   </div>
@@ -55,8 +54,7 @@ const { Content, headings } = await render(project);
       )
     }
   </div>
-  <TableOfContents headings={headings} />
   <article>
     <Content />
   </article>
-</RootLayout>
+</Layout>

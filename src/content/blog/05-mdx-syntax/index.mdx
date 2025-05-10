@@ -15,8 +15,6 @@ tags:
   - guide
 ---
 
-import Callout from "@/components/Callout.astro";
-
 ---
 
 MDX is an extension of Markdown with the ability to import `.astro`,
@@ -36,7 +34,7 @@ import DateComp from "../../../components/FormattedDate.astro";
 <DateComp date={new Date()} />
 ```
 
-import FormattedDate from "../../../components/FormattedDate.astro";
+import FormattedDate from "../../../components/ui/FormattedDate.astro";
 
 <FormattedDate date={new Date()} />
 
@@ -62,11 +60,7 @@ import RelativeComponent from "./component.astro";
 
 By default Micro has zero frameworks installed. If you install a framework, components of that framework can be used in MDX files.
 
-<Callout>
-  Don't forget to use [client
-  directives](https://docs.astro.build/en/reference/directives-reference/#client-directives) to make
-  framework components interactive.
-</Callout>
+> **Note:** Don't forget to use [client directives](https://docs.astro.build/en/reference/directives-reference/#client-directives) to make framework components interactive.
 
 ```astro
 <ReactComponent client:load />

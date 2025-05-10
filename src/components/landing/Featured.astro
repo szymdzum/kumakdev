@@ -1,82 +1,186 @@
 ---
-import Card from "../Card.astro";
+import { getBlogPosts } from "../../pages/test/astra";
 
-interface BlogPost {
-  date: string;
-  readTime: string;
-  title: string;
-  description: string;
-  link: string;
-}
-
-interface Props {
-  blog: {
-    sectionTitle: string;
-    description: string;
-    viewAll: string;
-    posts: BlogPost[];
-  };
-}
-
-const { blog } = Astro.props;
+const recentPosts = await getBlogPosts({
+  limit: 3,
+  sortBy: "pubDate",
+  sortOrder: "desc",
+  filter: { draft: false },
+});
 ---
 
 <!-- Featured Blog Posts -->
-<section aria-labelledby="blog-section-title">
-  <header>
-    <h2>{blog.sectionTitle}</h2>
-    <p>{blog.description}</p>
-    <a href="/blog">{blog.viewAll}</a>
-  </header>
+<section aria-labelledby="blog-section-title" class="featured-section">
+  <div class="container flow">
+    <header>
+      <h2 id="blog-section-title">Blog</h2>
+      <p>Latest posts</p>
+      <a href="/blog" aria-label="View all blog posts" class="view-all-link">View all posts</a>
+    </header>
 
-  <div class="blog-grid">
-    {
-      blog.posts.map((post) => (
-        <Card
-          date={post.date}
-          readTime={post.readTime}
-          title={post.title}
-          description={post.description}
-          link={post.link}
-        />
-      ))
-    }
+    <ul class="post-list" role="list">
+      {
+        recentPosts.map((post) => (
+          <li>
+            <article class="post-card">
+              <h3 class="post-title">
+                <a href={`/blog/${post.slug}`} aria-label={`Read more about ${post.data.title}`}>
+                  {post.data.title}
+                </a>
+              </h3>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
 <style>
-  section {
-    padding: 4rem 0;
-  }
-
-  header {
-    margin-bottom: 2rem;
+  .featured {
+    padding: var(--space-xl) 0;
+    background-color: var(--color-dark);
   }
 
   h2 {
-    margin: 0 0 1rem 0;
-    font-size: 2rem;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+    color: var(--color-light);
+    text-align: center;
+  }
+
+  .featured-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .view-all {
+    display: block;
+    text-align: center;
+    margin-top: var(--space-lg);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .view-all:hover {
+    color: var(--color-primary-light);
+  }
+
+  header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-lg);
   }
 
   p {
-    margin: 0 0 1rem 0;
-    max-width: 800px;
+    margin-bottom: 0;
+    color: var(--color-muted);
   }
 
-  a {
-    display: inline-block;
-    color: #0066cc;
-    text-decoration: none;
-    font-weight: 500;
+  .view-all-link {
+    align-self: flex-start;
+    margin-top: var(--space-xs);
   }
 
-  a:hover {
-    text-decoration: underline;
+  .view-all-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
-  .blog-grid {
+  .post-list {
+    list-style: none;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  }
+
+  .post-list li {
+    margin: 0;
+  }
+
+  .post-card {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    height: 100%;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-title {
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+
+  .post-title a {
+    display: block;
+    color: var(--color-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .post-title a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-title a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    color: var(--color-primary);
+  }
+
+  @container layout (min-width: 45rem) {
+    header {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    header p {
+      margin-left: auto;
+      margin-right: var(--space-md);
+    }
+
+    header a {
+      margin-top: 0;
+    }
+
+    .post-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @supports not (container-type: inline-size) {
+    @media (min-width: 45rem) {
+      header {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+      }
+
+      header p {
+        margin-left: auto;
+        margin-right: var(--space-md);
+      }
+
+      header a {
+        margin-top: 0;
+      }
+
+      .post-list {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
   }
 </style>
